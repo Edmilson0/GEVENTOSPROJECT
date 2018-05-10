@@ -10,7 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="login.css">
+    <link rel="stylesheet" type="text/css" href="">
 </head>
 
 <style>
@@ -33,14 +33,24 @@
         box-sizing: border-box;
     }
 
+    h6 {
+        font-family: "arial";
+
+    }
+
+    h2 {
+        text-align: center;
+        font-family: "particle regular";
+    }
+
 
 
     #li {
         list-style: none;
         position: relative;
         display: inline-block;
-        width: 100px;
-        height: 100px;
+        width: 90px;
+        height: 90px;
     }
 
 
@@ -49,15 +59,15 @@
         position: absolute;
         left: 0;
         top: 0;
-        width: 100%;
-        height: 100%;
-        padding-top: 30px;
+        width: 90%;
+        height: 90%;
+        padding-top: 20px;
         text-decoration: none;
         text-align: center;
-        font-size: 25px;
+        font-size: 20px;
         text-shadow: 0 1px 0 rgba(255, 255, 255, .7);
         letter-spacing: -.065em;
-        font-family: "Hammersmith One", sans-serif;
+        font-family: "particle regular";
         box-shadow: 2px 2px 7px rgba(0, 0, 0, .2);
         border-radius: 300px;
         border-width: 4px;
@@ -69,13 +79,13 @@
         height: 130%;
         left: -15%;
         top: -15%;
-        font-size: 33px;
-        padding-top: 38px;
+        font-size: 20px;
+        padding-top: 20%;
         -webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, .3);
         -o-box-shadow: 5px 5px 10px rgba(0, 0, 0, .3);
         -moz-box-shadow: 5px 5px 10px rgba(0, 0, 0, .3);
         box-shadow: 5px 5px 10px rgba(0, 0, 0, .3);
-        z-index: 2;
+        z-index: 0;
         border-width: 10px;
         -webkit-transform: rotate(-360deg);
         -moz-transform: rotate(-360deg);
@@ -85,13 +95,11 @@
 
     a.green {
         background-color: rgb(236, 182, 4);
-        color: rgb(0, 0, 0);
-        border-color: rgba(0, 63, 71, .2);
+        color: rgb(7, 7, 6);
+        border-color: rgba(236, 182, 4);
     }
 
-    a.green:hover {
-        color: rgb(3, 2, 1);
-    }
+    a.green:hover {}
 
     .round span.round {
         opacity: 0;
@@ -121,7 +129,7 @@
     /* Add a gray background color and some padding to the footer */
 
     footer {
-        background-color: #f2f2f2;
+        background-color: #080808;
         padding: 25px;
     }
 
@@ -140,7 +148,7 @@
     }
 
     #myContainer {
-        background-color: #c5c6c7;
+        background-color: #e4e1e1;
 
     }
 
@@ -156,14 +164,16 @@
     #myTextSobreEsmad {
         text-align: center;
     }
-#imgModal{
-    text-align: center;
-}
+
+    #imgModal {
+        text-align: center;
+    }
+
     body {
         background-color: rgba(236, 149, 49, 0.24);
 
     }
-   
+
 
 
     /* Hide the carousel text when the screen is less than 600 pixels wide */
@@ -181,6 +191,9 @@
     <!--BARRA DE NAVEGAÇÃO-->
     <nav id="navBar" class="navbar navbar-expand-sm navbar-dark bg-dark" style="background-color: #00000000;">
 
+        <img class="img-responsive2" src="fotos/TSIW.png">
+
+
         <li>
             <a id="myImgGeventos" href="#">
                 <img class="img-responsive2" src="fotos/GEventosLogoFinal.png">
@@ -196,10 +209,14 @@
             <ul class="navbar-nav mr-auto">
 
             </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-3" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-light mr-sm-5 my-2 my-sm-0" type="submit">Pesquisar</button>
+            </form>
             <ul class="navbar-nav">
                 <!--OPÇÃO eventos-->
                 <li id="optEventos" class="nav-item">
-                    <a class="nav-link" href="#">Eventos</a>
+                    <a class="nav-link" href="Eventos.html">Eventos</a>
                 </li>
                 <!--OPÇÃO Testemunhos-->
                 <li id="optTestemunhos" class="nav-item">
@@ -223,6 +240,7 @@
                     <a data-toggle="modal" data-target="#registoModal" class="nav-link" href="#">Registo</a>
                 </li>
             </ul>
+
         </div>
     </nav>
 
@@ -232,75 +250,106 @@
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                 <!-- image on the modal -->
+                <!-- image on the modal -->
                 <div class="modal-body">
                     <div id="imgModal">
-                            <img  src="fotos/G.png" alt="">
-                            <br>
-                            <br>
-                    </div>
-                      
-                        <h3 class="modal-title" id="exampleModalLabel">Login</h3>
-                    
+                        <img src="fotos/G.png" alt="">
                         <br>
-                       <div class="form-group">
-                         <label for=""></label>
-                         <input type="text"
-                           class="form-control" name="" id="ModalName"  placeholder="Name">
-                        
-                       </div>
-                       <div class="form-group">
-                            <label for=""></label>
-                            <input type="text"
-                              class="form-control" name="" id="ModalPassword"  placeholder="Password">
-                           
-                          </div>
+                        <br>
+                    </div>
+
+                    <h3 class="modal-title" id="exampleModalLabel">Login</h3>
+
+                    <br>
+                    <div class="form-group">
+                        <label for=""></label>
+                        <input type="text" class="form-control" name="" id="ModalName" placeholder="Name" required>
+
+                    </div>
+                    <div class="form-group">
+                        <label for=""></label>
+                        <input type="text" class="form-control" name="" id="ModalPassword" placeholder="Password" required>
+
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button id="RegistarModal"  data-target="#RegistarModal" type="button" class="btn btn-primary">Entrar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button id="Loginbtn" type="button" class="btn btn-primary">Entrar</button>
                 </div>
             </div>
         </div>
     </div>
 
 
-       <!-- Modal de registo -->
-       <div class="modal fade" id="registoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal de registo -->
+    <div class="modal fade" id="registoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form id="frmRegistar">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                     <!-- image on the modal -->
+                    <!-- image on the modal -->
                     <div class="modal-body">
+
                         <div id="imgModal">
-                                <img  src="fotos/G.png" alt="">
-                                <br>
-                                <br>
-                        </div>
-                          
-                            <h3 class="modal-title" id="exampleModalLabel">Registar</h3>
-                        
+                            <img src="fotos/G.png" alt="">
                             <br>
-                           <div class="form-group">
-                             <label for=""></label>
-                             <input type="text"
-                               class="form-control" name="" id="ModalName"  placeholder="Name">
-                            
-                           </div>
-                           <div class="form-group">
-                                <label for=""></label>
-                                <input type="text"
-                                  class="form-control" name="" id="ModalPassword"  placeholder="Password">
-                               
-                              </div>
+                            <br>
+                        </div>
+
+                        <h3 class="modal-title" id="exampleModalLabel">Registar</h3>
+
+                        <br>
+                        <div class="form-group">
+                            <label for=""></label>
+                            <input type="text" class="form-control" name="" id="ModalNome" placeholder="Nome" required>
+
+                        </div>
+                        <div class="form-group">
+                            <label for=""></label>
+                            <input type="Email" class="form-control" name="" id="ModalEmail" placeholder="Email" required>
+
+                        </div>
+                        <div class="form-group">
+                            <label for=""></label>
+                            <input type="Password" class="form-control" name="" id="ModalPasswordR" placeholder="Password" required>
+
+                        </div>
+                        <div class="form-group">
+                            <label for=""></label>
+                            <input type="Password" class="form-control" name="" id="ModalConfPassword" placeholder="Confirmar password" required>
+
+                        </div>
+                        <div class="form-group">
+                            <label for=""></label>
+                            <input type="url" class="form-control" name="" id="ModalFoto" placeholder="Link da foto">
+
+                        </div>
+                        <br>
+                        <h4>Tipo de utilizador</h4>
+
+                        <div class="row">
+                            <form action="">
+                                <div class="col-sm-6">
+                                    <input id="estudante" type="radio" name="user" value="Estudante" checked> Estudante
+                                </div>
+                                <div class="col-sm-6">
+                                    <input id="docente" type="radio" name="user" value="Docente"> Docente
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <input id="RegistarModal" type="submit" class="btn btn-primary"></input>
+                        </div>
+
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button id="RegistarModal" type="button" class="btn btn-primary">Criar</button>
-                    </div>
+
                 </div>
             </div>
-        </div>
-    
+        </form>
+    </div>
+
 
     <!--carossel-->
 
@@ -363,11 +412,11 @@
 
             <div id="myTextSobreEsmad" class="col-sm-3">
                 <li id="li">
-                    <a href="https://geventostsiw1718.wordpress.com/site/" class="round green">Sobre
+                    <a href="https://geventostsiw1718.wordpress.com/site/" class="round green">EQUIPA
                         <span class="round">Visitar!</span>
                     </a>
                 </li>
-                <p>Visite o nosso diário de bordo e fique por dentro de todas as nossas publicações semanais do nosso projeto</p>
+                <h6>Visite o nosso diário de bordo e fique por dentro de todas as nossas publicações semanais do nosso projeto</h6>
             </div>
 
             <div class="col-sm-0">
@@ -381,7 +430,7 @@
                         <span class="round">Visitar!</span>
                     </a>
                 </li>
-                <p>Visite a página da escola para mais informação</p>
+                <h6>Visite a página da escola para mais informação</h6>
                 <br>
                 <br>
             </div>
@@ -394,56 +443,36 @@
 
     <!--containar-->
     <div id="myContainer" style=" width:100%; height:100%">
+        <br>
+        <h2>Artigos</h2>
 
-        <hr></hr>
         <br>
 
-        <div id="container" class="container">
+        <div id="" class="container">
             <div id="myArticles" class="row">
                 <div class="col-sm-6">
                     <h2>ESMAD</h2>
                     <img src="https://www.esmad.ipp.pt/noticias/apresentacao-do-livro-201candroid-2013-bases-de-dados-e-geolocalizacao201d-1/image_large"
                         class="img-responsive" style="width:100%; height:80%" alt="Image">
                     <hr style="background-color:#fff">
-                    <p>Como promover o seu evento de forma eficaz? Não há uma fórmula mágica, mas existem algumas ferramentas
-                        que ajudam a divulgar o seu evento e não exigem um orçamento elevado.</p>
-
+                    <!--<p>Como promover o seu evento de forma eficaz? Não há uma fórmula mágica, mas existem algumas ferramentas
+                        que ajudam a divulgar o seu evento e não exigem um orçamento elevado.</p>-->
+                    <br>
                 </div>
 
-                <div class="col-sm-6">
+                <div class=" col-sm-6">
                     <h2>Plugin</h2>
                     <img src="https://www.crucial.com.au/blog/wp-content/uploads/2012/11/plugitin.jpg" class="img-responsive" style="width:100%; height:80%"
                         alt="Image">
-                    <p>Project 2</p>
+
                 </div>
 
 
             </div>
         </div>
 
-
-        <div id="container" class="container">
-            <div id="myArticles" class="row">
-                <div class="col-sm-6">
-                    <h2>ESMAD</h2>
-                    <img src="https://www.esmad.ipp.pt/noticias/apresentacao-do-livro-201candroid-2013-bases-de-dados-e-geolocalizacao201d-1/image_large"
-                        class="img-responsive" style="width:100%; height:80%" alt="Image">
-                    <hr style="background-color:#fff">
-                    <p>Como promover o seu evento de forma eficaz? Não há uma fórmula mágica, mas existem algumas ferramentas
-                        que ajudam a divulgar o seu evento e não exigem um orçamento elevado.</p>
-
-                </div>
-
-                <div class="col-sm-6">
-                    <h2>Plugin</h2>
-                    <img src="https://www.crucial.com.au/blog/wp-content/uploads/2012/11/plugitin.jpg" class="img-responsive" style="width:100%; height:80%"
-                        alt="Image">
-                    <p>Project 2</p>
-                </div>
-
-
-            </div>
-        </div>
+        <br>
+        <br>
 
         <br>
         <br>

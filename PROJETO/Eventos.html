@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Eventos</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="Eventos.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="">
+    <style>
+        .navBar {
+
+            position: fixed;
+
+        }
+
+        #li {
+            list-style: none;
+            position: relative;
+            display: inline-block;
+            width: 90px;
+            height: 90px;
+        }
+
+        h6 {
+            font-family: "arial";
+
+        }
+
+        h2 {
+            text-align: center;
+            font-family: "particle regular";
+        }
+
+        body {
+            background-color: grey;
+        }
+
+        #eventosContainer {
+            background-color: floralwhite;
+        }
+
+        h1 {
+            font-family: "particle regular";
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!--BARRA DE NAVEGAÇÃO-->
+    <nav id="navBar" class="navbar navbar-expand-sm navbar-dark bg-dark" style="background-color: #00000000;">
+
+        <img class="img-responsive2" src="fotos/TSIW.png">
+
+
+        <li>
+            <a id="myImgGeventos" href="HomePage.html">
+                <img class="img-responsive2" src="fotos/GEventosLogoFinal.png">
+            </a>
+        </li>
+
+
+        <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav mr-auto">
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-3" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-light mr-sm-5 my-2 my-sm-0" type="submit">Pesquisar</button>
+            </form>
+            <ul class="navbar-nav">
+                <!--OPÇÃO eventos-->
+                <li id="optEventos" class="nav-item">
+                    <a class="nav-link" href="Eventos.html">Eventos</a>
+                </li>
+                <!--OPÇÃO Testemunhos-->
+                <li id="optTestemunhos" class="nav-item">
+                    <a data-toggle="modal" data-target="#loginModal" class="nav-link" href="#">Testemunhos</a>
+                </li>
+                <!--OPÇÃO Docentes-->
+                <li id="optDocentes" class="nav-item">
+                    <a class="nav-link" href="#">Docentes</a>
+                </li>
+                <!--OPÇÃO Parcerias-->
+                <li id="optParcerias" class="nav-item">
+                    <a class="nav-link" href="#">Parcerias</a>
+                </li>
+                <!--OPÇÃO Login-->
+                <li id="optLogin" class="nav-item">
+                    <a data-toggle="modal" data-target="#loginModal" class="nav-link" href="#">Login</a>
+                </li>
+                <h3 style="color:#c5c6c7">/</h3>
+                <!--OPÇÃO Registo-->
+                <li id="optRegisto" class="nav-item">
+                    <a data-toggle="modal" data-target="#registoModal" class="nav-link" href="#">Registo</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+    <br>
+    <br>
+
+
+    <!--botão criar eventos e categorias-->
+    <div id="eventosContainer" class="container">
+        <h1>Eventos</h1>
+        <br>
+        <div class="row">
+
+            <div class="col-sm-3">
+                <button id="btnCriarEventos" type="button" class="btn btn-warning " data-target="#criarEventos" data-toggle="modal">
+                    Criar eventos
+                </button>
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="">Ver por categorias</label>
+                    <select class="form-control" name="" id="optCategorias">
+                        <option value="Todos">Todos</option>
+                        <option value="Workshops">Workshops</option>
+                        <option value="Seminários">Seminários</option>
+                        <option value="Conferências">Conferências</option>
+                        <option value="Encontros">Encontros</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!--Titulos dos eventos-->
+
+
+
+        <!-- Modal criar eventos -->
+        <div class="modal fade" id="criarEventos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <form id="frmCriarEventos">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <!-- image on the modal -->
+                        <div class="modal-body">
+
+
+                            <h3 class="modal-title" id="exampleModalLabel" style="text-align:center; font-family:particle regular">Evento</h3>
+
+                            <br>
+
+                            <div class="form-group">
+                                <label for=""></label>
+                                <input type="Date" class="form-control" name="" id="ModalData" placeholder="Data" required>
+
+                            </div>
+                            <div class="form-group">
+                                <label for=""></label>
+                                <input type="Time" class="form-control" name="" id="ModalHorário" placeholder="Horário" required>
+
+                            </div>
+                            <div class="form-group">
+                                <label for=""></label>
+                                <input type="text" class="form-control" name="" id="ModalSala" placeholder="Sala" required>
+
+                            </div>
+                            <div class="form-group">
+                                <label for=""></label>
+                                <input type="url" class="form-control" name="" id="ModalImagem" placeholder="Link da imagem do evento">
+
+                            </div>
+                            <div class="form-group">
+                                <label for=""></label>
+                                <input type="text" class="form-control" name="" id="ModalResponsavel" placeholder="Responsável">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="">Categoria do evento</label>
+                                <select class="form-control" name="" id="optCategorias">
+                                    <option value="Outros">Outros</option>
+                                    <option value="Workshops">Workshops</option>
+                                    <option value="Seminários">Seminários</option>
+                                    <option value="Conferências">Conferências</option>
+                                    <option value="Encontros">Encontros</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for=""></label>
+                                <textarea class="form-control" name="" id="ModalDesigEvento" rows="3" placeholder="Designação do evento" required></textarea>
+
+                            </div>
+                            <br>
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                <input id="ModalCriarEvento" type="submit" class="btn btn-warning"></input>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <!--Evento-->
+
+        <div id="contEventos" class="row">
+            <div class="col-sm-6">
+                <div class="card text-left">
+                  
+                    <div class="card-body">
+                        <h4 style="background-color:rgb(175, 162, 137)">Conferências</h4>
+                        <hr>
+
+                        <h6>Uma palestra com todas as empresas parceiras do curso e a apresentação dos projetos do alunos do
+                            3º ano.</h6>
+                        <br>
+                        <h6>
+                            Responsável: Mário Pinto
+                        </h6>
+                        <h6>
+                            Data: 22/04/2018
+                        </h6>
+                        <h6>
+                            Sala: B202
+                        </h6>
+
+                        <img src="fotos/THE-WORKSHOP.png" alt="">
+                        <br>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <small id="helpId" class="form-text text-muted">Interessados</small>
+                                <hr>
+                                <h4 id="interessadosEvento">
+
+                                </h4>
+                            </div>
+                            <div class="col-sm-4">
+
+                            </div>
+
+                            <div class="col-sm-3">
+                                <button type="button" class="btn btn-secondary">Ir</button>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <h5>
+                                    Comentários:
+                                </h5>
+                                <br>
+                                <br>
+                                <h5 id="comentáriosEvento">
+                                    asfaddafdsfdsasfadfdafdsfdsfsdf
+                                </h5>
+                                <br>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <form action="/action_page.php" method="get">
+                                    <small id="helpId" class="form-text text-muted">Pontuar</small>
+                                    <input type="range" name="points" min="0" max="10">
+                                    <button type="button" class="btn btn-secondary">Pontuar</button>
+                                </form>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <input type="text" class="form-control" name="" id="comentarios" aria-describedby="helpId" placeholder="Comentar">
+                            <br>
+                            <button class="btn">
+                                Comentar
+                                <span class="badge badge-warning"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                <br>
+            </div>
+            <!--evento-->
+
+            <div class="col-sm-6">
+                <div class="card text-left">
+                   
+                    <div class="card-body">
+                        <h4 style="background-color:rgb(175, 162, 137)">Encontros</h4>
+                        <hr>
+
+                        <h6>Uma palestra com todas as empresas parceiras do curso e a apresentação dos projetos do alunos do
+                            3º ano.</h6>
+                        <br>
+                        <h6>
+                            Responsável: Mário Pinto
+                        </h6>
+                        <h6>
+                            Data: 22/04/2018
+                        </h6>
+                        <h6>
+                            Sala: B202
+                        </h6>
+
+                        <img src="fotos/THE-WORKSHOP.png" alt="">
+                        <br>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <small id="helpId" class="form-text text-muted">Interessados</small>
+                                <hr>
+                                <h4 id="interessadosEvento">
+
+                                </h4>
+                            </div>
+                            <div class="col-sm-4">
+
+                            </div>
+
+                            <div class="col-sm-3">
+                                <button type="button" class="btn btn-secondary">Ir</button>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <h5>
+                                    Comentários:
+                                </h5>
+                                <br>
+                                <br>
+                                <h5 id="comentáriosEvento">
+                                    asfaddafdsfdsasfadfdafdsfdsfsdf
+                                </h5>
+                                <br>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <form action="/action_page.php" method="get">
+                                    <small id="helpId" class="form-text text-muted">Pontuar</small>
+                                    <input type="range" name="points" min="0" max="10">
+                                    <button type="button" class="btn btn-secondary">Pontuar</button>
+                                </form>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <input type="text" class="form-control" name="" id="comentarios" aria-describedby="helpId" placeholder="Comentar">
+                            <br>
+                            <button class="btn">
+                                Comentar
+                                <span class="badge badge-warning"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                <br>
+            </div>
+            <!--evento2-->
+            <div class="col-sm-6">
+                <div class="card text-left">
+                  
+                    <div class="card-body">
+
+
+                        <h6>Uma palestra com todas as empresas parceiras do curso e a apresentação dos projetos do alunos do
+                            3º ano.</h6>
+                        <br>
+                        <h6>
+                            Responsável: Mário Pinto
+                        </h6>
+                        <h6>
+                            Data: 22/04/2018
+                        </h6>
+                        <h6>
+                            Sala: B202
+                        </h6>
+
+                        <img src="fotos/THE-WORKSHOP.png" alt="">
+                        <br>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <small id="helpId" class="form-text text-muted">Interessados</small>
+                                <hr>
+                                <h4 id="interessadosEvento">
+
+                                </h4>
+                            </div>
+                            <div class="col-sm-4">
+
+                            </div>
+
+                            <div class="col-sm-3">
+                                <button type="button" class="btn btn-secondary">Ir</button>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <h5>
+                                    Comentários:
+                                </h5>
+                                <br>
+                                <br>
+                                <h5 id="comentáriosEvento">
+                                    asfaddafdsfdsasfadfdafdsfdsfsdf
+                                </h5>
+                                <br>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <form action="/action_page.php" method="get">
+                                    <small id="helpId" class="form-text text-muted">Pontuar</small>
+                                    <input type="range" name="points" min="0" max="10">
+                                    <button type="button" class="btn btn-secondary">Pontuar</button>
+                                </form>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <input type="text" class="form-control" name="" id="comentarios" aria-describedby="helpId" placeholder="Comentar">
+                            <br>
+                            <button class="btn">
+                                Comentar
+                                <span class="badge badge-warning"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <br>
+        <br>
+        <br>
+    </div>
+
+    <footer class="container-fluid text-center">
+        <p>Footer Text</p>
+    </footer>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
