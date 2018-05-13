@@ -1,23 +1,23 @@
 //classe eventos
 let arrayEventos = []
-
-
+let utiId = 0
 class Eventos {
-    constructor(data, hora, sala, categoria, responsavel, imagem, designacao) {
+    constructor(data, hora, sala, categoria, responsavel, imagem, designacao, UtId) {
 
-        this._idUt = Utilizador.getLastId() + 1
+        this._idEv = Eventos.getLastIdE() + 1
         this.data = data
         this.hora = hora
         this.categoria = categoria
         this.responsavel = responsavel
         this.imagem = imagem
-        this.sala=sala
+        this.sala = sala
         this.designacao = designacao
+        this.UtId = UtId
 
     }
     // Propriedade id
-    get id() {
-        return this._id
+    get idEv() {
+        return this._idEv
     }
 
     // Propriedade data
@@ -36,8 +36,8 @@ class Eventos {
     set hora(novoHora) {
         this._hora = novoHora
     }
-     // Propriedade sala
-     get sala() {
+    // Propriedade sala
+    get sala() {
         return this._sala
     }
 
@@ -76,41 +76,82 @@ class Eventos {
     set designacao(novoDesignacao) {
         this._designacao = novoDesignacao
     }
+    // Propriedade UTID
+    get UtId() {
+        return this._UtId
+    }
+
+    set UtId(novoUtId) {
+        this._UtId = novoUtId
+    }
 
     // obter o ultimo id
-    static getLastId() {
+    static getLastIdE() {
         let lastIdE = 0
         if (arrayEventos.length > 0) {
-            lastIdE = arrayEventos[arrayEventos.length - 1].id
+            lastIdE = arrayEventos[arrayEventos.length - 1].idEv
         }
         return lastIdE
     }
 
 }
 
-window.onload=function(){
-    let arrayEventos = []
+window.onload = function () {
 
+    
     let btnCriarEventos = document.getElementById("btnCriarEventos")
     let frmCriarEventos = document.getElementById("frmCriarEventos")
+    btnCriarEventos.style.display='none'
 
-//submeter eventos
-frmCriarEventos.addEventListener("submit", function (event) {
+    //submeter eventos
+    frmCriarEventos.addEventListener("submit", function (event) {
 
-    let data = document.getElementById("ModalData")
-    let horario = document.getElementById("ModalHorário")
-    let sala = document.getElementById("ModalSala")
-    let imagem = document.getElementById("ModalImagem")
-    let responsavel = document.getElementById("ModalResponsavel")
-    let categoria = document.getElementById("optCategorias")
-    let designacao= document.getElementById("ModalDesigEvento")
+        let data = document.getElementById("ModalData").value
+        let horario = document.getElementById("ModalHorário").value
+        let sala = document.getElementById("ModalSala").value
+        let imagem = document.getElementById("ModalImagem").value
+        let responsavel = document.getElementById("ModalResponsavel").value
+        let categoria = document.getElementById("optCategorias").value
+        let designacao = document.getElementById("ModalDesigEvento").value
+        let EventosGuardados = ""
+        let utGuardados = ""
 
-    //let novoEventos = new Eventos(data.value,horario.value,categoria.value,sala.value,responsavel.value,imagem.value,designacao.value)
-    //arrayEventos.push(novoEventos)
-    console.log("novoEventos")
-    event.preventDefault()
+        //percorrer o local storage e converter os dados em objets
+        for (let i = 0; i < localStorage.length; i++) {
 
-})
+            utGuardados = JSON.parse(localStorage.getItem(localStorage.key(i)))
+
+        }
+
+        //verificar se o utilizador para submeter os eventos
+        for (let i = 0; i < utGuardados.length; i++) {
+
+            if (utGuardados[i]._idUt && utGuardados[i]._tipoUtilizador=="docente") {
+                UtId = utGuardados[i]._idUt
+                console.log(UtId)
+
+
+                let novoEventos = new Eventos(data, horario, categoria, sala, responsavel, imagem, designacao, UtId)
+                arrayEventos.push(novoEventos)
+
+            }
+            else{
+
+                
+            }
+
+        }
+
+     
+
+       // localStorage.setItem("Eventos", JSON.stringify(arrayEventos))
+      
+
+
+        console.log(arrayEventos)
+        event.preventDefault()
+
+    })
 
 
 
@@ -155,4 +196,5 @@ function renderCatalog(userId = 0, countryId = 0) {
                 strHtmlCard += `</div>`
             }
         }
-    }*/
+    }
+}*/

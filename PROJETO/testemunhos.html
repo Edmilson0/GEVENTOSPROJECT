@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Testemunhos</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" sizes="16x16" href="Fotos/favicon-16x16.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="testemunhos.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <style>
+        .navBar {
+
+            position: fixed;
+
+        }
+
+        #li {
+            list-style: none;
+            position: relative;
+            display: inline-block;
+            width: 90px;
+            height: 90px;
+        }
+
+        h6 {
+            font-family: "arial";
+
+        }
+
+        h2 {
+            text-align: center;
+            font-family: "particle regular";
+        }
+
+        body {
+            background-color: grey;
+            background-image: url()
+        }
+
+        #eventosContainer {
+            background-color: floralwhite;
+        }
+
+        h1 {
+            font-family: "particle regular";
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--BARRA DE NAVEGAÇÃO-->
+    <nav id="navBar" class="navbar navbar-expand-sm navbar-dark bg-dark" style="background-color: #00000000;">
+
+        <img class="img-responsive2" src="fotos/TSIW.png">
+
+
+        <li>
+            <a id="myImgGeventos" href="HomePage.html">
+                <img class="img-responsive2" src="fotos/GEventosLogoFinal.png">
+            </a>
+        </li>
+
+
+        <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav mr-auto">
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-3" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-light mr-sm-5 my-2 my-sm-0" type="submit">Pesquisar</button>
+            </form>
+            <ul class="navbar-nav">
+                <!--OPÇÃO eventos-->
+                <li id="optEventos" class="nav-item">
+                    <a class="nav-link" href="Eventos.html">Eventos</a>
+                </li>
+                <!--OPÇÃO Testemunhos-->
+                <li id="optTestemunhos" class="nav-item">
+                    <a class="nav-link" href="testemunhos.html">Testemunhos</a>
+                </li>
+                <!--OPÇÃO Docentes-->
+                <li id="optDocentes" class="nav-item">
+                    <a class="nav-link" href="#">Docentes</a>
+                </li>
+                <!--OPÇÃO Parcerias-->
+                <li id="optParcerias" class="nav-item">
+                    <a class="nav-link" href="Parcerias.html">Parcerias</a>
+                </li>
+                <!--OPÇÃO Login-->
+                <li id="optLogin" class="nav-item">
+                    <a data-toggle="modal" data-target="#loginModal" class="nav-link" href="#">Login</a>
+                </li>
+                <h3 style="color:#c5c6c7">/</h3>
+                <!--OPÇÃO Registo-->
+                <li id="optRegisto" class="nav-item">
+                    <a data-toggle="modal" data-target="#registoModal" class="nav-link" href="#">Registo</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+    <br>
+    <br>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="card text-center">
+                   
+                    <div class="card-body">
+
+                        <a data-toggle="modal" data-target="#modelTestemunhos" href="">
+                            <img id="+Testemunhos" class="img-responsive2" src="fotos/+.png">
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <br>
+            <div class="col-sm-3">
+                <div class="card text-center">
+                   
+                    <div class="card-body">
+                        <h4 class="card-title">Testemunho</h4>
+                        <p class="card-text">Body</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    </div>
+
+    <!-- Modal Testemunhos -->
+ 
+    <div class="modal fade" id="modelTestemunhos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <form id="frmTestemunhos">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      
+    
+                            <h3 class="modal-title" id="exampleModalLabel">Testemunhar</h3>
+    
+                            <br>
+                            <div class="form-group">
+                               <div class="form-group">
+                                
+                                 <textarea class="form-control" name="" id="modelTestemunho" rows="3" cols="2"></textarea>
+                               </div> 
+                               
+                            </div>
+                          
+
+                            <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    <button id="Loginbtn" type="submit" class="btn btn-warning">Submeter</button>
+                                </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </form>
+        </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

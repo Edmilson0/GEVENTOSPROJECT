@@ -5,7 +5,7 @@ let arrayUtilizadores = []
 class Utilizador {
     constructor(nome, email, password, foto, tipoUtilizador) {
 
-        this._idUt = Utilizador.getLastId() + 1
+        this._idUt = Utilizador.getLastId()+1
         this.nome = nome
         this.email = email
         this.password = password
@@ -13,8 +13,8 @@ class Utilizador {
         this.tipoUtilizador = tipoUtilizador
     }
     // Propriedade id
-    get id() {
-        return this._id
+    get idUt() {
+        return this._idUt
     }
 
     // Propriedade nome
@@ -51,7 +51,7 @@ class Utilizador {
     }
     // Propriedade tipo de utilizadores
     get tipoUtilizador() {
-        return this._foto
+        return this._tipoUtilizador
     }
 
     set tipoUtilizador(novotipoUtilizador) {
@@ -62,7 +62,7 @@ class Utilizador {
     static getLastId() {
         let lastId = 0
         if (arrayUtilizadores.length > 0) {
-            lastId = arrayUtilizadores[arrayUtilizadores.length - 1].id
+            lastId = arrayUtilizadores[arrayUtilizadores.length-1].idUt
         }
         return lastId
     }
@@ -77,7 +77,8 @@ window.onload = function () {
 
     let ModalRegistar = document.getElementById("frmRegistar")
     let btnLogin = document.getElementById("optLogin")
-   
+    let frmLogin = document.getElementById("frmLogin")
+
 
     //submeter os dados do utilizador 
     ModalRegistar.addEventListener("submit", function (event) {
@@ -107,6 +108,7 @@ window.onload = function () {
 
             let novoutilizador = new Utilizador(nomeUt, emailUt, Password, fotoUt, tipoutilizador)
             arrayUtilizadores.push(novoutilizador)
+          
             alert("registo com sucesso")
             ModalRegistar.reset()
             console.log(arrayUtilizadores)
@@ -114,12 +116,59 @@ window.onload = function () {
 
         }
 
-     
+        localStorage.setItem("utilizadores", JSON.stringify(arrayUtilizadores))
+
+
+    })
+
+    //fazendo login
+    frmLogin.addEventListener("submit", function (event) {
+
+        let optRegistar=document.getElementById("linkRegistar")
+        let barra=document.getElementById("barra")
+        let loginName = document.getElementById("ModalName")
+        let loginPass = document.getElementById("ModalPassword")
+        //buscar no local storage os utilizadores
+        let utInLocalStorage = JSON.parse(localStorage.getItem("utilizadores"))
+        let utGuardados = ""
+        let cont = 0
+       
+
+        //percorrer o local storage e converter os dados em objets
+        for (let i = 0; i < localStorage.length; i++) {
+
+            utGuardados = JSON.parse(localStorage.getItem(localStorage.key(i)))
+
+        }
+
+        //verificar se o utilizador existe ou não
+        for (let i = 0; i < utGuardados.length; i++) {
+
+            if (utGuardados[i]._nome == loginName.value && utGuardados[i]._password == loginPass.value) {
+                alert("bem vindo")
+
+                 btnLogin.style.display = 'none'
+                 barra.style.display = 'none'
+                
+                frmLogin.reset()
+
+            }
+            else {
+                cont++
+            }
+          
+
+        }
+        //se o utilizador não exister emite uma mensagem
+        if (cont == utGuardados.length) {
+            alert("Utilizador não existente")
+        }
+
+        event.preventDefault()
+
     })
 
 
-
-    
 }
 
 

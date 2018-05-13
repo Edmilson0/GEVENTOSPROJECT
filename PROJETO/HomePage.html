@@ -5,6 +5,7 @@
     <title>GEventos</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
+    <link rel="icon" type="image/png" sizes="16x16" href="Fotos/favicon-16x16.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="HomePage.js"></script>
     <!-- Bootstrap CSS -->
@@ -220,7 +221,7 @@
                 </li>
                 <!--OPÇÃO Testemunhos-->
                 <li id="optTestemunhos" class="nav-item">
-                    <a data-toggle="modal" data-target="#loginModal" class="nav-link" href="#">Testemunhos</a>
+                    <a class="nav-link" href="testemunhos.html">Testemunhos</a>
                 </li>
                 <!--OPÇÃO Docentes-->
                 <li id="optDocentes" class="nav-item">
@@ -228,16 +229,16 @@
                 </li>
                 <!--OPÇÃO Parcerias-->
                 <li id="optParcerias" class="nav-item">
-                    <a class="nav-link" href="#">Parcerias</a>
+                    <a class="nav-link" href="Parcerias.html">Parcerias</a>
                 </li>
                 <!--OPÇÃO Login-->
                 <li id="optLogin" class="nav-item">
                     <a data-toggle="modal" data-target="#loginModal" class="nav-link" href="#">Login</a>
                 </li>
-                <h3 style="color:#c5c6c7">/</h3>
+                <h3 id="barra" style="color:#c5c6c7">/</h3>
                 <!--OPÇÃO Registo-->
                 <li id="optRegisto" class="nav-item">
-                    <a data-toggle="modal" data-target="#registoModal" class="nav-link" href="#">Registo</a>
+                    <a id="linkRegistar" data-toggle="modal" data-target="#registoModal" class="nav-link" href="#">Registo</a>
                 </li>
             </ul>
 
@@ -246,38 +247,40 @@
 
 
 
-    <!-- Modal -->
+    <!-- Modal Login -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <!-- image on the modal -->
-                <div class="modal-body">
-                    <div id="imgModal">
-                        <img src="fotos/G.png" alt="">
+        <form id="frmLogin">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <!-- image on the modal -->
+                    <div class="modal-body">
+                        <div id="imgModal">
+                            <img src="fotos/G.png" alt="">
+                            <br>
+                            <br>
+                        </div>
+
+                        <h3 class="modal-title" id="exampleModalLabel">Login</h3>
+
                         <br>
-                        <br>
+                        <div class="form-group">
+                            <label for=""></label>
+                            <input type="text" class="form-control" name="" id="ModalName" placeholder="Name" required>
+
+                        </div>
+                        <div class="form-group">
+                            <label for=""></label>
+                            <input type="password" class="form-control" name="" id="ModalPassword" placeholder="Password" required>
+
+                        </div>
                     </div>
-
-                    <h3 class="modal-title" id="exampleModalLabel">Login</h3>
-
-                    <br>
-                    <div class="form-group">
-                        <label for=""></label>
-                        <input type="text" class="form-control" name="" id="ModalName" placeholder="Name" required>
-
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button id="Loginbtn" type="submit" class="btn btn-primary">Entrar</button>
                     </div>
-                    <div class="form-group">
-                        <label for=""></label>
-                        <input type="text" class="form-control" name="" id="ModalPassword" placeholder="Password" required>
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button id="Loginbtn" type="button" class="btn btn-primary">Entrar</button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 
 
