@@ -38,7 +38,7 @@
 
         body {
             background-color: grey;
-            background-image: url()
+            background-image: url(http://holdplease.com/wp-content/uploads/2016/08/black-grey-gradient-background-for-web.jpg)
         }
 
         #eventosContainer {
@@ -49,6 +49,45 @@
             font-family: "particle regular";
             text-align: center;
         }
+         /* rigth modal*/
+   
+	.modal.right .modal-dialog {
+        padding-top: 200px;
+		position: relative;
+		margin-right: 920px;
+		width: 320px;
+		height: 60%;
+		-webkit-transform: translate3d(0%, 0, 0);
+		    -ms-transform: translate3d(0%, 0, 0);
+		     -o-transform: translate3d(0%, 0, 0);
+		        transform: translate3d(0%, 0, 0);
+	}
+
+	
+	.modal.right .modal-content {
+		height: 70%;
+		overflow-y: auto;
+	}
+	
+
+	.modal.right .modal-body {
+		padding: 15px 15px 80px;
+	}
+
+/*Right*/
+.modal.right.fade .modal-dialog.modal {
+		right: -320px;
+		-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+		   -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+		     -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+		        transition: opacity 0.3s linear, right 0.3s ease-out;
+	}
+	
+	.modal.right.fade.in .modal-dialog {
+		right:0%;
+       
+	}
+
     </style>
 </head>
 
@@ -92,7 +131,7 @@
                 </li>
                 <!--OPÇÃO Docentes-->
                 <li id="optDocentes" class="nav-item">
-                    <a class="nav-link" href="#">Docentes</a>
+                    <a class="nav-link" href="Docentes.html">Docentes</a>
                 </li>
                 <!--OPÇÃO Parcerias-->
                 <li id="optParcerias" class="nav-item">
@@ -151,13 +190,13 @@
 
     <!-- Modal Testemunhos -->
  
-    <div class="modal fade" id="modelTestemunhos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal right fade" id="modelTestemunhos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <form id="frmTestemunhos">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       
     
-                            <h3 class="modal-title" id="exampleModalLabel">Testemunhar</h3>
+                            <h3 class="modal-title" id="exampleModalLabel" style="text-align:center">Testemunhar</h3>
     
                             <br>
                             <div class="form-group">
