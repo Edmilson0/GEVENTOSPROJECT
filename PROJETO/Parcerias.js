@@ -1,40 +1,71 @@
-/*let arrayParcerias = []
+let arrayParcerias = []
 
 class Parcerias {
     constructor(IdParcerias, Empresa, localizaçao, link) {
-        this._idTes = Testemunhos.getLastId() + 1
-        this.IdTe = IdTe
-        this.testemunho = testemunho
+        this._IdParcerias = Parcerias.getLastId() + 1
+        this.Empresa = Empresa
+        this.localizaçao = localizaçao
+        this.link = link
     }
+
     // Propriedade id
-    get idTes() {
-        return this._idTes
+    get IdParcerias() {
+        return this._IdParcerias
     }
 
-    // Propriedade IdTe
-    get IdTe() {
-        return this._IdTe
+    // Propriedade empresa
+    get Empresa() {
+        return this._Empresa
     }
-    set IdTe(novoIdTe) {
-        this._IdTe = novoIdTe
-    }
-
-    // Propriedade testemunho
-    get testemunho() {
-        return this._testemunho
+    set Empresa(novoEmpresa) {
+        this._Empresa = novoEmpresa
     }
 
-    set testemunho(novoTestemunho) {
-        this._testemunho = novoTestemunho
+    // Propriedade localizaçao
+    get localizaçao() {
+        return this._localizaçao
     }
+
+    set localizaçao(novoLocalizaçao) {
+        this._localizaçao = novoLocalizaçao
+    }
+
+    // Propriedade Link
+    get link() {
+        return this._link
+    }
+    set link(novoLink) {
+        this._link = novoLink
+    }
+
     // obter o ultimo id
     static getLastId() {
         let lastId = 0
-        if (arrayTestemuhos.length > 0) {
-            lastId = arrayTestemuhos[arrayTestemuhos.length - 1].idTes
+        if (arrayParcerias.length > 0) {
+            lastId = arrayParcerias[arrayParcerias.length - 1].IdParcerias
         }
         return lastId
     }
 
 
-}*/
+}
+
+window.onload = function () {
+
+    let nomeEmpresa = document.getElementById("modalNomeEmpresa")
+    let locaEmpresa = document.getElementById("modalLocalizaçaoEmpresa")
+    let linkEmpresa = document.getElementById("modalLinkEmpresa")
+    let frmParcerias = document.getElementById("frmParcerias")
+
+    frmParcerias.addEventListener("submit", function (events) {
+        
+        let novaParceria = new Parcerias(nomeEmpresa.value, locaEmpresa.value, linkEmpresa.value)
+        arrayParcerias.push(novaParceria)
+        localStorage.setItem("Parcerias", JSON.stringify(arrayParcerias))
+        alert("Adicionado com sucesso")
+        events.preventDefault()
+        frmParcerias.reset()
+        
+    })
+
+}

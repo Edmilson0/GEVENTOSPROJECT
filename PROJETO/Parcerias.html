@@ -11,45 +11,45 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-        <style>
-            .navBar {
-    
-                position: fixed;
-    
-            }
-    
-            #li {
-                list-style: none;
-                position: relative;
-                display: inline-block;
-                width: 90px;
-                height: 90px;
-            }
-    
-            h6 {
-                font-family: "arial";
-    
-            }
-    
-            h2 {
-                text-align: center;
-                font-family: "particle regular";
-            }
-    
-            body {
-                background-color: grey;
-                background-image: url()
-            }
-    
-            #eventosContainer {
-                background-color: floralwhite;
-            }
-    
-            h1 {
-                font-family: "particle regular";
-                text-align: center;
-            }
-        </style>
+    <style>
+        .navBar {
+
+            position: fixed;
+
+        }
+
+        #li {
+            list-style: none;
+            position: relative;
+            display: inline-block;
+            width: 90px;
+            height: 90px;
+        }
+
+        h6 {
+            font-family: "arial";
+
+        }
+
+        h2 {
+            text-align: center;
+            font-family: "particle regular";
+        }
+
+        body {
+            background-color: grey;
+            background-image: url()
+        }
+
+        #eventosContainer {
+            background-color: floralwhite;
+        }
+
+        h1 {
+            font-family: "particle regular";
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -77,8 +77,10 @@
 
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-3" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-light mr-sm-5 my-2 my-sm-0" type="submit">Pesquisar</button>
+                    <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
+                    <a class=" mr-sm-1"  href="">
+                        <img src="Fotos/search.png" alt="" srcset="">
+                    </a>
             </form>
             <ul class="navbar-nav">
                 <!--OPÇÃO eventos-->
@@ -117,19 +119,62 @@
         <br>
         <div class="row">
             <div class="col-sm-3">
-               <a name="" id="btnAdParcerias" class="btn btn-warning" href="#" role="button">Adicionar parcerias</a>
+                <a name="" id="btnAdParcerias" data-target="#modelParcerias" data-toggle="modal" class="btn btn-warning" href="#" role="button">Adicionar parcerias</a>
 
             </div>
 
             <br>
         </div>
 
-         <!-- Parcerias -->
+        <!-- Parcerias -->
 
-         <h2>Parcerias</h2>
-       <hr>
-<br>
+        <h2>Parcerias</h2>
+        <hr>
+        <br>
 
+    </div>
+
+    <!-- Modal parcerias -->
+
+    <div class="modal fade" id="modelParcerias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form id="frmParcerias">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+
+                    <h3 class="modal-title" id="exampleModalLabel" style="text-align:center">Adicionar parcerias</h3>
+
+                    <br>
+                    <div class="form-group">
+                            <label for=""></label>
+                            <input type="text" class="form-control" name="" id="modalNomeEmpresa" placeholder="Nome da empresa" required>
+
+                        </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="modalLocalizaçaoEmpresa" placeholder="Localização da empresa" required>
+
+                    </div>
+
+                    <div class="form-group">
+                        <input type="url" class="form-control" id="modalLinkEmpresa" placeholder="Link da empresa">
+
+                    </div>
+
+                    <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <button id="Loginbtn" type="submit" class="btn btn-warning">Submeter</button>
+                        </div>
+    
+                </div>
+
+             
+            </div>
+    </div>
+
+    </div>
+    </div>
+    </form>
     </div>
 
     <!-- Optional JavaScript -->

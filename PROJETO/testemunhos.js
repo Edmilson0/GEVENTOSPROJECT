@@ -56,7 +56,7 @@ window.onload = function () {
 
         }
 
-        //verificar se o utilizador para submeter os eventos
+        //verificar se o utilizador existe para submeter os eventos
         for (let i = 0; i < utGuardados.length; i++) {
 
             if (utGuardados[i]._idUt) {
