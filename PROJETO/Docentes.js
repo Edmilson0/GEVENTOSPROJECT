@@ -1,7 +1,7 @@
 let arrayDocentes = []
 
 class Docentes {
-    constructor(IdDocente, NomeDocente, foto, formaçao, CV) {
+    constructor(NomeDocente, foto, formaçao, CV) {
         this._IdDocente = Docentes.getLastId() + 1
         this.NomeDocente = NomeDocente
         this.foto = foto
@@ -61,6 +61,7 @@ class Docentes {
 }
 
 window.onload = function () {
+    renderCatalog()
 
     let nomeDocente = document.getElementById("modalNomeDocente")
     let formaçao = document.getElementById("modalFormaçaoDocente")
@@ -69,14 +70,64 @@ window.onload = function () {
     let frmDocentes = document.getElementById("frmDocentes")
 
     frmDocentes.addEventListener("submit", function (events) {
-        
+
         let novaDocentes = new Docentes(nomeDocente.value, foto.value, formaçao.value, cv.value)
         arrayDocentes.push(novaDocentes)
         localStorage.setItem("Docentes", JSON.stringify(arrayDocentes))
         alert("Adicionado com sucesso")
+        renderCatalog()
         events.preventDefault()
         frmDocentes.reset()
-        
+
     })
 
 }
+// Função que vai alimentar o meu catálogo
+function renderCatalog() {
+
+    let myCard = document.getElementById("p1")
+    let DocentesGuardados = ""
+    // 1. Iterar sobre o array de Trips
+
+    // 2. Para cada Trip vou definir uma Card e compô-la com os dados do objeto
+    let strHtmlCard = ""
+
+    for (var i = 0; i < localStorage.length; i++) {
+
+        if (i == 0) {
+            DocentesGuardados = JSON.parse(localStorage.getItem(localStorage.key(i)))
+        }
+
+
+
+    }
+    for (let i = 0; i < DocentesGuardados.length; i++) {
+
+        console.log(DocentesGuardados[i])
+        // Inicia a linha
+        if (i % 4 == 0) {
+            strHtmlCard += `<div class="row">`
+        }
+
+        // Cria a card
+        strHtmlCard += `<div class="col-sm-3">
+       
+                    <br>`
+
+
+        strHtmlCard += `</div>
+                    </div>      
+                </div>`
+
+        // Fecha a linha
+        if (i % 4 == 3) {
+            strHtmlCard += `</div>`
+        }
+    }
+
+
+    myCard.innerHTML = strHtmlCard
+
+}
+
+

@@ -184,46 +184,75 @@
             display: none;
         }
     }
-     /* rigth modal*/
-   
-	.modal.right .modal-dialog {
+
+    /* rigth modal*/
+
+    .modal.right .modal-dialog {
         padding-top: 30px;
-		position: relative;
-		margin-right: 0%;
-		width: 320px;
-		height: 60%;
-		-webkit-transform: translate3d(0%, 0, 0);
-		    -ms-transform: translate3d(0%, 0, 0);
-		     -o-transform: translate3d(0%, 0, 0);
-		        transform: translate3d(0%, 0, 0);
-	}
+        position: relative;
+        margin-right: 0%;
+        width: 320px;
+        height: 60%;
+        -webkit-transform: translate3d(0%, 0, 0);
+        -ms-transform: translate3d(0%, 0, 0);
+        -o-transform: translate3d(0%, 0, 0);
+        transform: translate3d(0%, 0, 0);
+    }
 
-	
-	.modal.right .modal-content {
-		height: 70%;
-		overflow-y: auto;
-	}
-	
 
-	.modal.right .modal-body {
-		padding: 15px 15px 80px;
-	}
+    .modal.right .modal-content {
+        height: 70%;
+        overflow-y: auto;
+    }
 
-/*Right*/
-.modal.right.fade .modal-dialog.modal.sm {
-		right: -320px;
-		-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
-		   -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
-		     -o-transition: opacity 0.3s linear, right 0.3s ease-out;
-		        transition: opacity 0.3s linear, right 0.3s ease-out;
-	}
-	
-	.modal.right.fade.in .modal-dialog {
-		right:0%;
+
+    .modal.right .modal-body {
+        padding: 15px 15px 80px;
+    }
+
+    /*Right*/
+
+    .modal.right.fade .modal-dialog.modal.sm {
+        right: -320px;
+        -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+        transition: opacity 0.3s linear, right 0.3s ease-out;
+    }
+
+    .modal.right.fade.in .modal-dialog {
+        right: 0%;
+
+    }
+
+    img,
+    video,
+    canvas {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .img-responsive {
        
-	}
+        margin: 10px 20px;
+        padding: 2px;
+        border-radius: 10%;
+    }
 
-    
+    .img-responsive {
+        -webkit-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+    }
+
+    .img-responsive:hover {
+        border-radius: 50%;
+    }
+
+    @media (min-width: 750px) {
+        main {
+            flex-direction: row;
+        }
+    }
 </style>
 
 <body>
@@ -252,9 +281,9 @@
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
-               <a class=" mr-sm-1"  href="">
-                   <img src="Fotos/search.png" alt="" srcset="">
-               </a>
+                <a class=" mr-sm-1" href="">
+                    <img src="Fotos/search.png" alt="" srcset="">
+                </a>
             </form>
             <ul class="navbar-nav">
                 <!--OPÇÃO eventos-->
@@ -497,7 +526,7 @@
             <div id="myArticles" class="row">
                 <div class="col-sm-6">
                     <h2>ESMAD</h2>
-                    <img src="https://www.esmad.ipp.pt/noticias/apresentacao-do-livro-201candroid-2013-bases-de-dados-e-geolocalizacao201d-1/image_large"
+                    <img src="https://s20.postimg.cc/61drqfb3x/apple-liftedup.jpg"
                         class="img-responsive" style="width:100%; height:80%" alt="Image">
                     <hr style="background-color:#fff">
                     <!--<p>Como promover o seu evento de forma eficaz? Não há uma fórmula mágica, mas existem algumas ferramentas
@@ -514,6 +543,8 @@
 
 
             </div>
+
+           
         </div>
 
         <br>

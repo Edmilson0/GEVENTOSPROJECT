@@ -112,18 +112,8 @@ window.onload = function () {
 
         let utGuardados = ""
 
-
-
-
-
-
         let novoEventos = new Eventos(data, horario, sala, categoria, responsavel, imagem, designacao)
         arrayEventos.push(novoEventos)
-
-
-
-
-
 
         localStorage.setItem("Eventos", JSON.stringify(arrayEventos))
 
@@ -169,8 +159,8 @@ function renderCatalog() {
 
         // Cria a card
         strHtmlCard += `<div class="col-sm-6">
-            <br>
-            <div class="card" style="width: 34rem;">
+           <br>
+            <div class="card">
             <h3 class="card-title" style="background-color:rgb(218, 215, 209)">${EventosGuardados[i]._categoria}</h3>
             <img class="card-img-top" src="${EventosGuardados[i]._imagem}" alt="Card image cap">
                 <div class="card-body">

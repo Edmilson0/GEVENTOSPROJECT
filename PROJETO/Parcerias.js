@@ -1,10 +1,11 @@
 let arrayParcerias = []
 
 class Parcerias {
-    constructor(IdParcerias, Empresa, localizaçao, link) {
+    constructor(Empresa, localizaçao, linkLogotipo, link) {
         this._IdParcerias = Parcerias.getLastId() + 1
         this.Empresa = Empresa
         this.localizaçao = localizaçao
+        this.linkLogotipo = linkLogotipo
         this.link = link
     }
 
@@ -28,6 +29,14 @@ class Parcerias {
 
     set localizaçao(novoLocalizaçao) {
         this._localizaçao = novoLocalizaçao
+
+    }
+     // Propriedade LinkLogotipo
+     get linkLogotipo() {
+        return this._linkLogotipo
+    }
+    set linkLogotipo(novoLinkLogotipo) {
+        this._linkLogotipo = novoLinkLogotipo
     }
 
     // Propriedade Link
@@ -55,11 +64,12 @@ window.onload = function () {
     let nomeEmpresa = document.getElementById("modalNomeEmpresa")
     let locaEmpresa = document.getElementById("modalLocalizaçaoEmpresa")
     let linkEmpresa = document.getElementById("modalLinkEmpresa")
+    let linkLogotipo = document.getElementById("modalImagemEmpresa")
     let frmParcerias = document.getElementById("frmParcerias")
 
     frmParcerias.addEventListener("submit", function (events) {
         
-        let novaParceria = new Parcerias(nomeEmpresa.value, locaEmpresa.value, linkEmpresa.value)
+        let novaParceria = new Parcerias(nomeEmpresa.value, locaEmpresa.value, linkLogotipo.value, linkEmpresa.value)
         arrayParcerias.push(novaParceria)
         localStorage.setItem("Parcerias", JSON.stringify(arrayParcerias))
         alert("Adicionado com sucesso")
