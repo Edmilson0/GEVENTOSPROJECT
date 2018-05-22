@@ -49,45 +49,46 @@
             font-family: "particle regular";
             text-align: center;
         }
-         /* rigth modal*/
-   
-	.modal.right .modal-dialog {
-        padding-top: 200px;
-		position: relative;
-		margin-right: 920px;
-		width: 320px;
-		height: 60%;
-		-webkit-transform: translate3d(0%, 0, 0);
-		    -ms-transform: translate3d(0%, 0, 0);
-		     -o-transform: translate3d(0%, 0, 0);
-		        transform: translate3d(0%, 0, 0);
-	}
 
-	
-	.modal.right .modal-content {
-		height: 70%;
-		overflow-y: auto;
-	}
-	
+        /* rigth modal*/
 
-	.modal.right .modal-body {
-		padding: 15px 15px 80px;
-	}
+        .modal.right .modal-dialog {
+            padding-top: 200px;
+            position: relative;
+            margin-right: 920px;
+            width: 320px;
+            height: 60%;
+            -webkit-transform: translate3d(0%, 0, 0);
+            -ms-transform: translate3d(0%, 0, 0);
+            -o-transform: translate3d(0%, 0, 0);
+            transform: translate3d(0%, 0, 0);
+        }
 
-/*Right*/
-.modal.right.fade .modal-dialog.modal {
-		right: -320px;
-		-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
-		   -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
-		     -o-transition: opacity 0.3s linear, right 0.3s ease-out;
-		        transition: opacity 0.3s linear, right 0.3s ease-out;
-	}
-	
-	.modal.right.fade.in .modal-dialog {
-		right:0%;
-       
-	}
 
+        .modal.right .modal-content {
+            height: 70%;
+            overflow-y: auto;
+        }
+
+
+        .modal.right .modal-body {
+            padding: 15px 15px 80px;
+        }
+
+        /*Right*/
+
+        .modal.right.fade .modal-dialog.modal {
+            right: -320px;
+            -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+            -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+            -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+            transition: opacity 0.3s linear, right 0.3s ease-out;
+        }
+
+        .modal.right.fade.in .modal-dialog {
+            right: 0%;
+
+        }
     </style>
 </head>
 
@@ -115,10 +116,10 @@
 
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
-                    <a class=" mr-sm-1"  href="">
-                        <img src="Fotos/search.png" alt="" srcset="">
-                    </a>
+                <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
+                <a class=" mr-sm-1" href="">
+                    <img src="Fotos/search.png" alt="" srcset="">
+                </a>
             </form>
             <ul class="navbar-nav">
                 <!--OPÇÃO eventos-->
@@ -141,10 +142,21 @@
                 <li id="optLogin" class="nav-item">
                     <a data-toggle="modal" data-target="#loginModal" class="nav-link" href="#">Login</a>
                 </li>
+                 <!--OPÇÃO Logout-->
+                 <li id="optLogout" class="nav-item">
+                        <a data-target="#" class="nav-link" href="HomePage.html">Logout</a>
+                    </li>
                 <h3 style="color:#c5c6c7">/</h3>
                 <!--OPÇÃO Registo-->
                 <li id="optRegisto" class="nav-item">
                     <a data-toggle="modal" data-target="#registoModal" class="nav-link" href="#">Registo</a>
+                </li>
+                <!--OPÇÃO Cnfiguraçao-->
+                <li id="optConfig" class="nav-item">
+                    <a id="linkConfig" class="nav-link " href="Config.html">
+                        Configurações
+                    </a>
+
                 </li>
             </ul>
 
@@ -157,7 +169,7 @@
         <div class="row">
             <div class="col-sm-3">
                 <div class="card text-center">
-                   
+
                     <div class="card-body">
 
                         <a data-toggle="modal" data-target="#modelTestemunhos" href="">
@@ -170,59 +182,59 @@
             </div>
 
             <br>
-            
+
         </div>
-        <div id="myCardTestemunhos"style="background-color:rgb(60, 65, 65)" class="card ">
-         
-            </div>
+        <div id="myCardTestemunhos" style="background-color:rgb(60, 65, 65)" class="card ">
+
+        </div>
 
     </div>
 
-   
+
     </div>
 
     <!-- Modal Testemunhos -->
- 
+
     <div class="modal right fade" id="modelTestemunhos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <form id="frmTestemunhos">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      
-    
-                            <h3 class="modal-title" id="exampleModalLabel" style="text-align:center">Testemunhar</h3>
-    
-                            <br>
-                            <div class="form-group">
-                               <div class="form-group">
-                                
-                                 <textarea class="form-control" name="" id="modelTestemunho" rows="3" cols="2"></textarea>
-                               </div>
-                               
-                               <div  class="form-group">
-                                
-                                  <input type="text" class="form-control" name="" id="nomeTe" aria-describedby="helpId" placeholder="Nome">
-                                 
-                               </div>
+        <form id="frmTestemunhos">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
 
-                               <div  class="form-group">
-                                
-                                    <input type="url" class="form-control" name="" id="fotoTe" aria-describedby="helpId" placeholder="foto">
-                                   
-                                 </div>
-                               
-                            </div>
-                          
 
-                            <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                    <button id="Loginbtn" type="submit" class="btn btn-warning">Submeter</button>
-                                </div>
+                    <h3 class="modal-title" id="exampleModalLabel" style="text-align:center">Testemunhar</h3>
+
+                    <br>
+                    <div class="form-group">
+                        <div class="form-group">
+
+                            <textarea class="form-control" name="" id="modelTestemunho" rows="3" cols="2"></textarea>
                         </div>
-                       
+
+                        <div class="form-group">
+
+                            <input type="text" class="form-control" name="" id="nomeTe" aria-describedby="helpId" placeholder="Nome">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <input type="url" class="form-control" name="" id="fotoTe" aria-describedby="helpId" placeholder="foto">
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button id="Loginbtn" type="submit" class="btn btn-warning">Submeter</button>
                     </div>
                 </div>
-            </form>
-        </div>
+
+            </div>
+    </div>
+    </form>
+    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

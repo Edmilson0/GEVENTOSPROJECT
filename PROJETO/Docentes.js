@@ -63,6 +63,11 @@ class Docentes {
 window.onload = function () {
     renderCatalog()
 
+    let btnLogout = document.getElementById("optLogout")
+    let btnConfig = document.getElementById("linkConfig")
+    btnLogout.style.display = 'none'
+    btnConfig.style.display = 'none'
+
     let nomeDocente = document.getElementById("modalNomeDocente")
     let formaçao = document.getElementById("modalFormaçaoDocente")
     let foto = document.getElementById("modalFotoDocente")
@@ -85,7 +90,7 @@ window.onload = function () {
 // Função que vai alimentar o meu catálogo
 function renderCatalog() {
 
-    let myCard = document.getElementById("p1")
+    let myCard = document.getElementById("cardDocentes")
     let DocentesGuardados = ""
     // 1. Iterar sobre o array de Trips
 
@@ -111,7 +116,20 @@ function renderCatalog() {
 
         // Cria a card
         strHtmlCard += `<div class="col-sm-3">
+        <div class="card card-primary text-center">
+        <img style="width:100%" src="${DocentesGuardados[i]._foto}" alt="">
        
+            <div class="card-body">
+            <h6 class="card-text">${DocentesGuardados[i]._NomeDocente}</h6>
+                <p class="card-text">${ DocentesGuardados[i]._formação}</p>
+                <p class="card-text">${ DocentesGuardados[i]._CV}</p>
+               
+              
+                <br>
+                <input name="" id="btnLerCV" class="btn btn-secondary" type="button" value="Ler">
+                <small id="helpId" class="form-text text-muted">Ler o Curriculum Vitae do docente</small>
+       
+               
                     <br>`
 
 

@@ -148,7 +148,7 @@
         text-align: center;
     }
 
-    #myContainer {
+    .myContainer {
         background-color: #e4e1e1;
 
     }
@@ -171,7 +171,7 @@
     }
 
     body {
-        background-color: rgba(236, 149, 49, 0.24);
+        background-color: #e4e1e1(236, 149, 49, 0.24);
 
     }
 
@@ -182,75 +182,6 @@
     @media (max-width: 600px) {
         .carousel-caption {
             display: none;
-        }
-    }
-
-    /* rigth modal*/
-
-    .modal.right .modal-dialog {
-        padding-top: 30px;
-        position: relative;
-        margin-right: 0%;
-        width: 320px;
-        height: 60%;
-        -webkit-transform: translate3d(0%, 0, 0);
-        -ms-transform: translate3d(0%, 0, 0);
-        -o-transform: translate3d(0%, 0, 0);
-        transform: translate3d(0%, 0, 0);
-    }
-
-
-    .modal.right .modal-content {
-        height: 70%;
-        overflow-y: auto;
-    }
-
-
-    .modal.right .modal-body {
-        padding: 15px 15px 80px;
-    }
-
-    /*Right*/
-
-    .modal.right.fade .modal-dialog.modal.sm {
-        right: -320px;
-        -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
-        -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
-        -o-transition: opacity 0.3s linear, right 0.3s ease-out;
-        transition: opacity 0.3s linear, right 0.3s ease-out;
-    }
-
-    .modal.right.fade.in .modal-dialog {
-        right: 0%;
-
-    }
-
-    img,
-    video,
-    canvas {
-        max-width: 100%;
-        height: auto;
-    }
-
-    .img-responsive {
-       
-        margin: 10px 20px;
-        padding: 2px;
-        border-radius: 10%;
-    }
-
-    .img-responsive {
-        -webkit-transition: all 0.5s ease;
-        transition: all 0.5s ease;
-    }
-
-    .img-responsive:hover {
-        border-radius: 50%;
-    }
-
-    @media (min-width: 750px) {
-        main {
-            flex-direction: row;
         }
     }
 </style>
@@ -306,10 +237,21 @@
                 <li id="optLogin" class="nav-item">
                     <a data-toggle="modal" data-target="#loginModal" class="nav-link" href="#">Login</a>
                 </li>
+                 <!--OPÇÃO Logout-->
+                 <li id="optLogout" class="nav-item">
+                        <a data-target="#" class="nav-link" href="HomePage.html">Logout</a>
+                    </li>
                 <h3 id="barra" style="color:#c5c6c7">/</h3>
                 <!--OPÇÃO Registo-->
                 <li id="optRegisto" class="nav-item">
                     <a id="linkRegistar" data-toggle="modal" data-target="#registoModal" class="nav-link" href="#">Registo</a>
+                </li>
+                <!--OPÇÃO Cnfiguraçao-->
+                <li id="optConfig" class="nav-item">
+                    <a id="linkConfig" class="nav-link " href="Config.html">
+                        Configurações
+                    </a>
+
                 </li>
             </ul>
 
@@ -402,12 +344,15 @@
 
                         <div class="row">
                             <form action="">
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <input id="estudante" type="radio" name="user" value="Estudante" checked> Estudante
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <input id="docente" type="radio" name="user" value="Docente"> Docente
                                 </div>
+                                <div class="col-sm-4">
+                                        <input id="visitante" type="radio" name="user" value="Visitante"> Visitante
+                                    </div>
 
                             </form>
                         </div>
@@ -448,7 +393,7 @@
             <div class="carousel-item  mt-2 pt-5 pt-2">
                 <img src="fotos/logo-workshop.png" alt="Third slide" style="width:30%; height:30%">
                 <div class="carousel-caption">
-                    <p>geventos</p>
+
                 </div>
             </div>
         </div>
@@ -477,6 +422,51 @@
     </div>
     <br> </br>
 
+
+
+
+    <!--containar-->
+
+
+
+    <div id="homePageContent" class="container">
+
+        <br>
+        <h2>Eventos mais recentes</h2>
+        <hr>
+
+        <div id="HomePageCartEventos">
+
+
+        </div>
+        <br>
+        <br>
+
+        <br>
+        <h2>Parcerias do curso</h2>
+        <hr>
+
+        <div id="HomePageCartParcerias">
+
+
+        </div>
+        <br>
+        <br>
+
+        <br>
+        <h2>Docentes do curso</h2>
+        <hr>
+
+        <div id="HomePageCartDocentes">
+
+
+        </div>
+
+
+    </div>
+
+
+
     <!-- button sobre and ESMAD-->
     <div id="myBtnSobreEsmad">
         <div class="row">
@@ -486,7 +476,7 @@
 
             <div id="myTextSobreEsmad" class="col-sm-3">
                 <li id="li">
-                    <a href="https://geventostsiw1718.wordpress.com/site/" class="round green">EQUIPA
+                    <a href="https://geventostsiw1718.wordpress.com/site/" class="round green" target="https://geventostsiw1718.wordpress.com/site/">EQUIPA
                         <span class="round">Visitar!</span>
                     </a>
                 </li>
@@ -500,7 +490,7 @@
             <div id="myTextSobreEsmad" class="col-sm-3">
 
                 <li id="li">
-                    <a href="https://www.esmad.ipp.pt/" class="round green">ESMAD
+                    <a href="https://www.esmad.ipp.pt/" class="round green" target="https://www.esmad.ipp.pt/">ESMAD
                         <span class="round">Visitar!</span>
                     </a>
                 </li>
@@ -511,48 +501,6 @@
         </div>
         <br>
 
-    </div>
-
-
-
-    <!--containar-->
-    <div id="myContainer" style=" width:100%; height:100%">
-        <br>
-        <h2>Artigos</h2>
-
-        <br>
-
-        <div id="" class="container">
-            <div id="myArticles" class="row">
-                <div class="col-sm-6">
-                    <h2>ESMAD</h2>
-                    <img src="https://s20.postimg.cc/61drqfb3x/apple-liftedup.jpg"
-                        class="img-responsive" style="width:100%; height:80%" alt="Image">
-                    <hr style="background-color:#fff">
-                    <!--<p>Como promover o seu evento de forma eficaz? Não há uma fórmula mágica, mas existem algumas ferramentas
-                        que ajudam a divulgar o seu evento e não exigem um orçamento elevado.</p>-->
-                    <br>
-                </div>
-
-                <div class=" col-sm-6">
-                    <h2>Plugin</h2>
-                    <img src="https://www.crucial.com.au/blog/wp-content/uploads/2012/11/plugitin.jpg" class="img-responsive" style="width:100%; height:80%"
-                        alt="Image">
-
-                </div>
-
-
-            </div>
-
-           
-        </div>
-
-        <br>
-        <br>
-
-        <br>
-        <br>
-        <br>
     </div>
 
 

@@ -50,6 +50,11 @@ class Testemunhos {
 window.onload = function () {
     renderCatalog()
 
+    let btnLogout = document.getElementById("optLogout")
+    let btnConfig = document.getElementById("linkConfig")
+    btnLogout.style.display = 'none'
+    btnConfig.style.display = 'none'
+
     let nomeTe =document.getElementById("nomeTe")
     let fotoTe =document.getElementById("fotoTe")
     let utGuardados = ""
@@ -57,6 +62,7 @@ window.onload = function () {
     let testemunho = document.getElementById("modelTestemunho")
 
     frmTestemunho.addEventListener("submit", function (events) {
+        renderCatalog()
 
         //percorrer o local storage e converter os dados em objets
         for (let i = 0; i < localStorage.length; i++) {
@@ -103,7 +109,7 @@ function renderCatalog() {
             TestemunhosGuardados = JSON.parse(localStorage.getItem(localStorage.key(i)))
         }
 
-
+       
 
     }
     for (let i = 0; i <  TestemunhosGuardados.length; i++) {
@@ -115,20 +121,17 @@ function renderCatalog() {
         }
 
         // Cria a card
-        strHtmlCard += `<div class="col-sm-3">
+        strHtmlCard += `<div class="col-sm-12">
            <br>
-            <div class="card card-primary text-center">
-            <img style="width:100%" src="${TestemunhosGuardados[i]._fotoTe}" alt="">
+            <div class="card card-primary w-100">
+           
            
                 <div class="card-body">
+                <img src="${TestemunhosGuardados[i]._fotoTe}" alt="">
                 <h6 class="card-text">${TestemunhosGuardados[i]._nomeTe}</h6>
                     <p class="card-text">${ TestemunhosGuardados[i]._testemunho}</p>
                    
                   
-                    <br>
-                    <input name="" id="btnLerCV" class="btn btn-secondary" type="button" value="Ler">
-                    <small id="helpId" class="form-text text-muted">Ler o Curriculum Vitae do docente</small>
-           
                    
                     <br>`
 
