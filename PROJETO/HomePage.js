@@ -88,8 +88,19 @@ window.onload = function () {
 
     btnLogout.style.display = 'none'
     btnConfig.style.display = 'none'
+   
 
+    if (localStorage.getItem("utilizadores")) {
+        let tempArray = []
+        tempArray = JSON.parse(localStorage.getItem("utilizadores"))
+        for (let i = 0; i < tempArray.length; i++) {
+            let novoutilizador = new Utilizador(tempArray[i]._nome, tempArray[i]._email, tempArray[i]._password, tempArray[i]._foto, tempArray[i]._tipoUtilizador)
+            arrayUtilizadores.push(novoutilizador)   
+            
+        }
 
+    }
+    
     //submeter os dados do utilizador 
     ModalRegistar.addEventListener("submit", function (event) {
 
@@ -124,13 +135,17 @@ window.onload = function () {
             let novoutilizador = new Utilizador(nomeUt, emailUt, Password, fotoUt, tipoutilizador)
             arrayUtilizadores.push(novoutilizador)
 
-            alert("registo com sucesso")
+
             ModalRegistar.reset()
             console.log(arrayUtilizadores)
             event.preventDefault()
 
         }
-
+        swal({
+            icon: "success",
+            title: "Registo com secesso!",
+            text: "Bem vindo! ",
+        });
         localStorage.setItem("utilizadores", JSON.stringify(arrayUtilizadores))
         btnRegistar.style.display = 'none'
         btnLogin.style.display = 'none'
@@ -140,7 +155,7 @@ window.onload = function () {
         arrayEstadoUt.push(stadoUtilizador)
         arrayEstadoUt.push(tipoutilizador)
         localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
-        arrayEstadoUt=[]
+        arrayEstadoUt = []
 
     })
 
@@ -155,14 +170,14 @@ window.onload = function () {
         let substring1 = estado.substring(pos1 + 1, estado.length)
         let substring2 = estado.substring(0, pos1)
         stadoUtilizador = false
-        
+
         arrayEstadoUt.push(substring2)
         arrayEstadoUt.push(stadoUtilizador)
         localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
-        arrayEstadoUt=[]
+        arrayEstadoUt = []
         btnRegistar.style.display = 'block'
         btnLogin.style.display = 'block'
-        btnLogout.style.display='none'
+        btnLogout.style.display = 'none'
 
         console.log(substring2)
         event.preventDefault()
@@ -177,7 +192,7 @@ window.onload = function () {
         let loginName = document.getElementById("ModalName")
         let loginPass = document.getElementById("ModalPassword")
         //buscar no local storage os utilizadores
-        let utInLocalStorage = JSON.parse(localStorage.getItem("utilizadores"))
+        
         let utGuardados = ""
         let cont = 0
 
@@ -191,7 +206,11 @@ window.onload = function () {
         for (let i = 0; i < utGuardados.length; i++) {
 
             if (utGuardados[i]._nome == loginName.value && utGuardados[i]._password == loginPass.value) {
-                alert("bem vindo")
+                swal({
+                    icon: "success",
+                    title: "Login com sucesso!",
+                    text: "Bem vindo! "+utGuardados[i]._nome,
+                });
 
                 btnRegistar.style.display = 'none'
                 btnLogin.style.display = 'none'
@@ -201,8 +220,8 @@ window.onload = function () {
                 arrayEstadoUt.push(stadoUtilizador)
                 arrayEstadoUt.push(utGuardados[i]._tipoUtilizador)
                 localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
-                arrayEstadoUt=[]
-                
+                arrayEstadoUt = []
+
                 frmLogin.reset()
                 event.preventDefault()
 
@@ -262,7 +281,7 @@ function renderCatalog() {
            <br>
            <br>
            <div class="card card-primary text-center">
-           <img style="width:100%" class="card-img-top" src="${parceriasGuardados[i]._linkLogotipo}" alt="Card image cap">
+           <img style="height:90px;" class="card-img-top" src="${parceriasGuardados[i]._linkLogotipo}" alt="Card image cap">
            <h3 class="card-title" style="background-color:rgb(218, 215, 209)">${parceriasGuardados[i]._Empresa}</h3>
           
                <div class="card-body">
@@ -326,7 +345,7 @@ function renderCatalogEventos() {
    <br>
     <div class="card">
     <h3 class="card-title" style="text-align:center">${EventosGuardados[i]._categoria}</h3>
-    <img style="width:100%" class="card-img-top" src="${EventosGuardados[i]._imagem}" alt="Card image cap">
+    <img style="height:170px;" class="card-img-top" src="${EventosGuardados[i]._imagem}" alt="Card image cap">
         <div class="card-body">
            
             <h5>Responsável:</h5>
@@ -390,7 +409,7 @@ function renderCatalogD() {
 
             // Cria a card
             strHtmlCardD += `<div class="col-sm-2">
-        <div class="card card-primary text-center">
+        <div class="card card-primary text-center" style="width:80%; height:100%">
         <img style="width:100%" src="${DocentesGuardados[i]._foto}" alt="">
        
             <div class="card-body">
@@ -420,4 +439,5 @@ function renderCatalogD() {
     myCard.innerHTML = strHtmlCardD
 
 }
+
 
