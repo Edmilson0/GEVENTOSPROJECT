@@ -205,8 +205,58 @@ class Docentes {
     // obter o ultimo id
     static getLastId() {
         let lastId = 0
-        if (arrayDocentes.length > 0) {
-            lastId = arrayDocentes[arrayDocentes.length - 1].IdDocente
+        if (arrayTestemuhos.length > 0) {
+            lastId = arrayTestemuhos[arrayTestemuhos.length - 1].IdDocente
+        }
+        return lastId
+    }
+
+
+}
+
+//##########################Testemunhos#########################
+let arrayTestemuhos = []
+
+class Testemunhos {
+    constructor(nomeTe, testemunho, fotoTe) {
+        this._idTes = Testemunhos.getLastId() + 1
+        this.nomeTe = nomeTe
+        this.testemunho = testemunho
+        this.fotoTe = fotoTe
+    }
+    // Propriedade id
+    get idTes() {
+        return this._idTes
+    }
+
+    // Propriedade nomeTe
+    get nomeTe() {
+        return this._nomeTe
+    }
+    set nomeTe(novoNomeTe) {
+        this._nomeTe = novoNomeTe
+    }
+
+    // Propriedade testemunho
+    get testemunho() {
+        return this._testemunho
+    }
+
+    set testemunho(novoTestemunho) {
+        this._testemunho = novoTestemunho
+    }
+    // Propriedade fotoTe
+    get fotoTe() {
+        return this._fotoTe
+    }
+    set fotoTe(novoFotoTe) {
+        this._fotoTe = novoFotoTe
+    }
+    // obter o ultimo id
+    static getLastId() {
+        let lastId = 0
+        if (arrayTestemuhos.length > 0) {
+            lastId = arrayTestemuhos[arrayTestemuhos.length - 1].idTes
         }
         return lastId
     }
@@ -215,11 +265,13 @@ class Docentes {
 }
 
 
+
 //##########################windowLoad#########################
 
 window.onload = function () {
 
-
+    atualizaTabela()
+    atualizaTabelaTestemunho()
 
     let frmCriarEventos = document.getElementById("frmCriarEventosConfig")
 
@@ -280,8 +332,8 @@ window.onload = function () {
     frmDocentes.addEventListener("submit", function (events) {
 
         let novaDocentes = new Docentes(nomeDocente.value, foto.value, formaçao.value, cv.value)
-        arrayDocentes.push(novaDocentes)
-        localStorage.setItem("Docentes", JSON.stringify(arrayDocentes))
+        arrayTestemuhos.push(novaDocentes)
+        localStorage.setItem("Docentes", JSON.stringify(arrayTestemuhos))
         alert("Adicionado com sucesso")
 
         events.preventDefault()
@@ -346,7 +398,7 @@ window.onload = function () {
         let docentesGuardados = ""
 
 
-        // eliminar parcerias
+        // eliminar
 
 
 
@@ -361,6 +413,7 @@ window.onload = function () {
                 docentesGuardados.splice(i, 1)
 
                 localStorage.setItem("Docentes", JSON.stringify(docentesGuardados))
+                atualizaTabela()
             }
             else {
                 contD++
@@ -370,6 +423,8 @@ window.onload = function () {
         if (contD == docentesGuardados.length) {
             alert("Nome inválido")
         }
+
+       
         events.preventDefault()
 
 
@@ -420,6 +475,64 @@ window.onload = function () {
     })
 
 
+
+}
+
+// Função que atualiza a tabela
+function atualizaTabela() {
+
+    if (localStorage.getItem("Docentes")) {
+        let temparrayTestemuhos = []
+        temparrayTestemuhos = JSON.parse(localStorage.getItem("Docentes"))
+        for (let i = 0; i < temparrayTestemuhos.length; i++) {
+            let novodocente = new Docentes(temparrayTestemuhos[i]._NomeDocente, temparrayTestemuhos[i]._foto, temparrayTestemuhos[i]._formaçao, temparrayTestemuhos[i]._CV)
+            arrayTestemuhos.push(novodocente)
+
+        }
+
+    }
+
+    let tblDocentes = document.getElementById("tblDocentes")
+    let str = ""
+    str = "<thead class='thead-dark'><tr><th>FOTO</th><th>NOME</th></tr></thead><tbody>"
+    for (let i = 0; i < arrayTestemuhos.length; i++) {
+        str += "<tr>"        
+        str += "<td> <img class='card-img-top' style='width:30%; height:40%' src='" + arrayTestemuhos[i]._foto + "'></td>"
+       
+        str += "<td style='color:white'>" + arrayTestemuhos[i]._NomeDocente + "</td>"
+        str +="</tr>"
+    }
+    str += "<tbody>"
+    tblDocentes.innerHTML = str
+
+}
+
+// Função que atualiza a tabela
+function atualizaTabelaTestemunho() {
+
+    if (localStorage.getItem("Testemunho")) {
+        let tempArrayTestemunho = []
+        tempArrayTestemunho = JSON.parse(localStorage.getItem("Testemunho"))
+        for (let i = 0; i < tempArrayTestemunho.length; i++) {
+            let novotestemunho = new Testemunhos(tempArrayTestemunho[i]._nomeTe, tempArrayTestemunho[i]._testemunho, tempArrayTestemunho[i]._fotoTe)
+            arrayTestemuhos.push(novotestemunho)   
+            
+        }
+
+    }
+
+    let tblDocentes = document.getElementById("tblTestemunhos")
+    let str = ""
+    str = "<thead class='thead-dark'><tr><th>FOTO</th><th>NOME</th></tr></thead><tbody>"
+    for (let i = 0; i < arrayTestemuhos.length; i++) {
+        str += "<tr>"        
+        str += "<td> <img class='card-img-top' style='width:30%; height:40%' src='" + arrayTestemuhos[i]._fotoTe + "'></td>"
+       
+        str += "<td style='color:white'>" + arrayTestemuhos[i]._nomeTe + "</td>"
+        str +="</tr>"
+    }
+    str += "<tbody>"
+    tblDocentes.innerHTML = str
 
 }
 

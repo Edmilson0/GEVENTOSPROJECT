@@ -215,6 +215,48 @@ class Utilizador {
 
 }
 
+//################+++++################################################
+
+let arrayIrEventos = []
+
+class IrEventos {
+    constructor(idEvento, interessado, ir) {
+
+        this.idEvento = idEvento
+        this.interessado = interessado
+        this.ir = ir
+
+
+    }
+
+    // Propriedade idEvento
+    get idEvento() {
+        return this._idEvento
+    }
+    set idEvento(novoidEvento) {
+        this._idEvento = novoidEvento
+    }
+
+
+    // Propriedade interessado
+    get interessado() {
+        return this._interessado
+    }
+
+    set interessado(novointeressado) {
+        this._interessado = novointeressado
+    }
+    // Propriedade ir
+    get ir() {
+        return this._ir
+    }
+
+    set ir(novoIr) {
+        this._ir = novoIr+1
+    }
+   
+
+}
 
 
 window.onload = function () {
@@ -222,22 +264,46 @@ window.onload = function () {
     renderCatalog()
 
     if (localStorage.getItem("Eventos")) {
-        let tempArrayEvents = []
-        tempArrayEvents = JSON.parse(localStorage.getItem("Eventos"))
-        for (let i = 0; i < tempArrayEvents.length; i++) {
-            let novoEvents = new Utilizador(tempArrayEvents[i]._nome, tempArrayEvents[i]._email, tempArrayEvents[i]._password, tempArrayEvents[i]._foto, tempArrayEvents[i]._tipoUtilizador)
-            arrayEventos.push(novoEvents)   
-            
+        let tempArrayEventos = []
+        tempArrayEventos = JSON.parse(localStorage.getItem("Eventos"))
+        for (let i = 0; i < tempArrayEventos.length; i++) {
+            let novoEvents = new Eventos(tempArrayEventos[i]._data, tempArrayEventos[i]._hora, tempArrayEventos[i]._sala, tempArrayEventos[i]._categoria, tempArrayEventos[i]._responsavel, tempArrayEventos[i]._imagem, tempArrayEventos[i]._designacao)
+            arrayEventos.push(novoEvents)
+
         }
 
     }
+
+    
+    if (localStorage.getItem("utilizadores")) {
+        let tempArray = []
+        tempArray = JSON.parse(localStorage.getItem("utilizadores"))
+        for (let i = 0; i < tempArray.length; i++) {
+            let novoutilizador = new Utilizador(tempArray[i]._nome, tempArray[i]._email, tempArray[i]._password, tempArray[i]._foto, tempArray[i]._tipoUtilizador)
+            arrayUtilizadores.push(novoutilizador)
+
+        }
+
+    }
+
+    
+
+    let utilizadorOnline=""
+
+    if (localStorage.getItem("estadoUtitlizador")) {
+        utilizadorOnline = localStorage.getItem("estadoUtitlizador")
+    }
+    let pos1 = utilizadorOnline.indexOf(",")
+    let pos2 = utilizadorOnline.lastIndexOf(",")
+    let substring2 = utilizadorOnline.substring(0, pos1)
+    let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
 
 
     let btnLogout = document.getElementById("optLogout")
     let btnConfig = document.getElementById("linkConfig")
 
     btnConfig.style.display = 'none'
-   
+
 
     let verCategoria = document.getElementById("optVerPorCategorias")
     let btnVer = document.getElementById("ver")
@@ -245,31 +311,24 @@ window.onload = function () {
     let btnRange = document.getElementById("inputRange")
     let btnCriarEventos = document.getElementById("btnCriarEventos")
     let frmCriarEventos = document.getElementById("frmCriarEventos")
-   btnCriarEventos.style.display='none'
+    //btnCriarEventos.style.display = 'none'
     let btnRegisto = document.getElementById("optRegisto")
-    
+
     let btnLogin = document.getElementById("optLogin")
     let ModalRegistar = document.getElementById("frmRegistar")
     btnLogout.style.display = 'none'
+
+
+
    
 
-    if (localStorage.getItem("utilizadores")) {
-        let tempArrayEvents = []
-        tempArrayEvents = JSON.parse(localStorage.getItem("utilizadores"))
-        for (let i = 0; i < tempArrayEvents.length; i++) {
-            let novoutilizador = new Eventos(tempArrayEvents[i]._data, tempArrayEvents[i]._hora, tempArrayEvents[i]._sala, tempArrayEvents[i]._categoria, tempArrayEvents[i]._responsavel, tempArrayEvents[i]._imagem, tempArrayEvents[i]._designacao)
-            arrayUtilizadores.push(novoutilizador)   
-            
-        }
-
-    }
 
 
     let arrayEstadoUt = []
     let estado = ""
 
     let stadoUtilizador = false
-    let utilizadorOnline = ""
+
 
 
     //fazendo login
@@ -317,7 +376,7 @@ window.onload = function () {
             else {
                 cont++
             }
-           
+
         }
         //se o utilizador não exister emite uma mensagem
         if (cont == utGuardados.length) {
@@ -325,7 +384,7 @@ window.onload = function () {
             event.preventDefault()
         }
 
-        
+
         if (localStorage.getItem("estadoUtitlizador")) {
             utilizadorOnline = localStorage.getItem("estadoUtitlizador")
         }
@@ -333,16 +392,16 @@ window.onload = function () {
         let pos2 = utilizadorOnline.lastIndexOf(",")
         let substring2 = utilizadorOnline.substring(0, pos1)
         let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
-    
-    
-        if (substring3 == "Visitante"||substring3 == "Estudante") {
-          btnCriarEventos.style.display='none'
-            
+
+
+        if (substring3 == "Visitante" || substring3 == "Estudante") {
+            btnCriarEventos.style.display = 'none'
+
         }
-        else{
-            btnCriarEventos.style.display='block'
+        else {
+            btnCriarEventos.style.display = 'block'
         }
-        
+
 
         event.preventDefault()
 
@@ -377,8 +436,8 @@ window.onload = function () {
 
     })
 
-     //submeter os dados do utilizador 
-     ModalRegistar.addEventListener("submit", function (event) {
+    //submeter os dados do utilizador 
+    ModalRegistar.addEventListener("submit", function (event) {
 
 
         let estudante = document.getElementById("estudante")
@@ -476,6 +535,9 @@ window.onload = function () {
         if (localStorage.getItem("Eventos")) {
             EventosGuardados2 = JSON.parse(localStorage.getItem("Eventos"))
         }
+        if (localStorage.getItem("Interessados")) {
+            interessadosGuardados = JSON.parse(localStorage.getItem("Interessados"))
+        }
 
         for (let i = 0; i < EventosGuardados2.length; i++) {
             if (verCategoria.value == EventosGuardados2[i]._categoria) {
@@ -494,77 +556,78 @@ window.onload = function () {
                     strHtmlCard2 += `<div class="row">`
                 }
 
-                // Cria a card
-                strHtmlCard2 += `<div class="col-sm-6">
-                               <br>
-                                <div class="card">
-                                <h3 class="card-title" style="background-color:rgb(218, 215, 209)">${EventosGuardados2[i]._categoria}</h3>
-                                <img class="card-img-top" style="height:235px;" src="${EventosGuardados2[i]._imagem}" alt="Card image cap">
-                                    <div class="card-body">
-                                       
-                                        <p class="card-text">${EventosGuardados2[i]._designacao}</p>
-                                        <br>
-                                        <h5>Responsável:</h5>
-                                        <h6 class="card-text">${EventosGuardados2[i]._responsavel}</h6>
-                                        <h5>Data:</h5>
-                                        <h6 class="card-text">${EventosGuardados2[i]._data}</h6>
-                                        <h5>Hora:</h5>
-                                        <h6 class="card-text">${EventosGuardados2[i]._hora}</h6>
-                                        <h5>Sala:</h5>
-                                        <h6 class="card-text">${EventosGuardados2[i]._sala}</h6>
-                    
-                                        <div class="row">
-                                        <div class="col-sm-6">
-                                       
-                                        </div>
-                                        <div class="col-sm-3">
-                                        <button type="button" class="btn btn-warning">Ir</button>
-                                        </div>
-                                        <div class="col-sm-3">
-                                        <small id="helpId" class="form-text text-muted">Interessados</small>
-                                        </div>
-                                        </div>
-                    
-                                        <hr style="background-color:rgb(238, 168, 29)">
-                    
-                                        <div class="row">
-                                        <div class="col-sm-3">
-                                        
-                                        </div>
-                    
-                                        <div class="col-sm-9">
-                                        <form action="/action_page.php" method="get">
-                                        <small id="helpId" class="form-text text-muted">Pontuar</small>
-                                        <input id="inputRange" class="range" type="range" name="vol" value="0" min="0" max="10">
-                                   
-                                            <input id="btnPOntuar" type="submit" class="btn btn-warning"></input>
-                                        
-                                    </form>
-                                        </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                        <div class="form-group">
-     
-      <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Comentar">
-     
-    </div>
-                                        </div>
-                                      
-                                        <br>`
+               // Cria a card
+               strHtmlCard2 += `<div class="col-sm-6">
+               <br>
+                <div class="card" style="width:80%; height:100%">
+                <img class="card-img-top" style="height:235px;" src="${EventosGuardados2[i]._imagem}" alt="Card image cap">
+                <h3 class="card-title" style="background-color:rgb(218, 215, 209)">${EventosGuardados2[i]._categoria}</h3>
+               
+                    <div class="card-body">
+                       
+                        <p class="card-text">${EventosGuardados2[i]._designacao}</p>
+                        <br>
+                        <h5>Responsável:</h5>
+                        <h6 class="card-text">${EventosGuardados2[i]._responsavel}</h6>
+                        <h5>Data:</h5>
+                        <h6 class="card-text">${EventosGuardados2[i]._data}</h6>
+                        <h5>Hora:</h5>
+                        <h6 class="card-text">${EventosGuardados2[i]._hora}</h6>
+                        <h5>Sala:</h5>
+                        <h6 class="card-text">${EventosGuardados2[i]._sala}</h6>
+    
+                        <div class="row">
+                        <div class="col-sm-6">
+                       
+                        </div>
+                        <div class="col-sm-3">
+                        <button type="button" class="btn btn-warning">Ir</button>
+                        </div>
+                        <div class="col-sm-3">
+                        <small id="helpId" class="form-text text-muted">Interessados</small>
+                        </div>
+                        </div>
+    
+                        <hr style="background-color:rgb(238, 168, 29)">
+    
+                        <div class="row">
+                        <div class="col-sm-3">
+                        
+                        </div>
+    
+                        <div class="col-sm-9">
+                        <form action="/action_page.php" method="get">
+                        <small id="helpId" class="form-text text-muted">Pontuar</small>
+                        <input id="inputRange" class="range" type="range" name="vol" value="0" min="0" max="10">
+                   
+                            <input id="btnPOntuar" type="submit" class="btn btn-warning"></input>
+                        
+                    </form>
+                        </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                        <div class="form-group">
+
+<input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Comentar">
+
+</div>
+                        </div>
+                      
+                        <br>`
 
 
 
 
-                strHtmlCard2 += `</div>
-                                        </div>      
-                                    </div>`
+strHtmlCard2 += `</div>
+                        </div>      
+                    </div>`
 
-                // Fecha a linha
-                if (i % 2 == 1) {
-                    strHtmlCard2 += `</div>`
-                }
-
+// Fecha a linha
+if (i % 2 == 1) {
+    strHtmlCard2 += `</div>`
+}
+                                
                 myCard.innerHTML = strHtmlCard2
                 strHtmlCard2 = ""
 
@@ -576,7 +639,7 @@ window.onload = function () {
                 swal({
                     icon: "error",
                     title: "Evento não existente!",
-                    
+
                 });
             }
 
@@ -599,6 +662,7 @@ function renderCatalog() {
     let myCard = document.getElementById("myCardEventos")
 
     let EventosGuardados = ""
+    let interessadosGuardados=""
 
 
     // 1. Iterar sobre o array de Trips
@@ -609,12 +673,13 @@ function renderCatalog() {
     if (localStorage.getItem("Eventos")) {
         EventosGuardados = JSON.parse(localStorage.getItem("Eventos"))
     }
-
+   
+   
 
     for (let i = 0; i < EventosGuardados.length; i++) {
+     
 
-
-        console.log(EventosGuardados[i]._categoria)
+        console.log(interessadosGuardados.length)
         // Inicia a linha
         if (i % 2 == 0) {
             strHtmlCard += `<div class="row">`
@@ -623,9 +688,10 @@ function renderCatalog() {
         // Cria a card
         strHtmlCard += `<div class="col-sm-6">
                    <br>
-                    <div class="card">
-                    <h3 class="card-title" style="background-color:rgb(218, 215, 209)">${EventosGuardados[i]._categoria}</h3>
+                    <div class="card" style="width:80%; height:100%">
+                  
                     <img class="card-img-top" style="height:235px;" src="${EventosGuardados[i]._imagem}" alt="Card image cap">
+                    <h3 class="card-title" style="background-color:rgb(218, 215, 209)">${EventosGuardados[i]._categoria}</h3>
                         <div class="card-body">
                            
                             <p class="card-text">${EventosGuardados[i]._designacao}</p>
@@ -644,65 +710,108 @@ function renderCatalog() {
                            
                             </div>
                             <div class="col-sm-3">
-                            <button type="button" class="btn btn-warning">Ir</button>
+                            <button id="btnIrEvento" type="button" class="btn btn-warning ir">Ir</button>
                             </div>
                             <div class="col-sm-3">
                             <small id="helpId" class="form-text text-muted">Interessados</small>
-                            <hr style="background-color:rgb(238, 168, 29)">
-                            </div>
-                            </div>
+
+            <hr style="background-color:rgb(238, 168, 29)">
+            </div>
+            </div>
+
+            
+
+            <div class="row">
+            <div class="col-sm-3">
+            
+            </div>
+
+            <div class="col-sm-9">
+            <form action="/action_page.php" method="get">
+            <small id="helpId" class="form-text text-muted">Pontuar</small>
+            <input id="inputRange" class="pontuar" type="range" name="vol" value="0" min="0" max="10">
+       
+                <input id="btnPOntuar" type="submit" class="btn btn-warning"></input>
+            
+        </form>
+            </div>
+            </div>
+            <br>
+            <div class="row">
+            <div class="form-group">
+
+<input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Comentar">
+<br>
+<button id="btnCriarEventos" type="button" class="btn btn-warning v" data-target="#criarEventos" data-toggle="modal">
+Enviar
+</button>
+
+</div>
+            </div>
+          
+            `
+
+
+            strHtmlCard += `</div>
+            </div>      
+        </div>`
+
+            // Fecha a linha
+            if (i % 2 == 1) {
+                strHtmlCard += `</div>`
+            }
+
+
         
-                            
-        
-                            <div class="row">
-                            <div class="col-sm-3">
-                            
-                            </div>
-        
-                            <div class="col-sm-9">
-                            <form action="/action_page.php" method="get">
-                            <small id="helpId" class="form-text text-muted">Pontuar</small>
-                            <input id="inputRange" class="pontuar" type="range" name="vol" value="0" min="0" max="10">
-                       
-                                <input id="btnPOntuar" type="submit" class="btn btn-warning"></input>
-                            
-                        </form>
-                            </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                            <div class="form-group">
-     
-      <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Comentar">
-     
-    </div>
-                            </div>
-                          
-                            <br>`
 
-
-
-
-        strHtmlCard += `</div>
-                            </div>      
-                        </div>`
-
-        // Fecha a linha
-        if (i % 2 == 1) {
-            strHtmlCard += `</div>`
-        }
-
-
-
-
+       
     }
 
     myCard.innerHTML = strHtmlCard
 
+    arrayInteressados = []
+    let idDoEvento = ""
+    let idDoUtilizador = ""
+    let nomeUtilizadorLogado = ""
+    let btnIrEventos = document.getElementsByClassName("btn btn-warning ir"),i;
+
+    let estado = ""
+    let click = 0
+
+    if (localStorage.getItem("estadoUtitlizador")) {
+        estado = localStorage.getItem("estadoUtitlizador")
+    }
+    let pos1 = estado.indexOf(",")
+    let pos2=estado.lastIndexOf(",")
+    let substring1 = estado.substring(pos1+1,pos2)
+    console.log(substring1)
+    nomeUtilizadorLogado = estado.substring(0, pos1)
+
+    for (let i = 0; i < btnIrEventos.length; i++) {
+        btnIrEventos[i].addEventListener("click", function () {
+            click = 1
+            idDoEvento = EventosGuardados[i]._idEv
+            idDoUtilizador = btnIrEventos[i].getAttribute("idUt")
+            let objtIteressados = new IrEventos(idDoEvento, nomeUtilizadorLogado, click)
+            arrayInteressados.push(objtIteressados)
+
+            localStorage.setItem("Interessados", JSON.stringify(arrayInteressados))
+
+            if (click == 1) {
+                
+               btnIrEventos[i].style.display='none'
+
+            }
+
+
+        })
+
+
+    }
 
 
     //###################++#############################
-   
+
 
 
     //#################++#############################

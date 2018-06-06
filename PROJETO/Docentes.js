@@ -160,7 +160,7 @@ window.onload = function () {
     let btnLogout = document.getElementById("optLogout")
     let btnConfig = document.getElementById("linkConfig")
     btnLogout.style.display = 'none'
-    btnConfig.style.display = 'none'
+    //btnConfig.style.display = 'none'
 
     let nomeDocente = document.getElementById("modalNomeDocente")
     let formaçao = document.getElementById("modalFormaçaoDocente")
@@ -171,7 +171,11 @@ window.onload = function () {
     let btnLogin = document.getElementById("optLogin")
     let btnCriarDocentes = document.getElementById("btnAdDocentes")
     let ModalRegistar = document.getElementById("frmRegistar")
-
+    let iconRemoverDocentes=document.getElementsByClassName("fas fa-trash d")
+    for (let i = 0; i < iconRemoverDocentes.length; i++) {
+        iconRemoverDocentes[i].style.display='none'
+         
+     }
 
     let arrayEstadoUt = []
     let estado = ""
@@ -246,14 +250,25 @@ window.onload = function () {
         let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
 
 
-        if (substring3 == "Visitante" || substring3 == "Estudante") {
+        if (substring3 == "Visitante" || substring3 == "estudante") {
             btnCriarDocentes.style.display = 'none'
-
+            for (let i = 0; i < iconRemoverDocentes.length; i++) {
+               iconRemoverDocentes[i].style.display='none'
+                
+            }
+            console.log(substring3)
 
         }
+        
         else {
             btnCriarDocentes.style.display = 'block'
+            for (let i = 0; i < iconRemoverDocentes.length; i++) {
+                iconRemoverDocentes[i].style.display='block'
+                 
+             }
         }
+
+        renderCatalog()
 
         event.preventDefault()
 
@@ -262,16 +277,25 @@ window.onload = function () {
 
     //Fazendo logout
     btnLogout.addEventListener("click", function (event) {
+
+        for (let i = 0; i < iconRemoverDocentes.length; i++) {
+            iconRemoverDocentes[i].style.display='block'
+             
+         }
+
+
         let estado = ""
 
         if (localStorage.getItem("estadoUtitlizador")) {
             estado = localStorage.getItem("estadoUtitlizador")
         }
         let pos1 = estado.indexOf(",")
+       
         let substring1 = estado.substring(pos1 + 1, estado.length)
         let substring2 = estado.substring(0, pos1)
+       
         stadoUtilizador = false
-        console.log(substring2)
+        console.log(substring1)
 
         arrayEstadoUt.push(substring2)
         arrayEstadoUt.push(stadoUtilizador)
@@ -281,6 +305,7 @@ window.onload = function () {
         btnLogin.style.display = 'block'
         btnCriarDocentes.style.display = 'none'
         btnLogout.style.display = 'none'
+      
 
         event.preventDefault()
 
@@ -341,6 +366,7 @@ window.onload = function () {
         arrayEstadoUt.push(tipoutilizador)
         localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
         arrayEstadoUt = []
+        
 
 
         if (localStorage.getItem("estadoUtitlizador")) {
@@ -352,8 +378,12 @@ window.onload = function () {
         let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
 
 
-        if (substring3 == "Visitante" || substring3 == "Estudante") {
+        if (substring3 == "Visitante" || substring3 == "estudante") {
             btnCriarDocentes.style.display = 'none'
+            for (let i = 0; i < iconRemoverDocentes.length; i++) {
+                iconRemoverDocentes[i].style.display='none'
+                 
+             }
 
 
         }
@@ -414,13 +444,11 @@ function renderCatalog() {
             <div class="card-body">
             <h5 class="card-text">${DocentesGuardados[i]._NomeDocente}</h5>
                 <p class="card-text">${ DocentesGuardados[i]._formaçao}</p>
-                <p class="card-text">${ DocentesGuardados[i]._CV}</p>
                
-              
                 <br>
                 <input name="" id="btnLerCV" class="btn z" type="button" value="Ler">
                 <small id="helpId" class="form-text text-muted">Ler o Curriculum Vitae do docente</small>
-                
+                <a href=""><i id="iconRemoverDocentes" class="fas fa-trash d"></i></a>
                
                     <hr>`
 
@@ -438,9 +466,80 @@ function renderCatalog() {
 
     myCard.innerHTML = strHtmlCard
 
+    let iconRemoverDocentes=document.getElementsByClassName("fas fa-trash d")
+   
+    let utilizadorOnline=""
+
+    if (localStorage.getItem("estadoUtitlizador")) {
+        utilizadorOnline = localStorage.getItem("estadoUtitlizador")
+    }
+    let pos1 = utilizadorOnline.indexOf(",")
+    let pos2 = utilizadorOnline.lastIndexOf(",")
+    let substring2 = utilizadorOnline.substring(0, pos1)
+    let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
+
+    if (substring3=="Visitante"||substring3=="Estudante") {
+
+       for (let i = 0; i < iconRemoverDocentes.length; i++) {
+           iconRemoverDocentes[i].style.display='none'
+           
+       }
+        
+    }
+
+
+    //remover docentes
+
+    
+
+    for (let i = 0; i< iconRemoverDocentes.length; i++) {
+     
+        iconRemoverDocentes[i].addEventListener("click",function(event){
+            console.log("entrei")
+            DocentesGuardados.splice(i,1)
+            localStorage.setItem("Docentes", JSON.stringify(DocentesGuardados))
+            
+        // Inicia a linha
+        if (i % 4 == 0) {
+            strHtmlCard += `<div class="row">`
+        }
+
+        // Cria a card
+        strHtmlCard += `<div class="col-sm-3">
+        <br>
+        <div class="card" style="width:80%; height:100%">
+        <img style="width:100%" src="${DocentesGuardados[i]._foto}" alt="">
+       
+            <div class="card-body">
+            <h5 class="card-text">${DocentesGuardados[i]._NomeDocente}</h5>
+                <p class="card-text">${ DocentesGuardados[i]._formaçao}</p>
+               
+                <br>
+                <input name="" id="btnLerCV" class="btn z" type="button" value="Ler">
+                <small id="helpId" class="form-text text-muted">Ler o Curriculum Vitae do docente</small>
+                <a href=""><i id="iconRemoverDocentes" class="fas fa-trash d"></i></a>
+               
+                    <hr>`
+
+
+        strHtmlCard += `</div>
+                    </div>      
+                </div>`
+
+        // Fecha a linha
+        if (i % 4 == 3) {
+            strHtmlCard += `</div>`
+        }
+            event.preventDefault()
+        })
+       
+    }
+
+    //preencher a modal do curriculum
 
     let header = ""
     let content = ""
+    let img=""
     let strSubmitFunc = hideModal();
     btnText = "Just do it!";
 
@@ -467,6 +566,7 @@ function renderCatalog() {
 
             header = arrayDocentes[i]._NomeDocente+": "+"Curriculum Vitae";
             content = arrayDocentes[i]._CV;
+            img=arrayDocentes[i]._foto
 
 
             doModal('myModal', header, content);
@@ -482,6 +582,7 @@ function doModal(placementId, heading, formContent) {
     let html = '<div id="modalWindow" class="modal hide fade in" style="display:none; width:50%;height: 50%; background-color:white">';
     html += '<div class="modal-header">';
     html += '<a class="btn btn-danger" data-dismiss="modal">×</a>';
+   
     html += '<h4 style="color:black">' + heading + '</h4>'
     html += '</div>';
     html += '<div class="modal-body">';

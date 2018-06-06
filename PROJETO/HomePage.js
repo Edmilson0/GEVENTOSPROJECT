@@ -280,8 +280,8 @@ function renderCatalog() {
         strHtmlCard += `<div class="col-sm-4">
            <br>
            <br>
-           <div class="card card-primary text-center">
-           <img style="height:90px;" class="card-img-top" src="${parceriasGuardados[i]._linkLogotipo}" alt="Card image cap">
+           <div class="card card-primary text-center" style="width:80%; height:100%">
+           <img class="card-img-top" src="${parceriasGuardados[i]._linkLogotipo}" alt="Card image cap">
            <h3 class="card-title" style="background-color:rgb(218, 215, 209)">${parceriasGuardados[i]._Empresa}</h3>
           
                <div class="card-body">
@@ -343,9 +343,10 @@ function renderCatalogEventos() {
             // Cria a card
             strHtmlCardE += `<div class="col-sm-4">
    <br>
-    <div class="card">
+    <div class="card" style="width:80%; height:100%">
+  
+    <img style="height:100%;" class="card-img-top" src="${EventosGuardados[i]._imagem}" alt="Card image cap">
     <h3 class="card-title" style="text-align:center">${EventosGuardados[i]._categoria}</h3>
-    <img style="height:170px;" class="card-img-top" src="${EventosGuardados[i]._imagem}" alt="Card image cap">
         <div class="card-body">
            
             <h5>Responsável:</h5>
