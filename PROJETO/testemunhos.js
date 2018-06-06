@@ -125,8 +125,8 @@ window.onload = function () {
         tempArray = JSON.parse(localStorage.getItem("utilizadores"))
         for (let i = 0; i < tempArray.length; i++) {
             let novoutilizador = new Utilizador(tempArray[i]._nome, tempArray[i]._email, tempArray[i]._password, tempArray[i]._foto, tempArray[i]._tipoUtilizador)
-            arrayUtilizadores.push(novoutilizador)   
-            
+            arrayUtilizadores.push(novoutilizador)
+
         }
 
     }
@@ -136,8 +136,8 @@ window.onload = function () {
         tempArrayTestemunho = JSON.parse(localStorage.getItem("Testemunho"))
         for (let i = 0; i < tempArrayTestemunho.length; i++) {
             let novotestemunho = new Testemunhos(tempArrayTestemunho[i]._nomeTe, tempArrayTestemunho[i]._testemunho, tempArrayTestemunho[i]._fotoTe)
-            arrayTestemuhos.push(novotestemunho)   
-            
+            arrayTestemuhos.push(novotestemunho)
+
         }
 
     }
@@ -146,8 +146,8 @@ window.onload = function () {
 
     let btnLogout = document.getElementById("optLogout")
     let btnConfig = document.getElementById("linkConfig")
-    btnLogout.style.display = 'none'
-    btnConfig.style.display = 'none'
+
+
 
     let nomeTe = document.getElementById("nomeTe")
     let fotoTe = document.getElementById("fotoTe")
@@ -159,19 +159,49 @@ window.onload = function () {
     let btnLogin = document.getElementById("optLogin")
     let btnCriarDocentes = document.getElementById("btnAdDocentes")
     let btnCriarTestemunho = document.getElementById("btnSubmeterTestemunho")
-    let maisTestemunho=document.getElementById("+Testemunhos")
-    maisTestemunho.style.display='none'
+    let maisTestemunho = document.getElementById("+Testemunhos")
+    maisTestemunho.style.display = 'none'
     let arrayEstadoUt = []
     let estado = ""
 
     let stadoUtilizador = false
     let utilizadorOnline = ""
 
+
+    if (localStorage.getItem("estadoUtitlizador")) {
+        utilizadorOnline = localStorage.getItem("estadoUtitlizador")
+    }
+    let pos1 = utilizadorOnline.indexOf(",")
+    let pos2 = utilizadorOnline.lastIndexOf(",")
+    let substring2 = utilizadorOnline.substring(0, pos1)
+    let substring4 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
+    let substring3 = utilizadorOnline.substring(pos1 + 1, pos2)
+    console.log(substring4)
+
+
+    if (substring4 == "Visitante"||substring4 == "docente" && substring3 == "true") {
+       
+        btnLogout.style.display = 'block'
+        btnLogin.style.display = 'none'
+        btnRegisto.style.display = 'none'
+       
+        btnConfig.style.display = 'none'
+    }
+     if (substring4 == "estudante") {
+        btnLogout.style.display = 'block'
+        btnLogin.style.display = 'none'
+        btnRegisto.style.display = 'none'
+      
+        maisTestemunho.style.display = 'block'
+    }
    
+
+
 
     //fazendo login
     frmLogin.addEventListener("submit", function (event) {
 
+        
         let optRegistar = document.getElementById("linkRegistar")
         let barra = document.getElementById("barra")
         let loginName = document.getElementById("ModalName")
@@ -194,7 +224,7 @@ window.onload = function () {
                 swal({
                     icon: "success",
                     title: "Login com sucesso!",
-                    text: "Bem vindo! "+utGuardados[i]._nome,
+                    text: "Bem vindo! " + utGuardados[i]._nome,
                 });
 
                 btnRegisto.style.display = 'none'
@@ -215,6 +245,9 @@ window.onload = function () {
             else {
                 cont++
             }
+            if (utGuardados[i]._tipoUtilizador=="Visitante"||utGuardados[i]._tipoUtilizador=="docente") {
+                maisTestemunho.style.display='none'
+            }
 
 
 
@@ -233,25 +266,32 @@ window.onload = function () {
         let pos2 = utilizadorOnline.lastIndexOf(",")
         let substring2 = utilizadorOnline.substring(0, pos1)
         let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
-    
-    
-        if (substring3 == "Visitante") {
-           btnCriarTestemunho.style.display='none'
-           maisTestemunho.style.display='none'
-    
-        }
-        else{
-            btnCriarTestemunho.style.display='block'
+        let substring4 = utilizadorOnline.substring(pos1+1,pos2)
+  
+
+        if (substring3 == "Visitante"||substring3 == "docente" && substring4 == "true" || substring2 != arrayTestemuhos._nomeTe) {
+            console.log(substring4)
+           
+            btnCriarTestemunho.style.display = 'none'
+            maisTestemunho.style.display = 'none'
+
         }
 
-        renderCatalog()
+      
+        else if(substring4 == "estudante") {
+            btnCriarTestemunho.style.display = 'block'
+            maisTestemunho.style.display = 'block'
+        }
+       
+
+      
 
         event.preventDefault()
 
     })
 
-     //submeter os dados do utilizador 
-     ModalRegistar.addEventListener("submit", function (event) {
+    //submeter os dados do utilizador 
+    ModalRegistar.addEventListener("submit", function (event) {
 
 
         let estudante = document.getElementById("estudante")
@@ -293,9 +333,9 @@ window.onload = function () {
         swal({
             icon: "success",
             title: "Registo com sucesso!",
-            text: "Bem vindo! "+nomeUt,
+            text: "Bem vindo! " + nomeUt,
         });
-   
+
         localStorage.setItem("utilizadores", JSON.stringify(arrayUtilizadores))
         btnRegisto.style.display = 'none'
         btnLogin.style.display = 'none'
@@ -307,7 +347,7 @@ window.onload = function () {
         localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
         arrayEstadoUt = []
 
-       
+
         if (localStorage.getItem("estadoUtitlizador")) {
             utilizadorOnline = localStorage.getItem("estadoUtitlizador")
         }
@@ -315,18 +355,18 @@ window.onload = function () {
         let pos2 = utilizadorOnline.lastIndexOf(",")
         let substring2 = utilizadorOnline.substring(0, pos1)
         let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
-    
-    
+
+
         if (substring3 == "Visitante") {
-           btnCriarTestemunho.style.display='none'
-          maisTestemunho.style.display='none'
-            
+            btnCriarTestemunho.style.display = 'none'
+            maisTestemunho.style.display = 'none'
+
         }
-        else{
-            btnCriarTestemunho.style.display='block'
-            maisTestemunho.style.display='block'
+        else {
+            btnCriarTestemunho.style.display = 'block'
+            maisTestemunho.style.display = 'block'
         }
-        
+
         renderCatalog()
 
     })
@@ -337,7 +377,8 @@ window.onload = function () {
     //Fazendo logout
     btnLogout.addEventListener("click", function (event) {
         let estado = ""
-       
+        btnCriarTestemunho.style.display = 'none'
+
 
         if (localStorage.getItem("estadoUtitlizador")) {
             estado = localStorage.getItem("estadoUtitlizador")
@@ -355,8 +396,7 @@ window.onload = function () {
         btnRegisto.style.display = 'block'
         btnLogin.style.display = 'block'
         btnLogout.style.display = 'none'
-        btnCriarTestemunho.style.display='none'
-
+       
 
         event.preventDefault()
 
@@ -368,10 +408,10 @@ window.onload = function () {
         arrayTestemuhos.push(novoTestemunho)
         localStorage.setItem("Testemunho", JSON.stringify(arrayTestemuhos))
         events.preventDefault()
-        
-      
+
+
         renderCatalog()
-       
+
 
     })
 
@@ -390,12 +430,12 @@ function renderCatalog() {
     let strHtmlCard = ""
 
     if (localStorage.getItem("Testemunho")) {
-        TestemunhosGuardados =JSON.parse(localStorage.getItem("Testemunho")) 
+        TestemunhosGuardados = JSON.parse(localStorage.getItem("Testemunho"))
     }
 
     for (let i = 0; i < TestemunhosGuardados.length; i++) {
 
-       
+
         // Inicia a linha
         if (i % 4 == 0) {
             strHtmlCard += `<div class="row">`
@@ -431,38 +471,40 @@ function renderCatalog() {
     }
 
     myCard.innerHTML = strHtmlCard
-    let btnTrash=document.getElementsByClassName("remove")
-    
+    let btnTrash = document.getElementsByClassName("remove"), i;
+
+
+    if (localStorage.getItem("estadoUtitlizador")) {
+        utilizadorOnline = localStorage.getItem("estadoUtitlizador")
+    }
+    let pos1 = utilizadorOnline.indexOf(",")
+    let pos2 = utilizadorOnline.lastIndexOf(",")
+    let substring = utilizadorOnline.substring(0, pos1)
+    let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
+    let substring2 = utilizadorOnline.substring(pos1 + 1, pos2)
+
+
+
     for (let i = 0; i < btnTrash.length; i++) {
 
-        btnTrash[i].style.display='none'
-      
-        let utilizadorOnline = ""
-        if (localStorage.getItem("estadoUtitlizador")) {
-            utilizadorOnline = localStorage.getItem("estadoUtitlizador")
-        }
-        let pos1 = utilizadorOnline.indexOf(",")
-        let pos2 = utilizadorOnline.lastIndexOf(",")
-        let substring2 = utilizadorOnline.substring(0, pos1)
-        let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
-    
-    
-        if (substring3 == "Visitante"||substring3 == "Estudante") {
-           btnTrash[i].style.display='none'
-          
-    
+
+        if (substring3 == "Visitante" && substring2 == "true" || substring != TestemunhosGuardados[i]._nomeTe) {
+           
+            btnTrash[i].style.display = 'none'
+
         }
         else{
-            btnTrash[i].style.display='block'
+            console.log(TestemunhosGuardados[i]._nomeTe)
+            btnTrash[i].style.display = 'block'
         }
-       
-        btnTrash[i].addEventListener("click",function(event){
+
+        btnTrash[i].addEventListener("click", function (event) {
             console.log(TestemunhosGuardados[i])
-            TestemunhosGuardados.splice(i,1)
+            TestemunhosGuardados.splice(i, 1)
             localStorage.setItem("Testemunho", JSON.stringify(TestemunhosGuardados))
             event.preventDefault()
         })
-        
+
     }
-    
+
 }

@@ -100,7 +100,26 @@ window.onload = function () {
         }
 
     }
-    
+    let utilizadorOnline = ""
+
+    if (localStorage.getItem("estadoUtitlizador")) {
+        utilizadorOnline = localStorage.getItem("estadoUtitlizador")
+    }
+    let pos1 = utilizadorOnline.indexOf(",")
+    let pos2 = utilizadorOnline.lastIndexOf(",")
+    let substring2 = utilizadorOnline.substring(0, pos1)
+    let substring4 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
+    let substring3 = utilizadorOnline.substring(pos1 + 1, pos2)
+   
+
+    if (substring4=="Visitante"||substring4=="estudante"&&substring3=="true") {
+        console.log("entrei")
+      
+        btnLogout.style.display='block'
+        btnLogin.style.display='none'
+        btnRegistar.style.display='none'
+    }
+
     //submeter os dados do utilizador 
     ModalRegistar.addEventListener("submit", function (event) {
 
@@ -115,7 +134,7 @@ window.onload = function () {
         let confPassword = document.getElementById("ModalConfPassword").value
         let stadoUtilizador = false
 
-
+       
 
         //validar as passwords
         if (confPassword != Password) {

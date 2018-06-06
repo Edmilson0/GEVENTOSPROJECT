@@ -252,9 +252,9 @@ class IrEventos {
     }
 
     set ir(novoIr) {
-        this._ir = novoIr+1
+        this._ir = novoIr + 1
     }
-   
+
 
 }
 
@@ -263,42 +263,9 @@ window.onload = function () {
 
     renderCatalog()
 
-    if (localStorage.getItem("Eventos")) {
-        let tempArrayEventos = []
-        tempArrayEventos = JSON.parse(localStorage.getItem("Eventos"))
-        for (let i = 0; i < tempArrayEventos.length; i++) {
-            let novoEvents = new Eventos(tempArrayEventos[i]._data, tempArrayEventos[i]._hora, tempArrayEventos[i]._sala, tempArrayEventos[i]._categoria, tempArrayEventos[i]._responsavel, tempArrayEventos[i]._imagem, tempArrayEventos[i]._designacao)
-            arrayEventos.push(novoEvents)
 
-        }
-
-    }
 
     
-    if (localStorage.getItem("utilizadores")) {
-        let tempArray = []
-        tempArray = JSON.parse(localStorage.getItem("utilizadores"))
-        for (let i = 0; i < tempArray.length; i++) {
-            let novoutilizador = new Utilizador(tempArray[i]._nome, tempArray[i]._email, tempArray[i]._password, tempArray[i]._foto, tempArray[i]._tipoUtilizador)
-            arrayUtilizadores.push(novoutilizador)
-
-        }
-
-    }
-
-    
-
-    let utilizadorOnline=""
-
-    if (localStorage.getItem("estadoUtitlizador")) {
-        utilizadorOnline = localStorage.getItem("estadoUtitlizador")
-    }
-    let pos1 = utilizadorOnline.indexOf(",")
-    let pos2 = utilizadorOnline.lastIndexOf(",")
-    let substring2 = utilizadorOnline.substring(0, pos1)
-    let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
-
-
     let btnLogout = document.getElementById("optLogout")
     let btnConfig = document.getElementById("linkConfig")
 
@@ -320,7 +287,64 @@ window.onload = function () {
 
 
 
+
+
+
+    if (localStorage.getItem("Eventos")) {
+        let tempArrayEventos = []
+        tempArrayEventos = JSON.parse(localStorage.getItem("Eventos"))
+        for (let i = 0; i < tempArrayEventos.length; i++) {
+            let novoEvents = new Eventos(tempArrayEventos[i]._data, tempArrayEventos[i]._hora, tempArrayEventos[i]._sala, tempArrayEventos[i]._categoria, tempArrayEventos[i]._responsavel, tempArrayEventos[i]._imagem, tempArrayEventos[i]._designacao)
+            arrayEventos.push(novoEvents)
+
+        }
+
+    }
+
+
+    if (localStorage.getItem("utilizadores")) {
+        let tempArray = []
+        tempArray = JSON.parse(localStorage.getItem("utilizadores"))
+        for (let i = 0; i < tempArray.length; i++) {
+            let novoutilizador = new Utilizador(tempArray[i]._nome, tempArray[i]._email, tempArray[i]._password, tempArray[i]._foto, tempArray[i]._tipoUtilizador)
+            arrayUtilizadores.push(novoutilizador)
+
+        }
+
+    }
+
+    if (localStorage.getItem("Interessados")) {
+        let tempArrayInteressados = []
+        tempArrayInteressados = JSON.parse(localStorage.getItem("Interessados"))
+        for (let i = 0; i < tempArrayInteressados.length; i++) {
+            let novoInteressado = new IrEventos(tempArrayInteressados[i]._idEvento, tempArrayInteressados[i]._interessado, tempArrayInteressados[i]._ir)
+            arrayIrEventos.push(novoInteressado)
+
+        }
+
+    }
+
+
+    let utilizadorOnline = ""
+
+    if (localStorage.getItem("estadoUtitlizador")) {
+        utilizadorOnline = localStorage.getItem("estadoUtitlizador")
+    }
+    let pos1 = utilizadorOnline.indexOf(",")
+    let pos2 = utilizadorOnline.lastIndexOf(",")
+    let substring2 = utilizadorOnline.substring(0, pos1)
+    let substring4 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
+    let substring3 = utilizadorOnline.substring(pos1 + 1, pos2)
    
+
+    if (substring4=="Visitante"||substring4=="estudante"&&substring3=="true") {
+        console.log("entrei")
+        btnCriarEventos.style.display = 'none'
+        btnLogout.style.display='block'
+        btnLogin.style.display='none'
+        btnRegisto.style.display='none'
+    }
+
 
 
 
@@ -535,9 +559,6 @@ window.onload = function () {
         if (localStorage.getItem("Eventos")) {
             EventosGuardados2 = JSON.parse(localStorage.getItem("Eventos"))
         }
-        if (localStorage.getItem("Interessados")) {
-            interessadosGuardados = JSON.parse(localStorage.getItem("Interessados"))
-        }
 
         for (let i = 0; i < EventosGuardados2.length; i++) {
             if (verCategoria.value == EventosGuardados2[i]._categoria) {
@@ -556,8 +577,8 @@ window.onload = function () {
                     strHtmlCard2 += `<div class="row">`
                 }
 
-               // Cria a card
-               strHtmlCard2 += `<div class="col-sm-6">
+                // Cria a card
+                strHtmlCard2 += `<div class="col-sm-6">
                <br>
                 <div class="card" style="width:80%; height:100%">
                 <img class="card-img-top" style="height:235px;" src="${EventosGuardados2[i]._imagem}" alt="Card image cap">
@@ -619,15 +640,15 @@ window.onload = function () {
 
 
 
-strHtmlCard2 += `</div>
+                strHtmlCard2 += `</div>
                         </div>      
                     </div>`
 
-// Fecha a linha
-if (i % 2 == 1) {
-    strHtmlCard2 += `</div>`
-}
-                                
+                // Fecha a linha
+                if (i % 2 == 1) {
+                    strHtmlCard2 += `</div>`
+                }
+
                 myCard.innerHTML = strHtmlCard2
                 strHtmlCard2 = ""
 
@@ -662,24 +683,42 @@ function renderCatalog() {
     let myCard = document.getElementById("myCardEventos")
 
     let EventosGuardados = ""
-    let interessadosGuardados=""
 
 
-    // 1. Iterar sobre o array de Trips
 
-    // 2. Para cada Trip vou definir uma Card e compô-la com os dados do objeto
+
     let strHtmlCard = ""
+
+    arrayInteressados = []
+    let idDoEvento = ""
+    let idDoUtilizador = ""
+    let nomeUtilizadorLogado = ""
 
     if (localStorage.getItem("Eventos")) {
         EventosGuardados = JSON.parse(localStorage.getItem("Eventos"))
     }
-   
-   
+
+    let estado = ""
+    if (localStorage.getItem("estadoUtitlizador")) {
+        estado = localStorage.getItem("estadoUtitlizador")
+    }
+    let pos1 = estado.indexOf(",")
+    let pos2 = estado.lastIndexOf(",")
+    let substring1 = estado.substring(pos1 + 1, pos2)
+
+    nomeUtilizadorLogado = estado.substring(0, pos1)
+
+    if (localStorage.getItem("Interessados")) {
+        arrayIrEventos = JSON.parse(localStorage.getItem("Interessados"))
+    }
+
+
+
 
     for (let i = 0; i < EventosGuardados.length; i++) {
-     
+        console.log()
 
-        console.log(interessadosGuardados.length)
+
         // Inicia a linha
         if (i % 2 == 0) {
             strHtmlCard += `<div class="row">`
@@ -715,7 +754,28 @@ function renderCatalog() {
                             <div class="col-sm-3">
                             <small id="helpId" class="form-text text-muted">Interessados</small>
 
-            <hr style="background-color:rgb(238, 168, 29)">
+                            `//fechar
+        /*for (let i = 0; i <arrayIrEventos.length; i++) {
+           console.log(arrayIrEventos[i]._interessado)
+           if (arrayIrEventos[i]._idEvento==EventosGuardados[i]._idEv) {
+
+               //abrir
+              
+               strHtmlCard += `
+               <small id="helpId" class="form-text text-muted">${arrayIrEventos[i]._ir}</small>
+             
+               `//fechar
+   
+   
+              }
+           
+            
+        }*/
+
+
+
+
+        strHtmlCard += ` <hr style="background-color:rgb(238, 168, 29)">
             </div>
             </div>
 
@@ -752,54 +812,40 @@ Enviar
             `
 
 
-            strHtmlCard += `</div>
+        strHtmlCard += `</div>
             </div>      
         </div>`
 
-            // Fecha a linha
-            if (i % 2 == 1) {
-                strHtmlCard += `</div>`
-            }
+        // Fecha a linha
+        if (i % 2 == 1) {
+            strHtmlCard += `</div>`
+        }
 
-
-        
-
-       
     }
 
     myCard.innerHTML = strHtmlCard
 
-    arrayInteressados = []
-    let idDoEvento = ""
-    let idDoUtilizador = ""
-    let nomeUtilizadorLogado = ""
-    let btnIrEventos = document.getElementsByClassName("btn btn-warning ir"),i;
 
-    let estado = ""
+    let btnIrEventos = document.getElementsByClassName("btn btn-warning ir"), i;
+
+
     let click = 0
 
-    if (localStorage.getItem("estadoUtitlizador")) {
-        estado = localStorage.getItem("estadoUtitlizador")
-    }
-    let pos1 = estado.indexOf(",")
-    let pos2=estado.lastIndexOf(",")
-    let substring1 = estado.substring(pos1+1,pos2)
-    console.log(substring1)
-    nomeUtilizadorLogado = estado.substring(0, pos1)
+
 
     for (let i = 0; i < btnIrEventos.length; i++) {
         btnIrEventos[i].addEventListener("click", function () {
-            click = 1
+            click++
             idDoEvento = EventosGuardados[i]._idEv
             idDoUtilizador = btnIrEventos[i].getAttribute("idUt")
             let objtIteressados = new IrEventos(idDoEvento, nomeUtilizadorLogado, click)
-            arrayInteressados.push(objtIteressados)
+            arrayIrEventos.push(objtIteressados)
 
-            localStorage.setItem("Interessados", JSON.stringify(arrayInteressados))
+            localStorage.setItem("Interessados", JSON.stringify(arrayIrEventos))
 
             if (click == 1) {
-                
-               btnIrEventos[i].style.display='none'
+
+                btnIrEventos[i].style.display = 'none'
 
             }
 

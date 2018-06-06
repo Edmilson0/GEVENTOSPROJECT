@@ -171,7 +171,7 @@ window.onload = function () {
     let btnLogin = document.getElementById("optLogin")
     let btnCriarDocentes = document.getElementById("btnAdDocentes")
     let ModalRegistar = document.getElementById("frmRegistar")
-    let iconRemoverDocentes=document.getElementsByClassName("fas fa-trash d")
+    let iconRemoverDocentes=document.getElementsByClassName("fas fa-trash d"),i;
     for (let i = 0; i < iconRemoverDocentes.length; i++) {
         iconRemoverDocentes[i].style.display='none'
          
@@ -305,6 +305,13 @@ window.onload = function () {
         btnLogin.style.display = 'block'
         btnCriarDocentes.style.display = 'none'
         btnLogout.style.display = 'none'
+       
+
+            for (let i = 0; i < iconRemoverDocentes.length; i++) {
+                iconRemoverDocentes[i].style.display='none'
+                
+            }
+             
       
 
         event.preventDefault()
@@ -466,7 +473,7 @@ function renderCatalog() {
 
     myCard.innerHTML = strHtmlCard
 
-    let iconRemoverDocentes=document.getElementsByClassName("fas fa-trash d")
+    let iconRemoverDocentes=document.getElementsByClassName("fas fa-trash d"),i;
    
     let utilizadorOnline=""
 
@@ -478,7 +485,7 @@ function renderCatalog() {
     let substring2 = utilizadorOnline.substring(0, pos1)
     let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
 
-    if (substring3=="Visitante"||substring3=="Estudante") {
+    if (substring3=="Visitante"||substring3=="estudante") {
 
        for (let i = 0; i < iconRemoverDocentes.length; i++) {
            iconRemoverDocentes[i].style.display='none'
