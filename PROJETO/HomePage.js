@@ -76,6 +76,7 @@ window.onload = function () {
     renderCatalogEventos()
     renderCatalogD()
 
+    let CodigoDocenteGuardado = ""
 
     let ModalRegistar = document.getElementById("frmRegistar")
     let btnLogin = document.getElementById("optLogin")
@@ -112,17 +113,22 @@ window.onload = function () {
     let substring3 = utilizadorOnline.substring(pos1 + 1, pos2)
    
 
-    if (substring4=="Visitante"||substring4=="estudante"&&substring3=="true") {
+    if (substring3=="true") {
         console.log("entrei")
       
         btnLogout.style.display='block'
         btnLogin.style.display='none'
         btnRegistar.style.display='none'
     }
+   
 
     //submeter os dados do utilizador 
     ModalRegistar.addEventListener("submit", function (event) {
+        if (localStorage.getItem("Codigo")) {
 
+            CodigoDocenteGuardado = localStorage.getItem("Codigo")
+
+        }
 
         let estudante = document.getElementById("estudante")
         let docente = document.getElementById("docente")
@@ -133,8 +139,10 @@ window.onload = function () {
         let Password = document.getElementById("ModalPasswordR").value
         let confPassword = document.getElementById("ModalConfPassword").value
         let stadoUtilizador = false
+        let varContNome=0
+        let varContEmail=0
+        let confirmarCodigoDocente = ""
 
-       
 
         //validar as passwords
         if (confPassword != Password) {
@@ -145,36 +153,82 @@ window.onload = function () {
             if (estudante.checked == true) {
                 tipoutilizador = "estudante"
             } else if (docente.checked == true) {
+
+                while (confirmarCodigoDocente != CodigoDocenteGuardado) {
+                    confirmarCodigoDocente = prompt("Escreva o código de confimação")
+
+                }
+
                 tipoutilizador = "docente"
             }
             else {
                 tipoutilizador = "Visitante"
             }
 
-            let novoutilizador = new Utilizador(nomeUt, emailUt, Password, fotoUt, tipoutilizador)
-            arrayUtilizadores.push(novoutilizador)
+            for (let i = 0; i < arrayUtilizadores.length; i++) {
+              
+                if (emailUt!=arrayUtilizadores[i]._email) {
+                varContEmail++
+                }
+                
+            }
 
+            for (let i = 0; i < arrayUtilizadores.length; i++) {
+              
+                if (nomeUt!=arrayUtilizadores[i]._nome) {
+                varContNome++
+                }
+                
+            }
+            
+            if ( varContNome==arrayUtilizadores.length) {
+                
+           
+            }
+            else{
+                alert("Nome do utilizador já existente.")
+            }
+           
+            if (varContEmail==arrayUtilizadores.length) {
+                
+            }
+            else{
+                alert("Email do utilizador já existente.")
+            }
+
+
+
+            if (varContEmail==arrayUtilizadores.length&&varContNome==arrayUtilizadores.length) {
+                let novoutilizador = new Utilizador(nomeUt, emailUt, Password, fotoUt, tipoutilizador)
+                arrayUtilizadores.push(novoutilizador)
+                swal({
+                    icon: "success",
+                    title: "Registo com secesso!",
+                    text: "Bem vindo! ",
+                });
+                localStorage.setItem("utilizadores", JSON.stringify(arrayUtilizadores))
+                btnRegistar.style.display = 'none'
+                btnLogin.style.display = 'none'
+                btnLogout.style.display = 'block'
+                stadoUtilizador = true
+                arrayEstadoUt.push(nomeUt)
+                arrayEstadoUt.push(stadoUtilizador)
+                arrayEstadoUt.push(tipoutilizador)
+                localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
+                arrayEstadoUt = []
+    
+    
+            }
+
+           
 
             ModalRegistar.reset()
             console.log(arrayUtilizadores)
             event.preventDefault()
 
         }
-        swal({
-            icon: "success",
-            title: "Registo com secesso!",
-            text: "Bem vindo! ",
-        });
-        localStorage.setItem("utilizadores", JSON.stringify(arrayUtilizadores))
-        btnRegistar.style.display = 'none'
-        btnLogin.style.display = 'none'
-        btnLogout.style.display = 'block'
-        stadoUtilizador = true
-        arrayEstadoUt.push(nomeUt)
-        arrayEstadoUt.push(stadoUtilizador)
-        arrayEstadoUt.push(tipoutilizador)
-        localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
-        arrayEstadoUt = []
+       
+      
 
     })
 
@@ -341,16 +395,12 @@ function renderCatalogEventos() {
 
     // 2. Para cada Trip vou definir uma Card e compô-la com os dados do objeto
     let strHtmlCardE = ""
-
-    for (var i = 0; i < localStorage.length; i++) {
-
-        if (i == 1) {
-            EventosGuardados = JSON.parse(localStorage.getItem(localStorage.key(i)))
-        }
-
-
-
+    if (localStorage.getItem("Eventos")) {
+       
+        EventosGuardados = JSON.parse(localStorage.getItem("Eventos"))
     }
+
+   
     for (let i = 0; i < EventosGuardados.length; i++) {
 
         if (i < 4) {
@@ -409,15 +459,12 @@ function renderCatalogD() {
     // 2. Para cada Trip vou definir uma Card e compô-la com os dados do objeto
     let strHtmlCardD = ""
 
-    for (var i = 0; i < localStorage.length; i++) {
-
-        if (i == 0) {
-            DocentesGuardados = JSON.parse(localStorage.getItem(localStorage.key(i)))
-        }
-
-
-
+    if (localStorage.getItem("Docentes")) {
+      
+        DocentesGuardados = JSON.parse(localStorage.getItem("Docentes"))
     }
+
+   
     for (let i = 0; i < DocentesGuardados.length; i++) {
 
         if (i < 7) {
@@ -430,7 +477,7 @@ function renderCatalogD() {
             // Cria a card
             strHtmlCardD += `<div class="col-sm-2">
         <div class="card card-primary text-center" style="width:80%; height:100%">
-        <img style="width:100%" src="${DocentesGuardados[i]._foto}" alt="">
+        <img style="border-radius: 60px;" style="width:100%" src="${DocentesGuardados[i]._foto}" alt="">
        
             <div class="card-body">
             <h6 class="card-text">${DocentesGuardados[i]._NomeDocente}</h6>

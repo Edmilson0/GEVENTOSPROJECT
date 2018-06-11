@@ -5,11 +5,14 @@
     <title>Admnistrador</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
+    <link rel="icon" type="image/png" sizes="16x16" href="Fotos/favicon-16x16.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="Config.js"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <style>
         .navBar {
@@ -37,8 +40,7 @@
         }
 
         body {
-            background-color: grey;
-            background-image: url(http://holdplease.com/wp-content/uploads/2016/08/black-grey-gradient-background-for-web.jpg)
+           background-color: black;
         }
 
         #eventosContainer {
@@ -70,16 +72,16 @@
 
 
     <!--BARRA DE NAVEGAÇÃO-->
-    <nav id="navBar" class="navbar navbar-expand-sm navbar-dark bg-dark" style="background-color: #00000000;">
+    <nav id="navBar" class="navbar navbar-expand-sm navbar-dark bg-dark">
 
         <img class="img-responsive2" src="fotos/TSIW.png">
 
 
-       
+        <li>
             <a id="myImgGeventos" href="HomePage.html">
                 <img class="img-responsive2" src="fotos/GEventosLogoFinal.png">
             </a>
-      
+        </li>
 
 
         <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
@@ -90,7 +92,7 @@
             <ul class="navbar-nav mr-auto">
 
             </ul>
-            
+
             <ul class="navbar-nav">
                 <!--OPÇÃO eventos-->
                 <li id="optEventos" class="nav-item">
@@ -110,22 +112,37 @@
                 </li>
                 <!--OPÇÃO Login-->
                 <li id="optLogin" class="nav-item">
-                    <a data-toggle="modal" data-target="#loginModal" class="nav-link" href="#">Login</a>
+
+                    <a data-toggle="modal" data-target="#loginModal" class="nav-link" href="#">
+                        <i class="fas fa-user-circle">
+                            <small style="font-family:Arial">Login</small>
+                        </i>
+                    </a>
                 </li>
-                 <!--OPÇÃO Logout-->
-                 <li id="optLogout" class="nav-item">
-                        <a data-target="#" class="nav-link" href="#">Logout</a>
-                    </li>
-            
-                <h3 style="color:#c5c6c7">/</h3>
+                <!--OPÇÃO Logout-->
+                <li id="optLogout" class="nav-item">
+
+                    <a data-target="#" class="nav-link" href="#">
+                        <i class="fas fa-sign-out-alt">
+                            <small style="font-family:Arial">Logout</small>
+                        </i>
+                    </a>
+                </li>
+
                 <!--OPÇÃO Registo-->
                 <li id="optRegisto" class="nav-item">
-                    <a data-toggle="modal" data-target="#registoModal" class="nav-link" href="#">Registo</a>
+                    <a id="linkRegistar" data-toggle="modal" data-target="#registoModal" class="nav-link" href="#">
+                        <i class="fas fa-user-plus">
+                            <small style="font-family:Arial">Registar</small>
+                        </i>
+                    </a>
                 </li>
                 <!--OPÇÃO Cnfiguraçao-->
-                <li id="optConfig" class="nav-item">
+                <li id="optConfig" class="nav-item active">
                     <a id="linkConfig" class="nav-link " href="Config.html">
-                        Configurações
+                        <i class="fas fa-cogs">
+
+                        </i>
                     </a>
 
                 </li>
@@ -314,6 +331,40 @@
             </div>
             </form>
 
+            <!--eliminar eventos-->
+            <form id="frmEliminarEventos">
+
+                <h3 style="text-align:center; color:antiquewhite">Eliminar Eventos</h3>
+
+                <div class="form-group">
+                    <label for=""></label>
+                    <input type="number" class="form-control" name="" id="idEventosAEliminar" placeholder="Id do evento" required>
+                    <br>
+                    <table id="tblEventos" class="table"></table>
+
+                </div>
+
+                <input id="btnPOntuar" type="submit" class="btn btn-warning"></input>
+            </form>
+
+             <!--eliminar Utilizadores-->
+             <form id="frmEliminarUtilizadores">
+
+                    <h3 style="text-align:center; color:antiquewhite">Eliminar Utilizadores</h3>
+    
+                    <div class="form-group">
+                        <label for=""></label>
+                        <input type="text" class="form-control" name="" id="idUtilizadoresAEliminar" placeholder="Nome do Utilizador" required>
+                        <br>
+
+                        <table id="cardUtilizadoresExistentes" class="table"></table>
+
+                    
+                    </div>
+    
+                    <input id="btnPOntuar" type="submit" class="btn btn-warning"></input>
+                </form>
+
         </div>
 
     </div>
@@ -345,6 +396,7 @@
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 </body>
 
 </html>

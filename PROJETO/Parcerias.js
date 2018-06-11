@@ -131,15 +131,16 @@ class Utilizador {
 
 window.onload = function () {
     renderCatalog()
-  
+
+    let CodigoDocenteGuardado = ""
 
     let nomeEmpresa = document.getElementById("modalNomeEmpresa")
     let locaEmpresa = document.getElementById("modalLocalizaçaoEmpresa")
     let linkEmpresa = document.getElementById("modalLinkEmpresa")
     let linkLogotipo = document.getElementById("modalImagemEmpresa")
     let frmParcerias = document.getElementById("frmParcerias")
-    let btnRemover=document.getElementById("btnRemoverr")
-    let btnAdicionarParceria=document.getElementById("btnAdParcerias")
+    let btnRemover = document.getElementById("btnRemoverr")
+    let btnAdicionarParceria = document.getElementById("btnAdParcerias")
     let ModalRegistar = document.getElementById("frmRegistar")
 
     let btnLogout = document.getElementById("optLogout")
@@ -147,8 +148,8 @@ window.onload = function () {
     let btnRegisto = document.getElementById("optRegisto")
     let btnLogin = document.getElementById("optLogin")
     btnLogout.style.display = 'none'
-    btnConfig.style.display='none'
-  
+    btnConfig.style.display = 'none'
+
 
     let arrayEstadoUt = []
     let estado = ""
@@ -157,27 +158,56 @@ window.onload = function () {
     let utilizadorOnline = ""
 
 
-    
+
     if (localStorage.getItem("Parcerias")) {
         let tempArrayParcerias = []
         tempArrayParcerias = JSON.parse(localStorage.getItem("Parcerias"))
         for (let i = 0; i < tempArrayParcerias.length; i++) {
-            let novoParceria = new Parcerias(tempArrayParcerias[i]._nome, tempArrayParcerias[i]._localizaçao, tempArrayParcerias[i]._linkLogotipo, tempArrayParcerias[i]._link)
-            arrayParcerias.push(novoParceria)   
-            
+            let novoParceria = new Parcerias(tempArrayParcerias[i]._Empresa, tempArrayParcerias[i]._localizaçao, tempArrayParcerias[i]._linkLogotipo, tempArrayParcerias[i]._link)
+            arrayParcerias.push(novoParceria)
+
         }
 
     }
 
-    
+
     if (localStorage.getItem("utilizadores")) {
         let tempArray = []
         tempArray = JSON.parse(localStorage.getItem("utilizadores"))
         for (let i = 0; i < tempArray.length; i++) {
             let novoutilizador = new Utilizador(tempArray[i]._nome, tempArray[i]._email, tempArray[i]._password, tempArray[i]._foto, tempArray[i]._tipoUtilizador)
-            arrayUtilizadores.push(novoutilizador)   
-            
+            arrayUtilizadores.push(novoutilizador)
+
         }
+
+    }
+
+
+    if (localStorage.getItem("estadoUtitlizador")) {
+        utilizadorOnline = localStorage.getItem("estadoUtitlizador")
+    }
+    let pos1 = utilizadorOnline.indexOf(",")
+    let pos2 = utilizadorOnline.lastIndexOf(",")
+    let substring2 = utilizadorOnline.substring(0, pos1)
+    let substring4 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
+    let substring3 = utilizadorOnline.substring(pos1 + 1, pos2)
+
+
+    if (substring4 == "Visitante" || substring4 == "estudante" && substring3 == "true") {
+        console.log("Docente")
+        btnAdicionarParceria.style.display = 'none'
+        btnLogout.style.display = 'block'
+        btnLogin.style.display = 'none'
+        btnRegisto.style.display = 'none'
+        btnConfig.style.display = 'none'
+    }
+
+    if (substring4 == "docente") {
+        btnAdicionarParceria.style.display = 'block'
+        btnLogout.style.display = 'block'
+        btnLogin.style.display = 'none'
+        btnRegisto.style.display = 'none'
+        btnConfig.style.display = 'none'
 
     }
 
@@ -207,7 +237,7 @@ window.onload = function () {
                 swal({
                     icon: "success",
                     title: "Login com sucesso!",
-                    text: "Bem vindo! "+utGuardados[i]._nome,
+                    text: "Bem vindo! " + utGuardados[i]._nome,
                 });
 
                 btnRegisto.style.display = 'none'
@@ -218,8 +248,8 @@ window.onload = function () {
                 arrayEstadoUt.push(stadoUtilizador)
                 arrayEstadoUt.push(utGuardados[i]._tipoUtilizador)
                 localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
-                arrayEstadoUt=[]
-                
+                arrayEstadoUt = []
+
                 frmLogin.reset()
                 event.preventDefault()
 
@@ -229,7 +259,23 @@ window.onload = function () {
                 cont++
             }
 
+            if (substring4 == "Visitante" || substring4 == "estudante" && substring3 == "true") {
+                console.log("Docente")
+                btnAdicionarParceria.style.display = 'none'
+                btnLogout.style.display = 'block'
+                btnLogin.style.display = 'none'
+                btnRegisto.style.display = 'none'
+                btnConfig.style.display = 'none'
+            }
 
+            if (substring4 == "docente") {
+                btnAdicionarParceria.style.display = 'block'
+                btnLogout.style.display = 'block'
+                btnLogin.style.display = 'none'
+                btnRegisto.style.display = 'none'
+                btnConfig.style.display = 'none'
+
+            }
 
 
         }
@@ -239,23 +285,7 @@ window.onload = function () {
             event.preventDefault()
         }
 
-        if (localStorage.getItem("estadoUtitlizador")) {
-            utilizadorOnline = localStorage.getItem("estadoUtitlizador")
-        }
-        let pos1 = utilizadorOnline.indexOf(",")
-        let pos2 = utilizadorOnline.lastIndexOf(",")
-        let substring2 = utilizadorOnline.substring(0, pos1)
-        let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
-    
-    
-        if (substring3 == "Visitante"||substring3 == "Estudante") {
-           btnAdicionarParceria.style.display='none'
-          
-    
-        }
-        else{
-            btnAdicionarParceria.style.display='block'
-        }
+
 
         event.preventDefault()
 
@@ -264,6 +294,11 @@ window.onload = function () {
     //submeter os dados do utilizador 
     ModalRegistar.addEventListener("submit", function (event) {
 
+        if (localStorage.getItem("Codigo")) {
+
+            CodigoDocenteGuardado = localStorage.getItem("Codigo")
+
+        }
 
         let estudante = document.getElementById("estudante")
         let docente = document.getElementById("docente")
@@ -274,8 +309,9 @@ window.onload = function () {
         let Password = document.getElementById("ModalPasswordR").value
         let confPassword = document.getElementById("ModalConfPassword").value
         let stadoUtilizador = false
-
-
+        let varContNome = 0
+        let varContEmail = 0
+        let confirmarCodigoDocente = ""
 
         //validar as passwords
         if (confPassword != Password) {
@@ -286,39 +322,81 @@ window.onload = function () {
             if (estudante.checked == true) {
                 tipoutilizador = "estudante"
             } else if (docente.checked == true) {
+
+                while (confirmarCodigoDocente != CodigoDocenteGuardado) {
+                    confirmarCodigoDocente = prompt("Escreva o código de confimação")
+
+                }
+
                 tipoutilizador = "docente"
             }
             else {
                 tipoutilizador = "Visitante"
             }
 
-            let novoutilizador = new Utilizador(nomeUt, emailUt, Password, fotoUt, tipoutilizador)
-            arrayUtilizadores.push(novoutilizador)
+            for (let i = 0; i < arrayUtilizadores.length; i++) {
 
+                if (emailUt != arrayUtilizadores[i]._email) {
+                    varContEmail++
+                }
+
+            }
+
+            for (let i = 0; i < arrayUtilizadores.length; i++) {
+
+                if (nomeUt != arrayUtilizadores[i]._nome) {
+                    varContNome++
+                }
+
+            }
+
+            if (varContNome == arrayUtilizadores.length) {
+
+
+            }
+            else {
+                alert("Nome do utilizador já existente.")
+            }
+
+            if (varContEmail == arrayUtilizadores.length) {
+
+            }
+            else {
+                alert("Email do utilizador já existente.")
+            }
+
+
+
+            if (varContEmail == arrayUtilizadores.length && varContNome == arrayUtilizadores.length) {
+                let novoutilizador = new Utilizador(nomeUt, emailUt, Password, fotoUt, tipoutilizador)
+                arrayUtilizadores.push(novoutilizador)
+                swal({
+                    icon: "success",
+                    title: "Registo com secesso!",
+                    text: "Bem vindo! ",
+                });
+
+                localStorage.setItem("utilizadores", JSON.stringify(arrayUtilizadores))
+                btnRegisto.style.display = 'none'
+                btnLogin.style.display = 'none'
+                btnLogout.style.display = 'block'
+                stadoUtilizador = true
+                arrayEstadoUt.push(nomeUt)
+                arrayEstadoUt.push(stadoUtilizador)
+                arrayEstadoUt.push(tipoutilizador)
+                localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
+                arrayEstadoUt = []
+
+            }
 
             ModalRegistar.reset()
             console.log(arrayUtilizadores)
             event.preventDefault()
 
         }
-        swal({
-            icon: "success",
-            title: "Registo com sucesso!",
-            text: "Bem vindo! "+nomeUt,
-        });
-   
-        localStorage.setItem("utilizadores", JSON.stringify(arrayUtilizadores))
-        btnRegistar.style.display = 'none'
-        btnLogin.style.display = 'none'
-        btnLogout.style.display = 'block'
-        stadoUtilizador = true
-        arrayEstadoUt.push(nomeUt)
-        arrayEstadoUt.push(stadoUtilizador)
-        arrayEstadoUt.push(tipoutilizador)
-        localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
-        arrayEstadoUt = []
 
-     
+
+
         if (localStorage.getItem("estadoUtitlizador")) {
             utilizadorOnline = localStorage.getItem("estadoUtitlizador")
         }
@@ -326,22 +404,22 @@ window.onload = function () {
         let pos2 = utilizadorOnline.lastIndexOf(",")
         let substring2 = utilizadorOnline.substring(0, pos1)
         let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
-    
-    
-        if (substring3 == "Visitante"||substring3 == "Estudante") {
-           btnAdicionarParceria.style.display='none'
-          
-    
+
+
+        if (substring3 == "Visitante" || substring3 == "Estudante") {
+            btnAdicionarParceria.style.display = 'none'
+
+
         }
-        else{
-            btnAdicionarParceria.style.display='block'
+        else {
+            btnAdicionarParceria.style.display = 'block'
         }
-   
+
 
     })
 
-   
-    
+
+
 
     //Fazendo logout
     btnLogout.addEventListener("click", function (event) {
@@ -355,15 +433,15 @@ window.onload = function () {
         let substring2 = estado.substring(0, pos1)
         stadoUtilizador = false
         console.log(substring2)
-        
+
         arrayEstadoUt.push(substring2)
         arrayEstadoUt.push(stadoUtilizador)
         localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
-        arrayEstadoUt=[]
+        arrayEstadoUt = []
         btnRegisto.style.display = 'block'
         btnLogin.style.display = 'block'
-        btnLogout.style.display='none'
-        btnAdicionarParceria.style.display='none'
+        btnLogout.style.display = 'none'
+        btnAdicionarParceria.style.display = 'none'
 
         event.preventDefault()
 
@@ -413,19 +491,20 @@ function renderCatalog() {
         // Cria a card
         strHtmlCard += `<div class="col-sm-6">
            <br>
-           <div class="card card-primary text-center">
+           <br>
+           <div class="card card-primary text-center" style="width:80%; height:100%">
            <img class="card-img-top" src="${parceriasGuardados[i]._linkLogotipo}" alt="Card image cap">
            <h3 class="card-title" style="background-color:rgb(218, 215, 209)">${parceriasGuardados[i]._Empresa}</h3>
           
                <div class="card-body">
-               <a class="nav-link" href="${parceriasGuardados[i]._link}">Visite-nos</a>
+               <a class="nav-link" target="${parceriasGuardados[i]._link}" href="">Visite-nos</a>
         <br>
-        <h5>Responsável:</h5>
+        <h5>Localização:</h5>
         <h6 class="card-text">${parceriasGuardados[i]._localizaçao}</h6>
         
-            <input id="btnRemoverr" value="Remover" type="submit" class="btn btn-warning"></input>
-           
-                    <br>`
+            <input id="btnRemoverr" value="Remover" type="submit" class="btn btn-warning P"></input>
+
+               `
 
 
 
@@ -442,37 +521,104 @@ function renderCatalog() {
 
     myCard.innerHTML = strHtmlCard
 
-    /*
+
+
 
     let parceriasGuardadosLocais = ""
-    let btnRemoverParcerias = document.getElementById("btnRemoverr")
+    let btnRemoverParcerias = document.getElementsByClassName("btn btn-warning P"), i;
 
     // 2. Para cada Trip vou definir uma Card e compô-la com os dados do objeto
 
 
-    for (var i = 0; i < localStorage.length; i++) {
-
-        if (i == 3) {
-            parceriasGuardadosLocais = JSON.parse(localStorage.getItem(localStorage.key(i)))
-        }
-
-
-    }
 
     for (let i = 0; i < btnRemoverParcerias.length; i++) {
 
         btnRemoverParcerias[i].addEventListener("click", function () {
 
-            for (var i = 0; i < parceriasGuardadosLocais.length; i++) {
+            parceriasGuardados.splice(i, 1)
+            localStorage.setItem("Parcerias", JSON.stringify(parceriasGuardados))
+            console.log(parceriasGuardados)
+            if (localStorage.getItem("Parcerias")) {
+                parceriasGuardados = JSON.parse(localStorage.getItem("Parcerias"))
+            }
+            console.log(parceriasGuardados)
+
+            for (let i = 0; i < parceriasGuardados.length; i++) {
 
 
-                console.log(parceriasGuardadosLocais[i])
 
+                // Inicia a linha
+                if (i % 2 == 0) {
+                    strHtmlCard += `<div class="row">`
+                }
+
+                // Cria a card
+                strHtmlCard += `<div class="col-sm-6">
+           <br>
+           <br>
+           
+           <div class="card card-primary text-center">
+           <img class="card-img-top" src="${parceriasGuardados[i]._linkLogotipo}" alt="Card image cap">
+           <h3 class="card-title" style="background-color:rgb(218, 215, 209)">${parceriasGuardados[i]._Empresa}</h3>
+          
+               <div class="card-body">
+               <a class="nav-link" target="${parceriasGuardados[i]._link}"  href="">Visite-nos</a>
+        <br>
+        <h5>Localização:</h5>
+        <h6 class="card-text">${parceriasGuardados[i]._localizaçao}</h6>
+        
+            <input id="btnRemoverr" value="Remover" type="submit" class="btn btn-warning P"></input>
+          
+                    `
+
+
+
+
+                strHtmlCard += `</div>
+                    </div>      
+                </div>`
+
+                // Fecha a linha
+                if (i % 2 == 1) {
+                    strHtmlCard += `</div>`
+                }
             }
 
 
         })
 
-    }*/
+    }
+
+
+    let utilizadorOnline = ""
+
+
+    if (localStorage.getItem("estadoUtitlizador")) {
+        utilizadorOnline = localStorage.getItem("estadoUtitlizador")
+    }
+    let pos1 = utilizadorOnline.indexOf(",")
+    let pos2 = utilizadorOnline.lastIndexOf(",")
+    let substring2 = utilizadorOnline.substring(0, pos1)
+    let substring4 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
+    let substring3 = utilizadorOnline.substring(pos1 + 1, pos2)
+
+
+    if (substring4 == "Visitante" || substring4 == "estudante" && substring3 == "true") {
+        console.log("Docente")
+
+
+        for (let i = 0; i < btnRemoverParcerias.length; i++) {
+            btnRemoverParcerias[i].style.display = 'none'
+
+        }
+    }
+
+    if (substring4 == "docente") {
+        for (let i = 0; i < btnRemoverParcerias.length; i++) {
+            btnRemoverParcerias[i].style.display = 'block'
+
+        }
+
+    }
 }
 

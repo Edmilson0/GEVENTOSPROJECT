@@ -118,6 +118,8 @@ class Utilizador {
 }
 
 window.onload = function () {
+    renderCatalog()
+    let CodigoDocenteGuardado = ""
 
 
     if (localStorage.getItem("utilizadores")) {
@@ -142,14 +144,13 @@ window.onload = function () {
 
     }
 
-    renderCatalog()
 
     let btnLogout = document.getElementById("optLogout")
     let btnConfig = document.getElementById("linkConfig")
+    btnLogout.style.display = 'none'
+    btnConfig.style.display='none'
 
 
-
-    let nomeTe = document.getElementById("nomeTe")
     let fotoTe = document.getElementById("fotoTe")
     let utGuardados = ""
     let frmTestemunho = document.getElementById("frmTestemunhos")
@@ -179,29 +180,29 @@ window.onload = function () {
     console.log(substring4)
 
 
-    if (substring4 == "Visitante"||substring4 == "docente" && substring3 == "true") {
-       
+    if (substring4 == "Visitante" || substring4 == "docente" && substring3 == "true") {
+
         btnLogout.style.display = 'block'
         btnLogin.style.display = 'none'
         btnRegisto.style.display = 'none'
-       
+
         btnConfig.style.display = 'none'
     }
-     if (substring4 == "estudante") {
+    if (substring4 == "estudante") {
         btnLogout.style.display = 'block'
         btnLogin.style.display = 'none'
         btnRegisto.style.display = 'none'
-      
+
         maisTestemunho.style.display = 'block'
     }
-   
+
 
 
 
     //fazendo login
     frmLogin.addEventListener("submit", function (event) {
 
-        
+
         let optRegistar = document.getElementById("linkRegistar")
         let barra = document.getElementById("barra")
         let loginName = document.getElementById("ModalName")
@@ -226,7 +227,8 @@ window.onload = function () {
                     title: "Login com sucesso!",
                     text: "Bem vindo! " + utGuardados[i]._nome,
                 });
-
+                renderCatalog()
+                maisTestemunho.style.display = 'block'
                 btnRegisto.style.display = 'none'
                 btnLogin.style.display = 'none'
                 btnLogout.style.display = 'block'
@@ -238,6 +240,7 @@ window.onload = function () {
                 arrayEstadoUt = []
 
                 frmLogin.reset()
+
                 event.preventDefault()
 
             }
@@ -245,8 +248,8 @@ window.onload = function () {
             else {
                 cont++
             }
-            if (utGuardados[i]._tipoUtilizador=="Visitante"||utGuardados[i]._tipoUtilizador=="docente") {
-                maisTestemunho.style.display='none'
+            if (utGuardados[i]._tipoUtilizador == "Visitante" || utGuardados[i]._tipoUtilizador == "docente") {
+                maisTestemunho.style.display = 'none'
             }
 
 
@@ -266,25 +269,25 @@ window.onload = function () {
         let pos2 = utilizadorOnline.lastIndexOf(",")
         let substring2 = utilizadorOnline.substring(0, pos1)
         let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
-        let substring4 = utilizadorOnline.substring(pos1+1,pos2)
-  
+        let substring4 = utilizadorOnline.substring(pos1 + 1, pos2)
 
-        if (substring3 == "Visitante"||substring3 == "docente" && substring4 == "true" || substring2 != arrayTestemuhos._nomeTe) {
+
+        if (substring3 == "Visitante" || substring3 == "docente" && substring4 == "true" || substring2 != arrayTestemuhos._nomeTe) {
             console.log(substring4)
-           
+
             btnCriarTestemunho.style.display = 'none'
             maisTestemunho.style.display = 'none'
 
         }
 
-      
-        else if(substring4 == "estudante") {
+
+        else if (substring4 == "estudante") {
             btnCriarTestemunho.style.display = 'block'
             maisTestemunho.style.display = 'block'
         }
-       
 
-      
+
+
 
         event.preventDefault()
 
@@ -292,7 +295,11 @@ window.onload = function () {
 
     //submeter os dados do utilizador 
     ModalRegistar.addEventListener("submit", function (event) {
+        if (localStorage.getItem("Codigo")) {
 
+            CodigoDocenteGuardado = localStorage.getItem("Codigo")
+
+        }
 
         let estudante = document.getElementById("estudante")
         let docente = document.getElementById("docente")
@@ -303,7 +310,9 @@ window.onload = function () {
         let Password = document.getElementById("ModalPasswordR").value
         let confPassword = document.getElementById("ModalConfPassword").value
         let stadoUtilizador = false
-
+        let varContNome=0
+        let varContEmail=0
+        let confirmarCodigoDocente = ""
 
 
         //validar as passwords
@@ -315,38 +324,76 @@ window.onload = function () {
             if (estudante.checked == true) {
                 tipoutilizador = "estudante"
             } else if (docente.checked == true) {
+
+                while (confirmarCodigoDocente != CodigoDocenteGuardado) {
+                    confirmarCodigoDocente = prompt("Escreva o código de confimação")
+
+                }
+                
                 tipoutilizador = "docente"
             }
             else {
                 tipoutilizador = "Visitante"
             }
 
-            let novoutilizador = new Utilizador(nomeUt, emailUt, Password, fotoUt, tipoutilizador)
-            arrayUtilizadores.push(novoutilizador)
+            for (let i = 0; i < arrayUtilizadores.length; i++) {
+              
+                if (emailUt!=arrayUtilizadores[i]._email) {
+                varContEmail++
+                }
+                
+            }
+
+            for (let i = 0; i < arrayUtilizadores.length; i++) {
+              
+                if (nomeUt!=arrayUtilizadores[i]._nome) {
+                varContNome++
+                }
+                
+            }
+            
+            if ( varContNome==arrayUtilizadores.length) {
+                
+           
+            }
+            else{
+                alert("Nome do utilizador já existente.")
+            }
+           
+            if (varContEmail==arrayUtilizadores.length) {
+                
+            }
+            else{
+                alert("Email do utilizador já existente.")
+            }
 
 
-            ModalRegistar.reset()
-            console.log(arrayUtilizadores)
-            event.preventDefault()
+
+            if (varContEmail==arrayUtilizadores.length&&varContNome==arrayUtilizadores.length) {
+                let novoutilizador = new Utilizador(nomeUt, emailUt, Password, fotoUt, tipoutilizador)
+                arrayUtilizadores.push(novoutilizador)
+                swal({
+                    icon: "success",
+                    title: "Registo com secesso!",
+                    text: "Bem vindo! ",
+                });
+                localStorage.setItem("utilizadores", JSON.stringify(arrayUtilizadores))
+                btnRegisto.style.display = 'none'
+                btnLogin.style.display = 'none'
+                btnLogout.style.display = 'block'
+                stadoUtilizador = true
+                arrayEstadoUt.push(nomeUt)
+                arrayEstadoUt.push(stadoUtilizador)
+                arrayEstadoUt.push(tipoutilizador)
+                localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
+                arrayEstadoUt = []
+            }
+
+        
 
         }
-        swal({
-            icon: "success",
-            title: "Registo com sucesso!",
-            text: "Bem vindo! " + nomeUt,
-        });
-
-        localStorage.setItem("utilizadores", JSON.stringify(arrayUtilizadores))
-        btnRegisto.style.display = 'none'
-        btnLogin.style.display = 'none'
-        btnLogout.style.display = 'block'
-        stadoUtilizador = true
-        arrayEstadoUt.push(nomeUt)
-        arrayEstadoUt.push(stadoUtilizador)
-        arrayEstadoUt.push(tipoutilizador)
-        localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
-        arrayEstadoUt = []
-
+      
+    
 
         if (localStorage.getItem("estadoUtitlizador")) {
             utilizadorOnline = localStorage.getItem("estadoUtitlizador")
@@ -360,10 +407,10 @@ window.onload = function () {
         if (substring3 == "Visitante") {
             btnCriarTestemunho.style.display = 'none'
             maisTestemunho.style.display = 'none'
-
+            btnConfig.style.display='none'
         }
         else {
-            btnCriarTestemunho.style.display = 'block'
+            btnConfig.style.display='none'
             maisTestemunho.style.display = 'block'
         }
 
@@ -396,7 +443,7 @@ window.onload = function () {
         btnRegisto.style.display = 'block'
         btnLogin.style.display = 'block'
         btnLogout.style.display = 'none'
-       
+
 
         event.preventDefault()
 
@@ -404,7 +451,7 @@ window.onload = function () {
 
     frmTestemunho.addEventListener("submit", function (event) {
 
-        let novoTestemunho = new Testemunhos(nomeTe.value, testemunho.value, fotoTe.value)
+        let novoTestemunho = new Testemunhos(substring2, testemunho.value, fotoTe.value)
         arrayTestemuhos.push(novoTestemunho)
         localStorage.setItem("Testemunho", JSON.stringify(arrayTestemuhos))
         events.preventDefault()
@@ -444,10 +491,10 @@ function renderCatalog() {
         // Cria a card
         strHtmlCard += `<div class="col-sm-12">
            <br>
-            <div class="card card-primary w-100">
+            <div style="border:0px" class="card card-primary w-100">
         
                 <div class="card-body">
-                <img src="${TestemunhosGuardados[i]._fotoTe}" alt="">
+                <img style="border-radius: 80px;" src="${TestemunhosGuardados[i]._fotoTe}" alt="">
                 <h6 class="card-text">${TestemunhosGuardados[i]._nomeTe}</h6>
                     <p class="card-text">${ TestemunhosGuardados[i]._testemunho}</p>
 
@@ -487,24 +534,70 @@ function renderCatalog() {
 
     for (let i = 0; i < btnTrash.length; i++) {
 
-
-        if (substring3 == "Visitante" && substring2 == "true" || substring != TestemunhosGuardados[i]._nomeTe) {
-           
-            btnTrash[i].style.display = 'none'
-
-        }
-        else{
-            console.log(TestemunhosGuardados[i]._nomeTe)
-            btnTrash[i].style.display = 'block'
-        }
+        btnTrash[i].style.display = 'none'
 
         btnTrash[i].addEventListener("click", function (event) {
             console.log(TestemunhosGuardados[i])
             TestemunhosGuardados.splice(i, 1)
             localStorage.setItem("Testemunho", JSON.stringify(TestemunhosGuardados))
             event.preventDefault()
+
+
+            // Inicia a linha
+            if (i % 4 == 0) {
+                strHtmlCard += `<div class="row">`
+            }
+
+            // Cria a card
+            strHtmlCard += `<div class="col-sm-12">
+           <br>
+            <div style="border:0px" class="card card-primary w-100">
+        
+                <div class="card-body">
+                <img style="border-radius: 80px;" src="${TestemunhosGuardados[i]._fotoTe}" alt="">
+                <h6 class="card-text">${TestemunhosGuardados[i]._nomeTe}</h6>
+                    <p class="card-text">${ TestemunhosGuardados[i]._testemunho}</p>
+
+                    <a class='remove' href=""> <i class="far fa-trash-alt"></i></a>
+                   
+                    <br>
+                    <hr>
+                    <br>`
+
+
+
+
+            strHtmlCard += `</div>
+                    </div>      
+                </div>`
+
+            // Fecha a linha
+            if (i % 4 == 3) {
+                strHtmlCard += `</div>`
+            }
+
         })
 
-    }
+        if (substring3 == "Visitante" && substring2 == "true") {
 
+            btnTrash[i].style.display = 'none'
+
+        }
+        else if (substring3 == "docente") {
+
+            btnTrash[i].style.display = 'block'
+
+        }
+        else if (substring == TestemunhosGuardados[i]._nomeTe && substring2 == "true") {
+            btnTrash[i].style.display = 'block'
+            console.log(TestemunhosGuardados[i]._nomeTe)
+        }
+        else if (substring != TestemunhosGuardados[i]._nomeTe || substring2 == "false") {
+
+            btnTrash[i].style.display = 'none'
+        }
+
+
+    }
+  
 }

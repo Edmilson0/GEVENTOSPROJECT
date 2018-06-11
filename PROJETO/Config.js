@@ -264,6 +264,77 @@ class Testemunhos {
 
 }
 
+//########################## Utilizadores #########################
+//classe utilizador
+let arrayUtilizadores = []
+
+
+class Utilizador {
+    constructor(nome, email, password, foto, tipoUtilizador) {
+        this._idUt = Utilizador.getLastId() + 1
+        this.nome = nome
+        this.email = email
+        this.password = password
+        this.foto = foto
+        this.tipoUtilizador = tipoUtilizador
+    }
+    // Propriedade id
+    get idUt() {
+        return this._idUt
+    }
+
+    // Propriedade nome
+    get nome() {
+        return this._nome
+    }
+
+    set nome(novoNome) {
+        this._nome = novoNome
+    }
+    // Propriedade email
+    get email() {
+        return this._email
+    }
+
+    set email(novoEmail) {
+        this._email = novoEmail
+    }
+    // Propriedade password
+    get password() {
+        return this._password
+    }
+
+    set password(novoPassword) {
+        this._password = novoPassword
+    }
+    // Propriedade foto
+    get foto() {
+        return this._foto
+    }
+
+    set foto(novoFoto) {
+        this._foto = novoFoto
+    }
+    // Propriedade tipo de utilizadores
+    get tipoUtilizador() {
+        return this._tipoUtilizador
+    }
+
+    set tipoUtilizador(novotipoUtilizador) {
+        this._tipoUtilizador = novotipoUtilizador
+    }
+
+    // obter o ultimo id
+    static getLastId() {
+        let lastId = 0
+        if (arrayUtilizadores.length > 0) {
+            lastId = arrayUtilizadores[arrayUtilizadores.length - 1].idUt
+        }
+        return lastId
+    }
+
+}
+
 
 
 //##########################windowLoad#########################
@@ -272,7 +343,8 @@ window.onload = function () {
 
     atualizaTabela()
     atualizaTabelaTestemunho()
-
+    atualizaTabelaEventos()
+    atualizaCardUtilizador()
     let frmCriarEventos = document.getElementById("frmCriarEventosConfig")
 
 
@@ -380,7 +452,7 @@ window.onload = function () {
             alert("Nome inválido")
         }
         events.preventDefault()
-
+        rend
 
     })
 
@@ -424,9 +496,9 @@ window.onload = function () {
             alert("Nome inválido")
         }
 
-       
-        events.preventDefault()
 
+        events.preventDefault()
+        atualizaTabela()
 
     })
 
@@ -470,10 +542,100 @@ window.onload = function () {
             alert("Nome inválido")
         }
         events.preventDefault()
+        atualizaTabelaTestemunho()
+
+    })
+
+    //#############################Eliminar eventos######################
+
+    let frmEliminarE = document.getElementById("frmEliminarEventos")
+
+
+    frmEliminarE.addEventListener("submit", function (events) {
+        let contE = 0
+
+        let IdEventoEliminar = document.getElementById("idEventosAEliminar").value
+
+
+        // eliminar Eventos
+
+        let tempArrayEventos = ""
+
+        if (localStorage.getItem("Eventos")) {
+
+            tempArrayEventos = JSON.parse(localStorage.getItem("Eventos"))
+
+        }
+
+
+        for (let i = 0; i < tempArrayEventos.length; i++) {
+
+            if (IdEventoEliminar == tempArrayEventos[i]._idEv) {
+                tempArrayEventos.splice(i, 1)
+
+                localStorage.setItem("Eventos", JSON.stringify(tempArrayEventos))
+                atualizaTabelaEventos()
+            }
+            else {
+                contE++
+            }
+
+        }
+        if (contE == tempArrayEventos.length) {
+            alert("Id inválido")
+        }
+        events.preventDefault()
 
 
     })
 
+
+
+    //#############################Eliminar utitlizadores######################
+
+    let frmEliminarU = document.getElementById("frmEliminarUtilizadores")
+
+
+    frmEliminarU.addEventListener("submit", function (events) {
+        let contU = 0
+
+        let nomeUtilizador = document.getElementById("idUtilizadoresAEliminar").value
+
+
+        // eliminar utilizador
+
+        let tempArrayUtilizadores = ""
+
+        if (localStorage.getItem("utilizadores")) {
+
+            tempArrayUtilizadores = JSON.parse(localStorage.getItem("utilizadores"))
+
+        }
+
+
+        for (let i = 0; i < tempArrayUtilizadores.length; i++) {
+
+            if (nomeUtilizador == tempArrayUtilizadores[i]._nome) {
+                tempArrayUtilizadores.splice(i, 1)
+
+                localStorage.setItem("utilizadores", JSON.stringify(tempArrayUtilizadores))
+            
+
+            }
+            else {
+                contU++
+            }
+
+        }
+        if (contU == tempArrayUtilizadores.length) {
+            alert("Id inválido")
+        }
+        atualizaCardUtilizador()
+
+        events.preventDefault()
+
+
+    })
 
 
 }
@@ -496,11 +658,11 @@ function atualizaTabela() {
     let str = ""
     str = "<thead class='thead-dark'><tr><th>FOTO</th><th>NOME</th></tr></thead><tbody>"
     for (let i = 0; i < arrayTestemuhos.length; i++) {
-        str += "<tr>"        
+        str += "<tr>"
         str += "<td> <img class='card-img-top' style='width:30%; height:40%' src='" + arrayTestemuhos[i]._foto + "'></td>"
-       
+
         str += "<td style='color:white'>" + arrayTestemuhos[i]._NomeDocente + "</td>"
-        str +="</tr>"
+        str += "</tr>"
     }
     str += "<tbody>"
     tblDocentes.innerHTML = str
@@ -515,8 +677,8 @@ function atualizaTabelaTestemunho() {
         tempArrayTestemunho = JSON.parse(localStorage.getItem("Testemunho"))
         for (let i = 0; i < tempArrayTestemunho.length; i++) {
             let novotestemunho = new Testemunhos(tempArrayTestemunho[i]._nomeTe, tempArrayTestemunho[i]._testemunho, tempArrayTestemunho[i]._fotoTe)
-            arrayTestemuhos.push(novotestemunho)   
-            
+            arrayTestemuhos.push(novotestemunho)
+
         }
 
     }
@@ -525,16 +687,84 @@ function atualizaTabelaTestemunho() {
     let str = ""
     str = "<thead class='thead-dark'><tr><th>FOTO</th><th>NOME</th></tr></thead><tbody>"
     for (let i = 0; i < arrayTestemuhos.length; i++) {
-        str += "<tr>"        
+        str += "<tr>"
         str += "<td> <img class='card-img-top' style='width:30%; height:40%' src='" + arrayTestemuhos[i]._fotoTe + "'></td>"
-       
+
         str += "<td style='color:white'>" + arrayTestemuhos[i]._nomeTe + "</td>"
-        str +="</tr>"
+        str += "</tr>"
     }
     str += "<tbody>"
     tblDocentes.innerHTML = str
 
 }
+
+// Função que atualiza a tabela eventos
+function atualizaTabelaEventos() {
+
+    if (localStorage.getItem("Eventos")) {
+        let tempArrayEventos = []
+        tempArrayEventos = JSON.parse(localStorage.getItem("Eventos"))
+        for (let i = 0; i < tempArrayEventos.length; i++) {
+            let novoEvents = new Eventos(tempArrayEventos[i]._data, tempArrayEventos[i]._hora, tempArrayEventos[i]._sala, tempArrayEventos[i]._categoria, tempArrayEventos[i]._responsavel, tempArrayEventos[i]._imagem, tempArrayEventos[i]._designacao)
+            arrayEventos.push(novoEvents)
+
+        }
+
+    }
+
+    let tblEventos = document.getElementById("tblEventos")
+    let str = ""
+    str = "<thead class='thead-dark'><tr><th>IMAGEM</th><th>NOME</th><th>ID</th></tr></thead><tbody>"
+    for (let i = 0; i < arrayEventos.length; i++) {
+        str += "<tr>"
+        str += "<td> <img class='card-img-top' style='width:30%; height:40%' src='" + arrayEventos[i]._imagem + "'></td>"
+
+        str += "<td style='color:white'>" + arrayEventos[i]._categoria + "</td>"
+        str += "<td style='color:white'>" + arrayEventos[i]._idEv + "</td>"
+        str += "</tr>"
+    }
+    str += "<tbody>"
+    tblEventos.innerHTML = str
+
+}
+
+// Função que atualiza a tabela utilizador
+function atualizaCardUtilizador() {
+
+    if (localStorage.getItem("utilizadores")) {
+        let tempArray = []
+        tempArray = JSON.parse(localStorage.getItem("utilizadores"))
+        for (let i = 0; i < tempArray.length; i++) {
+            let novoutilizador = new Utilizador(tempArray[i]._nome, tempArray[i]._email, tempArray[i]._password, tempArray[i]._foto, tempArray[i]._tipoUtilizador)
+            arrayUtilizadores.push(novoutilizador)
+
+        }
+
+    }
+
+    let cardUtilizador = document.getElementById("cardUtilizadoresExistentes")
+    let strU = ""
+
+
+    strU = "<thead class='thead-dark'><tr><th>NOME</th><th>TIPO DE UTILIZADOR</th></tr></thead><tbody>"
+    for (let i = 0; i <  arrayUtilizadores.length; i++) {
+        strU += "<tr>"
+     
+        strU += "<td style='color:white'>" +  arrayUtilizadores[i]._nome + "</td>"
+        strU += "<td style='color:white'>" + arrayUtilizadores[i]._tipoUtilizador + "</td>"
+       
+        strU += "</tr>"
+    }
+    strU += "<tbody>"
+
+
+        cardUtilizador.innerHTML = strU
+
+
+}
+
+
+
 
 
 

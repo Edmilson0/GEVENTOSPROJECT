@@ -11,7 +11,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-       <!-- Font Awesome -->
+    <!-- Font Awesome -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
@@ -21,15 +21,14 @@
 
         }
 
-        #li {
-            list-style: none;
-            position: relative;
-            display: inline-block;
-            width: 90px;
-            height: 90px;
-        }
+
 
         h6 {
+            font-family: "arial";
+
+        }
+
+        p {
             font-family: "arial";
 
         }
@@ -39,10 +38,7 @@
             font-family: "particle regular";
         }
 
-        body {
-            background-color: grey;
-            background-image: url(http://holdplease.com/wp-content/uploads/2016/08/black-grey-gradient-background-for-web.jpg)
-        }
+        body {}
 
         #eventosContainer {
             background-color: floralwhite;
@@ -51,14 +47,16 @@
         h1 {
             font-family: "particle regular";
             text-align: center;
+
         }
+
 
         /* rigth modal*/
 
         .modal.right .modal-dialog {
-            padding-top: 200px;
+            padding-top: 80px;
             position: relative;
-            margin-right: 920px;
+            margin-right: 100px;
             width: 320px;
             height: 60%;
             -webkit-transform: translate3d(0%, 0, 0);
@@ -66,39 +64,13 @@
             -o-transform: translate3d(0%, 0, 0);
             transform: translate3d(0%, 0, 0);
         }
-
-
-        .modal.right .modal-content {
-            height: 70%;
-            overflow-y: auto;
-        }
-
-
-        .modal.right .modal-body {
-            padding: 15px 15px 80px;
-        }
-
-        /*Right*/
-
-        .modal.right.fade .modal-dialog.modal {
-            right: -320px;
-            -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
-            -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
-            -o-transition: opacity 0.3s linear, right 0.3s ease-out;
-            transition: opacity 0.3s linear, right 0.3s ease-out;
-        }
-
-        .modal.right.fade.in .modal-dialog {
-            right: 0%;
-
-        }
     </style>
 </head>
 
 <body>
 
     <!--BARRA DE NAVEGAÇÃO-->
-    <nav id="navBar" class="navbar navbar-expand-sm navbar-dark bg-dark" style="background-color: #00000000;">
+    <nav id="navBar" class="navbar navbar-expand-sm navbar-dark bg-dark">
 
         <img class="img-responsive2" src="fotos/TSIW.png">
 
@@ -118,14 +90,14 @@
             <ul class="navbar-nav mr-auto">
 
             </ul>
-           
+
             <ul class="navbar-nav">
                 <!--OPÇÃO eventos-->
                 <li id="optEventos" class="nav-item">
                     <a class="nav-link" href="Eventos.html">Eventos</a>
                 </li>
                 <!--OPÇÃO Testemunhos-->
-                <li id="optTestemunhos" class="nav-item">
+                <li id="optTestemunhos" class="nav-item active">
                     <a class="nav-link" href="testemunhos.html">Testemunhos</a>
                 </li>
                 <!--OPÇÃO Docentes-->
@@ -138,22 +110,44 @@
                 </li>
                 <!--OPÇÃO Login-->
                 <li id="optLogin" class="nav-item">
-                    <a data-toggle="modal" data-target="#loginModal" class="nav-link" href="#">Login</a>
+
+                    <a data-toggle="modal" data-target="#loginModal" class="nav-link" href="#">
+                        <i class="fas fa-user-circle">
+
+                        </i>
+                        <small style="font-family:Arial">Login</small>
+                    </a>
                 </li>
                 <!--OPÇÃO Logout-->
                 <li id="optLogout" class="nav-item">
-                    <a data-target="#" class="nav-link" href="#">Logout</a>
+
+                    <a data-target="#" class="nav-link" href="#">
+                        <i class="fas fa-sign-out-alt">
+
+                        </i>
+                        <small style="font-family:Arial">Logout</small>
+
+                    </a>
                 </li>
 
-                <h3 style="color:#c5c6c7">/</h3>
                 <!--OPÇÃO Registo-->
                 <li id="optRegisto" class="nav-item">
-                    <a data-toggle="modal" data-target="#registoModal" class="nav-link" href="#">Registo</a>
+                    <a id="linkRegistar" data-toggle="modal" data-target="#registoModal" class="nav-link" href="#">
+                        <i class="fas fa-user-plus">
+                            <small style="font-family:Arial">
+
+                            </small>
+                        </i>
+                        <small style="font-family:Arial">Registar</small>
+
+                    </a>
                 </li>
                 <!--OPÇÃO Cnfiguraçao-->
                 <li id="optConfig" class="nav-item">
                     <a id="linkConfig" class="nav-link " href="Config.html">
-                        Configurações
+                        <i class="fas fa-cogs">
+
+                        </i>
                     </a>
 
                 </li>
@@ -275,27 +269,57 @@
     </div>
 
 
-
     <div class="container">
+        <h1>Testemunhos</h1>
+        <br>
+        <p style="text-align:center">Página dedicada aos testemunhos do curso. Testemunhos estes que estão atualmente frquentando o curso ou alunos que
+            já se formaram no referido curso
+        </p>
+        <small style="text-align:center">
+            <p>Para deixar o seu testemunho basta fazer o login</p>
+        </small>
+        <br>
+        <hr>
         <div class="row">
-            <div class="col-sm-3">
-                <div class="card text-center">
+            <div class="col-sm-2">
 
-                    <div class="card-body">
+            </div>
+            <div class="col-sm-2">
 
-                        <a id="+Testemunhos" data-toggle="modal" data-target="#modelTestemunhos" href="">
-                            <img class="img-responsive2" src="fotos/+.png">
-                        </a>
+            </div>
+            <div class="col-sm-2">
+
+            </div>
+            <div class="col-sm-2">
+
+                </div>
+                <div class="col-sm-2">
 
                     </div>
-                </div>
+            <div class="col-sm-2">
+                <a id="+Testemunhos" data-toggle="modal" data-target="#modelTestemunhos" href="">
+                    <i class="fas fa-plus-square">
+
+                    </i>
+                    <small id="helpId" class="form-text text-muted">Testemunhar</small>
+                </a>
 
             </div>
 
             <br>
 
         </div>
-        <div id="myCardTestemunhos" style="background-color:rgb(60, 65, 65)" class="card ">
+
+        <div class="row">
+            <div class="col-sm-3">
+
+
+            </div>
+
+            <br>
+
+        </div>
+        <div id="myCardTestemunhos">
 
         </div>
 
@@ -321,11 +345,7 @@
                             <textarea class="form-control" name="" id="modelTestemunho" rows="3" cols="2"></textarea>
                         </div>
 
-                        <div class="form-group">
 
-                            <input type="text" class="form-control" name="" id="nomeTe" aria-describedby="helpId" placeholder="Nome">
-
-                        </div>
 
                         <div class="form-group">
 
@@ -355,6 +375,8 @@
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+        crossorigin="anonymous">
 </body>
 
 </html>
