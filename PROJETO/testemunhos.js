@@ -188,6 +188,14 @@ window.onload = function () {
 
         btnConfig.style.display = 'none'
     }
+    if (substring2=="admin"&&substring3=="true") {
+
+        btnLogout.style.display='block'
+        btnLogin.style.display='none'
+        btnRegisto.style.display='none'
+        btnConfig.style.display='block'
+        
+    }
     if (substring4 == "estudante") {
         btnLogout.style.display = 'block'
         btnLogin.style.display = 'none'
@@ -495,7 +503,8 @@ function renderCatalog() {
         
                 <div class="card-body">
                 <img style="border-radius: 80px;" src="${TestemunhosGuardados[i]._fotoTe}" alt="">
-                <h6 class="card-text">${TestemunhosGuardados[i]._nomeTe}</h6>
+                <br>
+                <h4 class="card-text">${TestemunhosGuardados[i]._nomeTe}</h4>
                     <p class="card-text">${ TestemunhosGuardados[i]._testemunho}</p>
 
                     <a class='remove' href=""> <i class="far fa-trash-alt"></i></a>
@@ -555,7 +564,8 @@ function renderCatalog() {
         
                 <div class="card-body">
                 <img style="border-radius: 80px;" src="${TestemunhosGuardados[i]._fotoTe}" alt="">
-                <h6 class="card-text">${TestemunhosGuardados[i]._nomeTe}</h6>
+                <br>
+                <h4 class="card-text">${TestemunhosGuardados[i]._nomeTe}</h4>
                     <p class="card-text">${ TestemunhosGuardados[i]._testemunho}</p>
 
                     <a class='remove' href=""> <i class="far fa-trash-alt"></i></a>
@@ -581,6 +591,11 @@ function renderCatalog() {
         if (substring3 == "Visitante" && substring2 == "true") {
 
             btnTrash[i].style.display = 'none'
+
+        }
+        else if (substring == "admin" && substring2 == "true") {
+
+            btnTrash[i].style.display = 'block'
 
         }
         else if (substring3 == "docente") {

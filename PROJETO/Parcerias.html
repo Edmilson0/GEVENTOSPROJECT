@@ -59,6 +59,18 @@
             font-family: "particle regular";
             text-align: center;
         }
+        .button {
+            background-color: rgb(243, 177, 35);
+            border: none;
+            color: white;
+            padding: 10px 28px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
         
         footer {
             background-color: #080808;
@@ -267,21 +279,23 @@
 
     <div class="container" >
         <br>
-        <div class="row">
-            <div class="col-sm-3">
-                <button name="" id="btnAdParcerias" data-target="#modelParcerias" data-toggle="modal" class="btn btn-warning" href="#" role="button">Adicionar parcerias</button>
-
-            </div>
-
-            <br>
-        </div>
+       
 
         <!-- Parcerias -->
 
         <h2>Parcerias</h2>
         <hr>
         <br>
-
+        <div class="row">
+                <div class="col-sm-3">
+                    <button name="" id="btnAdParcerias" data-target="#modelParcerias" data-toggle="modal" class="button" href="#" role="button">Adicionar parcerias</button>
+    
+                </div>
+    
+               
+            </div>
+            <br>
+            <br>
         <div id="cardParserias">
 
         </div>

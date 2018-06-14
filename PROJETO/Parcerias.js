@@ -201,6 +201,14 @@ window.onload = function () {
         btnRegisto.style.display = 'none'
         btnConfig.style.display = 'none'
     }
+    if (substring2 == "admin" && substring3 == "true") {
+
+        btnLogout.style.display = 'block'
+        btnLogin.style.display = 'none'
+        btnRegisto.style.display = 'none'
+        btnConfig.style.display = 'block'
+
+    }
 
     if (substring4 == "docente") {
         btnAdicionarParceria.style.display = 'block'
@@ -613,7 +621,15 @@ function renderCatalog() {
         }
     }
 
-    if (substring4 == "docente") {
+    else if (substring4 == "docente") {
+        for (let i = 0; i < btnRemoverParcerias.length; i++) {
+            btnRemoverParcerias[i].style.display = 'block'
+
+        }
+
+    }
+    else if (substring2 == "admin"&&substring3==true) {
+        
         for (let i = 0; i < btnRemoverParcerias.length; i++) {
             btnRemoverParcerias[i].style.display = 'block'
 

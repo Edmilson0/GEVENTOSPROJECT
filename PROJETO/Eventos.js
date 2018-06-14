@@ -277,9 +277,6 @@ window.onload = function () {
 
 
 
-    if (localStorage.getItem("Interessados")) {
-        arrayIrEventos = JSON.parse(localStorage.getItem("Interessados"))
-    }
 
 
     if (localStorage.getItem("Eventos")) {
@@ -335,6 +332,14 @@ window.onload = function () {
         btnLogout.style.display = 'block'
         btnLogin.style.display = 'none'
         btnRegisto.style.display = 'none'
+    }
+    if (substring2=="admin"&&substring3=="true") {
+
+        btnLogout.style.display='block'
+        btnLogin.style.display='none'
+        btnRegisto.style.display='none'
+        btnConfig.style.display='block'
+        
     }
 
     if (substring4 == "docente") {
@@ -476,8 +481,8 @@ window.onload = function () {
         let Password = document.getElementById("ModalPasswordR").value
         let confPassword = document.getElementById("ModalConfPassword").value
         let stadoUtilizador = false
-        let varContNome=0
-        let varContEmail=0
+        let varContNome = 0
+        let varContEmail = 0
         let confirmarCodigoDocente = ""
 
 
@@ -502,39 +507,39 @@ window.onload = function () {
             }
 
             for (let i = 0; i < arrayUtilizadores.length; i++) {
-              
-                if (emailUt!=arrayUtilizadores[i]._email) {
-                varContEmail++
+
+                if (emailUt != arrayUtilizadores[i]._email) {
+                    varContEmail++
                 }
-                
+
             }
 
             for (let i = 0; i < arrayUtilizadores.length; i++) {
-              
-                if (nomeUt!=arrayUtilizadores[i]._nome) {
-                varContNome++
+
+                if (nomeUt != arrayUtilizadores[i]._nome) {
+                    varContNome++
                 }
-                
+
             }
-            
-            if ( varContNome==arrayUtilizadores.length) {
-                
-           
+
+            if (varContNome == arrayUtilizadores.length) {
+
+
             }
-            else{
+            else {
                 alert("Nome do utilizador já existente.")
             }
-           
-            if (varContEmail==arrayUtilizadores.length) {
-                
+
+            if (varContEmail == arrayUtilizadores.length) {
+
             }
-            else{
+            else {
                 alert("Email do utilizador já existente.")
             }
 
 
 
-            if (varContEmail==arrayUtilizadores.length&&varContNome==arrayUtilizadores.length) {
+            if (varContEmail == arrayUtilizadores.length && varContNome == arrayUtilizadores.length) {
                 let novoutilizador = new Utilizador(nomeUt, emailUt, Password, fotoUt, tipoutilizador)
                 arrayUtilizadores.push(novoutilizador)
                 swal({
@@ -542,18 +547,18 @@ window.onload = function () {
                     title: "Registo com secesso!",
                     text: "Bem vindo! ",
                 });
-                
-            localStorage.setItem("utilizadores", JSON.stringify(arrayUtilizadores))
-            btnRegisto.style.display = 'none'
-            btnLogin.style.display = 'none'
-            btnLogout.style.display = 'block'
-            stadoUtilizador = true
-            arrayEstadoUt.push(nomeUt)
-            arrayEstadoUt.push(stadoUtilizador)
-            arrayEstadoUt.push(tipoutilizador)
-            localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
-            arrayEstadoUt = []
-    
+
+                localStorage.setItem("utilizadores", JSON.stringify(arrayUtilizadores))
+                btnRegisto.style.display = 'none'
+                btnLogin.style.display = 'none'
+                btnLogout.style.display = 'block'
+                stadoUtilizador = true
+                arrayEstadoUt.push(nomeUt)
+                arrayEstadoUt.push(stadoUtilizador)
+                arrayEstadoUt.push(tipoutilizador)
+                localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
+                arrayEstadoUt = []
+
             }
 
 
@@ -562,12 +567,17 @@ window.onload = function () {
             event.preventDefault()
 
         }
-       
+
 
     })
 
+
+
+
     //submeter eventos
     frmCriarEventos.addEventListener("submit", function (event) {
+
+
 
         let data = document.getElementById("ModalData").value
         let horario = document.getElementById("ModalHorário").value
@@ -578,26 +588,46 @@ window.onload = function () {
         let designacao = document.getElementById("ModalDesigEvento").value
 
 
-        console.log("merda")
-        event.preventDefault()
-        let utGuardados = ""
-        // 1. Validar o campo da data
-        let diaAtual = new Date().getDate()
+        //  Verificar se a data selecionada não é superior à data atual
+        // Date.parse() recebe uma data e converte para milissegundos (desde 1 de janeiro de 1970 até a essa data)
 
-        if (diaAtual > data) {
 
+        let dataEvento = Date.parse(data)
+        let dataAtual = Date.parse(Date())
+
+
+        if (dataEvento < dataAtual) {
+
+            alert("A data do evento tem de ser maior à data atual!")
+            event.preventDefault()
 
         }
-        console.log(diaAtual)
+        else {
+
+
+            let novoEventos = new Eventos(data, horario, sala, categoria, responsavel, imagem, designacao)
+            arrayEventos.push(novoEventos)
+
+            localStorage.setItem("Eventos", JSON.stringify(arrayEventos))
+            swal({
+                icon: "success",
+                title: "Evento submetido com sucesso!",
+                text: "Bem vindo! ",
+            });
+
+            renderCatalog()
+
+        }
+
+
+        console.log("")
+
+        let utGuardados = ""
+        // 1. Validar o campo da data
+
 
         //inputYear.setAttribute()
 
-        let novoEventos = new Eventos(data, horario, sala, categoria, responsavel, imagem, designacao)
-        arrayEventos.push(novoEventos)
-
-        localStorage.setItem("Eventos", JSON.stringify(arrayEventos))
-
-        renderCatalog()
 
 
         console.log(arrayEventos)
@@ -609,8 +639,8 @@ window.onload = function () {
     let myCard = document.getElementById("myCardEventos")
     let strHtmlCard2 = ""
     let contador = 0
-    let acumulador = 0
     let total = 0
+    let acumulador = 0
 
     btnVer.addEventListener("click", function () {
         let EventosGuardados2 = ""
@@ -655,15 +685,15 @@ window.onload = function () {
                     <div class="row">
 
                     <div class="col-sm-6">
-                    <h5 class="card-text">RESPONSAVEL: <small id="helpId" class="form-text text-muted">${EventosGuardados2[i]._responsavel}</small> </h5>
-                    <h5>Data:</h5>
+                    <li class="card-text">RESPONSAVEL: <small id="helpId" class="form-text text-muted">${EventosGuardados2[i]._responsavel}</small> </li>
+                    <li>Data:</li>
                     <h6 class="card-text"> <small id="helpId" class="form-text text-muted">${EventosGuardados2[i]._data}</small> </h6>
                     </div>
 
                     <div class="col-sm-6">
-                    <h5>Hora:</h5>
+                    <li>Hora:</li>
                     <h6 class="card-text"> <small id="helpId" class="form-text text-muted">${EventosGuardados2[i]._hora}</small> </h6>
-                    <h5>Sala:</h5>
+                    <li>Sala:</li>
                     <h6 class="card-text"> <small id="helpId" class="form-text text-muted">${EventosGuardados2[i]._sala}</small> </h6>
 
                     </div>
@@ -720,12 +750,28 @@ window.onload = function () {
 
 
                 strHtmlCard2 += ` <hr style="background-color:rgb(238, 168, 29)">
+
                             </div>
                             </div>
                 
                             
                 
                             <div class="row">
+                                      
+            <div class="stars">
+            <form action="">
+              <input class="star star-5" id="star-5" type="radio" name="star"/>
+              <label class="star star-5" for="star-5"></label>
+              <input class="star star-4" id="star-4" type="radio" name="star"/>
+              <label class="star star-4" for="star-4"></label>
+              <input class="star star-3" id="star-3" type="radio" name="star"/>
+              <label class="star star-3" for="star-3"></label>
+              <input class="star star-2" id="star-2" type="radio" name="star"/>
+              <label class="star star-2" for="star-2"></label>
+              <input class="star star-1" id="star-1" type="radio" name="star"/>
+              <label class="star star-1" for="star-1"></label>
+            </form>
+          </div>
                             <div class="col-sm-3">
                             
                             </div>
@@ -742,12 +788,11 @@ window.onload = function () {
                 
                 <input type="text" class="form-control co" name="" id="comentario" aria-describedby="helpId" placeholder="Comentar">
                 <br>
-                <button id="" type="button" class="btn btn-warning co">
-                Enviar
-                </button>
+       
                 <a href="">
-                <i class="fas fa-comments"><small>Ver comentários</small></i>
+                <i class="fas fa-location-arrow a"></i>
                 </a>
+
                 
                 </div>
                             </div>
@@ -783,6 +828,88 @@ window.onload = function () {
 
         }
 
+        //interessados em ir aos eventos
+        let btnIrEventos = document.getElementsByClassName("btn btn-warning ir"), i;
+
+        for (let x = contador; x < arrayIrEventos.length; x++) {
+
+            for (let i = 0; i < btnIrEventos.length; i++) {
+                acumulador++
+                if (nomeUtilizadorLogado == arrayIrEventos[x]._interessado && EventosGuardados[i]._idEv == arrayIrEventos[x]._idEvento) {
+                    btnIrEventos[i].style.display = 'none'
+                    console.log(arrayIrEventos[x]._interessado)
+                    console.log(EventosGuardados[i]._idEv)
+                }
+
+
+            }
+
+            if (acumulador >= btnIrEventos.length) {
+                contador = x + 1
+
+            }
+            else {
+                contador = x
+
+            }
+
+
+        }
+
+
+        if (localStorage.getItem("Interessados")) {
+            arrayIrEventos = JSON.parse(localStorage.getItem("Interessados"))
+        }
+        if (localStorage.getItem("Comentarios")) {
+            arrayComentarios = JSON.parse(localStorage.getItem("Comentarios"))
+        }
+
+
+        //################### comentar eventos#############################
+
+        let btnComentarEventos = document.getElementsByClassName("fas fa-location-arrow a")
+        let comentarioDoUtilizador = document.getElementsByClassName("form-control co")
+        let varCometario = ""
+        let arrayDosComentarios = []
+
+        if (localStorage.getItem("Comentarios")) {
+            arrayComentarios = JSON.parse(localStorage.getItem("Comentarios"))
+        }
+
+        for (let i = 0; i < btnComentarEventos.length; i++) {
+
+            btnComentarEventos[i].addEventListener("click", function () {
+
+                if (comentarioDoUtilizador[i].value != "" && substring3 == "true") {
+                    varCometario = comentarioDoUtilizador[i].value
+
+                    let novoComentarios = new Comentarios(nomeUtilizadorLogado, varCometario, EventosGuardados[i]._idEv)
+                    arrayComentarios.push(novoComentarios)
+                    //comentarioDoUtilizador[i].reset()
+
+
+                    localStorage.setItem("Comentarios", JSON.stringify(arrayComentarios))
+
+                    alert("Comentário enviado com sucesso")
+                }
+                else {
+                    alert("Faça o login ou verefique que escreveu o comentário")
+                    event.preventDefault()
+                }
+
+
+
+
+            })
+
+
+        }
+
+
+
+
+
+        event.preventDefault()
 
     })
 
@@ -846,12 +973,14 @@ function renderCatalog() {
         }
 
         // Cria a card
-        strHtmlCard += `<div class="col-sm-6">
+        strHtmlCard += ` <div class="col-sm-6">
                    <br>
+                   
                     <div class="card" style="width:80%; height:100%">
-                  
+                   
                     <img class="card-img-top" style="height:235px;" src="${EventosGuardados[i]._imagem}" alt="Card image cap">
-                    <h3 class="card-title" style="background-color:rgb(218, 215, 209); text-align:center">${EventosGuardados[i]._categoria}</h3>
+ 
+                    <h1 class="card-title" style="; text-align:center;  font-family: arial">${EventosGuardados[i]._categoria}</h1>
                         <div class="card-body">
                            
                             <p class="card-text">${EventosGuardados[i]._designacao}</p>
@@ -861,15 +990,15 @@ function renderCatalog() {
                             <div class="row">
 
                             <div class="col-sm-6">
-                            <h5 class="card-text">RESPONSAVEL: <small id="helpId" class="form-text text-muted">${EventosGuardados[i]._responsavel}</small> </h5>
-                            <h5>Data:</h5>
+                            <li class="card-text">RESPONSAVEL: <small id="helpId" class="form-text text-muted">${EventosGuardados[i]._responsavel}</small> </li>
+                            <li>Data:</li>
                             <h6 class="card-text"> <small id="helpId" class="form-text text-muted">${EventosGuardados[i]._data}</small> </h6>
                             </div>
 
                             <div class="col-sm-6">
-                            <h5>Hora:</h5>
+                            <li>Hora:</li>
                             <h6 class="card-text"> <small id="helpId" class="form-text text-muted">${EventosGuardados[i]._hora}</small> </h6>
-                            <h5>Sala:</h5>
+                            <li>Sala:</li>
                             <h6 class="card-text"> <small id="helpId" class="form-text text-muted">${EventosGuardados[i]._sala}</small> </h6>
         
                             </div>
@@ -924,12 +1053,37 @@ function renderCatalog() {
         }
 
         strHtmlCard += ` <hr style="background-color:rgb(238, 168, 29)">
+
+        
             </div>
             </div>
 
-            
+  
 
             <div class="row">
+                      
+            <div class="stars">
+            <form action="">
+             <label id="${i}" class="star star" value="1" for="star-1"></label>
+            <label  id="${i}" class="star star" value="2" for="star-4"></label>
+           
+            <label  id="${i}" class="star star" value="3" for="star-3"></label>
+          
+            <label  id="${i}" class="star star" value="4" for="star-2"></label>
+            <label  id="${i}" class="star star" value="5" for="star-1"></label>
+             
+       
+              
+              
+             
+            
+           
+              <a href="">  <i class="fas fa-hand-point-right"></i></a>
+              <small id="helpId" class="form-text text-muted">enviar pontuação</small>
+             
+            </form>
+          </div>
+            
             <div class="col-sm-3">
             
             </div>
@@ -947,11 +1101,14 @@ function renderCatalog() {
 <input type="text" class="form-control co" name="" id="comentario" aria-describedby="helpId" placeholder="Comentar">
 <br>
 
-<button id="" type="button" class="btn btn-warning co"  >
-Enviar
-</button>
+
+
 <a href="">
 <i class="fas fa-comments"><small>Ver comentários</small></i>
+</a>
+_ _
+<a href="">
+<i class="fas fa-location-arrow a"></i>
 </a>
 
 
@@ -968,7 +1125,7 @@ Enviar
 
         // Fecha a linha
         if (i % 2 == 1) {
-            strHtmlCard += `</div>`
+            strHtmlCard += `</div>  <br>  <br>`
         }
 
     }
@@ -1049,7 +1206,7 @@ Enviar
 
     //################### comentar eventos#############################
 
-    let btnComentarEventos = document.getElementsByClassName("btn btn-warning co")
+    let btnComentarEventos = document.getElementsByClassName("fas fa-location-arrow a")
     let comentarioDoUtilizador = document.getElementsByClassName("form-control co")
     let varCometario = ""
     let arrayDosComentarios = []
@@ -1062,24 +1219,24 @@ Enviar
 
         btnComentarEventos[i].addEventListener("click", function () {
 
-            if (comentarioDoUtilizador[i].value!="") {
+            if (comentarioDoUtilizador[i].value != "" && substring1 == true) {
                 varCometario = comentarioDoUtilizador[i].value
 
                 let novoComentarios = new Comentarios(nomeUtilizadorLogado, varCometario, EventosGuardados[i]._idEv)
                 arrayComentarios.push(novoComentarios)
                 //comentarioDoUtilizador[i].reset()
-    
-    
+
+
                 localStorage.setItem("Comentarios", JSON.stringify(arrayComentarios))
-    
+
                 alert("Comentário enviado com sucesso")
             }
-            else{
-                alert("Escreva primeiro uma mensagem")
+            else {
+                alert("Faça o login ou verefique que escreveu o comentário")
                 event.preventDefault()
             }
 
-           
+
 
 
         })
@@ -1099,8 +1256,8 @@ Enviar
 
     let verComentarios = document.getElementsByClassName("fas fa-comments")
     contador = 0
-  
-   
+
+
 
     for (let i = 0; i < verComentarios.length; i++) {
 
@@ -1117,12 +1274,12 @@ Enviar
                 for (let i = 0; i < arrayComentarios.length; i++) {
                     acumulador++
                     if (arrayComentarios[i]._idDoEventoComentado == EventosGuardados[x]._idEv) {
-                       
-                        header = "Comentários";
-                        contentUtilizador +=" "+arrayComentarios[i]._NomeUilizador+": " + "\n"+arrayComentarios[i]._comentario + "\n"+"___________________________________________________________________________________";
 
-                        contentComentario +=arrayComentarios[i]._comentario + "\n";
-                      
+                        header = "Comentários";
+                        contentUtilizador += " " + arrayComentarios[i]._NomeUilizador + ": " + "\n" + arrayComentarios[i]._comentario + "\n" + "___________________________________________________________________________________";
+
+                        contentComentario += arrayComentarios[i]._comentario + "\n";
+
 
                     }
 
@@ -1152,6 +1309,44 @@ Enviar
 
     }
 
+    //###################### pontuar eventos #####################
+    let contar = 0
+    let estrelas = document.getElementsByClassName("star star")
+    let idDaEstrela = 0
+    let valorDaEstrela = 0
+    console.log(estrelas.length)
+    for (let i = 0; i < estrelas.length; i++) {
+        estrelas[i].style.color = "#444;"
+
+        estrelas[i].addEventListener("click", function () {
+
+            contar++
+            idDaEstrela = estrelas[i].getAttribute("id")
+            valorDaEstrela = estrelas[i].getAttribute("value")
+
+
+            for (let j = idDaEstrela; j < valorDaEstrela; j++) {
+                estrelas[j].style.color = " #FE7"
+                console.log("i: "+i)
+            }
+
+
+
+            let bloquiarEstrelas = document.getElementsByClassName("star star")[i].disable = true
+
+            console.log(estrelas[i])
+            console.log(valorDaEstrela)
+
+
+
+        })
+
+
+
+
+    }
+
+
 }
 
 function doModal(placementId, heading, formContent) {
@@ -1164,8 +1359,8 @@ function doModal(placementId, heading, formContent) {
     html += '</div>';
     html += '<div class="modal-body">';
     html += '<p>';
-  
-    html += '<h6 style="color:black; background-color:white;font-family:arial">' + formContent+ '</h6>';
+
+    html += '<h6 style="color:black; background-color:white;font-family:arial">' + formContent + '</h6>';
     html += '</div>';
     html += '</span>'; // close button
     html += '</div>';  // footer

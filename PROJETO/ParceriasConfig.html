@@ -2,68 +2,14 @@
 <html lang="en">
 
 <head>
-    <title>Admnistrador</title>
+    <title>Title</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <link rel="icon" type="image/png" sizes="16x16" href="Fotos/favicon-16x16.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src=""></script>
+    <script src="ParceriasConfig.js"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="">
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-    <style>
-        .navBar {
-
-            position: fixed;
-
-        }
-
-        #li {
-            list-style: none;
-            position: relative;
-            display: inline-block;
-            width: 90px;
-            height: 90px;
-        }
-
-        h6 {
-            font-family: "arial";
-
-        }
-
-        h2 {
-            text-align: center;
-            font-family: "particle regular";
-        }
-
-     
-
-        #eventosContainer {
-            background-color: floralwhite;
-        }
-
-        h1 {
-            font-family: "particle regular";
-            text-align: center;
-        }
-
-        #myContainer {
-            background-color: #e4e1e1;
-
-        }
-
-        #container {
-            padding-top: 40px;
-            height: 100%;
-        }
-
-        #imgModal {
-            text-align: center;
-        }
-    </style>
 </head>
 
 <body>
@@ -154,49 +100,91 @@
 
     <div class="container">
 
-        <div class="row">
+          
 
-            <div class="col-sm-3">
-                <li id="" class="">
-                    <a id="linkConfig" class="" href="EventoConfig.html">
-                        Eventos
-                    </a>
-
-                </li>
-            </div>
-            <div class="col-sm-3">
-                    <li id="" class="">
-                        <a id="linkConfig" class="" href="TestemunhoConfig.html">
-                           Testemunhos
-                        </a>
-    
-                    </li>
-                </div>
-                <div class="col-sm-3">
+                    <div class="col-sm-3">
                         <li id="" class="">
-                            <a id="linkConfig" class="" href="DocenteConfig.html">
-                               Docentes
+                            <a id="linkConfig" class="" href="EventoConfig.html">
+                                Eventos
                             </a>
         
                         </li>
                     </div>
                     <div class="col-sm-3">
                             <li id="" class="">
-                                <a id="linkConfig" class="" href="ParceriasConfig.html">
-                                   Parcerias
+                                <a id="linkConfig" class="" href="TestemunhoConfig.html">
+                                   Testemunhos
                                 </a>
             
                             </li>
                         </div>
-        </div>
+                        <div class="col-sm-3">
+                                <li id="" class="">
+                                    <a id="linkConfig" class="" href="DocenteConfig.html">
+                                       Docentes
+                                    </a>
+                
+                                </li>
+                            </div>
+                            <div class="col-sm-3">
+                                    <li id="" class="">
+                                        <a id="linkConfig" class="active" href="ParceriasConfig.html">
+                                           Parcerias
+                                        </a>
+                    
+                                    </li>
+                                </div>
+        <!--Parcerias-->
+
+        <form id="frmCriarParceriasConfig">
 
 
+            <h3 style="text-align:center;">Adicionar parcerias</h3>
 
-     
+            <br>
+            <div class="form-group">
+                <label for=""></label>
+                <input type="text" class="form-control" name="" id="configNomeEmpresa" placeholder="Nome da empresa" required>
+
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" id="configLocalizaçaoEmpresa" placeholder="Localização da empresa" required>
+
+            </div>
+            <div class="form-group">
+                <input type="url" class="form-control" id="configImagemEmpresa" placeholder="Link do logótipo">
+
+            </div>
+
+            <div class="form-group">
+                <input type="url" class="form-control" id="configLinkEmpresa" placeholder="Link da empresa">
+
+            </div>
+
+            <div>
 
 
+                <button id="submterBtn" type="submit" class="btn btn-warning">Submeter</button>
+            </div>
+        </form>
+        <br>
+        <br>
 
+          <!--eliminar parcerias-->
+          <form id="frmEliminarParcerias">
 
+                <h3 style="text-align:center;">Eliminar parcerias</h3>
+
+                <div class="form-group">
+                    <label for=""></label>
+                    <input type="text" class="form-control" name="" id="nomeParceriaAEliminar" placeholder="Nome da parceria" required>
+
+                </div>
+
+                <input id="btnPOntuar" type="submit" class="btn btn-warning"></input>
+            </form>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

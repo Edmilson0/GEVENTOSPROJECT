@@ -101,6 +101,13 @@ window.onload = function () {
         }
 
     }
+    /*let arrayAdmmin=[]
+
+    let newAdmin= new Utilizador("admin","admin@admin","admin","....","admin")
+    arrayAdmmin.push(newAdmin)
+    localStorage.setItem("utilizadores",JSON.stringify(arrayAdmmin))*/
+
+   
     let utilizadorOnline = ""
 
     if (localStorage.getItem("estadoUtitlizador")) {
@@ -114,11 +121,19 @@ window.onload = function () {
    
 
     if (substring3=="true") {
-        console.log("entrei")
+        
       
         btnLogout.style.display='block'
         btnLogin.style.display='none'
         btnRegistar.style.display='none'
+    }
+    if (substring2=="admin"&&substring3=="true") {
+
+        btnLogout.style.display='block'
+        btnLogin.style.display='none'
+        btnRegistar.style.display='none'
+        btnConfig.style.display='block'
+        
     }
    
 
