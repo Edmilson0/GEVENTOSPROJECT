@@ -5,6 +5,7 @@
     <title>Title</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
+    <link rel="icon" type="image/png" sizes="16x16" href="Fotos/favicon-16x16.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="ParceriasConfig.js"></script>
     <!-- Bootstrap CSS -->
@@ -54,15 +55,7 @@
                 <li id="optParcerias" class="nav-item">
                     <a class="nav-link" href="Parcerias.html">Parcerias</a>
                 </li>
-                <!--OPÇÃO Login-->
-                <li id="optLogin" class="nav-item">
-
-                    <a data-toggle="modal" data-target="#loginModal" class="nav-link" href="#">
-                        <i class="fas fa-user-circle">
-                            <small style="font-family:Arial">Login</small>
-                        </i>
-                    </a>
-                </li>
+              
                 <!--OPÇÃO Logout-->
                 <li id="optLogout" class="nav-item">
 
@@ -73,14 +66,7 @@
                     </a>
                 </li>
 
-                <!--OPÇÃO Registo-->
-                <li id="optRegisto" class="nav-item">
-                    <a id="linkRegistar" data-toggle="modal" data-target="#registoModal" class="nav-link" href="#">
-                        <i class="fas fa-user-plus">
-                            <small style="font-family:Arial">Registar</small>
-                        </i>
-                    </a>
-                </li>
+               
                 <!--OPÇÃO Cnfiguraçao-->
                 <li id="optConfig" class="nav-item active">
                     <a id="linkConfig" class="nav-link " href="Config.html">
@@ -100,40 +86,50 @@
 
     <div class="container">
 
-          
 
-                    <div class="col-sm-3">
-                        <li id="" class="">
-                            <a id="linkConfig" class="" href="EventoConfig.html">
-                                Eventos
-                            </a>
-        
-                        </li>
-                    </div>
-                    <div class="col-sm-3">
-                            <li id="" class="">
-                                <a id="linkConfig" class="" href="TestemunhoConfig.html">
-                                   Testemunhos
-                                </a>
-            
-                            </li>
-                        </div>
-                        <div class="col-sm-3">
-                                <li id="" class="">
-                                    <a id="linkConfig" class="" href="DocenteConfig.html">
-                                       Docentes
-                                    </a>
-                
-                                </li>
-                            </div>
-                            <div class="col-sm-3">
-                                    <li id="" class="">
-                                        <a id="linkConfig" class="active" href="ParceriasConfig.html">
-                                           Parcerias
-                                        </a>
-                    
-                                    </li>
-                                </div>
+
+        <div class="col-sm-3">
+            <li id="" class="">
+                <a id="linkConfig" class="" href="EventoConfig.html">
+                    Eventos
+                </a>
+
+            </li>
+        </div>
+        <div class="col-sm-3">
+            <li id="" class="">
+                <a id="linkConfig" class="" href="TestemunhoConfig.html">
+                    Testemunhos
+                </a>
+
+            </li>
+        </div>
+        <div class="col-sm-3">
+            <li id="" class="">
+                <a id="linkConfig" class="" href="DocenteConfig.html">
+                    Docentes
+                </a>
+
+            </li>
+        </div>
+        <div class="col-sm-3">
+            <li id="" class="">
+                <a id="linkConfig" class="active" href="ParceriasConfig.html">
+                    Parcerias
+                </a>
+
+            </li>
+        </div>
+        <div class="col-sm-3">
+            <li id="" class="">
+                <a id="linkConfig" class="" href="utilizadorConfig.html">
+                    Utilizadores
+                </a>
+
+            </li>
+        </div>
+
+
         <!--Parcerias-->
 
         <form id="frmCriarParceriasConfig">
@@ -171,19 +167,20 @@
         <br>
         <br>
 
-          <!--eliminar parcerias-->
-          <form id="frmEliminarParcerias">
+        <!--eliminar parcerias-->
+        <form id="frmEliminarParcerias">
 
-                <h3 style="text-align:center;">Eliminar parcerias</h3>
+            <h3 style="text-align:center;">Eliminar parcerias</h3>
 
-                <div class="form-group">
-                    <label for=""></label>
-                    <input type="text" class="form-control" name="" id="nomeParceriaAEliminar" placeholder="Nome da parceria" required>
+            <div class="form-group">
+                <label for=""></label>
+                <input type="text" class="form-control" name="" id="nomeParceriaAEliminar" placeholder="Nome da parceria" required>
 
-                </div>
+            </div>
 
-                <input id="btnPOntuar" type="submit" class="btn btn-warning"></input>
-            </form>
+            <input id="btnPOntuar" type="submit" class="btn btn-warning"></input>
+        </form>
+
     </div>
 
     <!-- Optional JavaScript -->

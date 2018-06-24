@@ -90,7 +90,7 @@ class Eventos {
 
 
 window.onload = function () {
-
+    atualizaTabelaEventos()
 
     if (localStorage.getItem("Eventos")) {
         let tempArrayEventos = []
@@ -105,7 +105,7 @@ window.onload = function () {
 
 
     let frmCriarEventos = document.getElementById("frmCriarEventosConfig")
-    atualizaTabelaEventos()
+  
     //submeter eventos
     frmCriarEventos.addEventListener("submit", function (event) {
 
@@ -119,86 +119,122 @@ window.onload = function () {
 
         let utGuardados = ""
 
-          //  Verificar se a data selecionada não é superior à data atual
+        //  Verificar se a data selecionada não é superior à data atual
         // Date.parse() recebe uma data e converte para milissegundos (desde 1 de janeiro de 1970 até a essa data)
 
-      
+
         let dataEvento = Date.parse(data)
         let dataAtual = Date.parse(Date())
 
 
-        if(dataEvento < dataAtual) {
-           
-            alert("A data do evento tem de ser maior à data atual!")      
+        if (dataEvento < dataAtual) {
+
+            alert("A data do evento tem de ser maior à data atual!")
             event.preventDefault()
-         
-        }else{
+
+        } else {
             let novoEventos = new Eventos(data, horario, sala, categoria, responsavel, imagem, designacao)
             tempArrayEvento.push(novoEventos)
-    
+
             localStorage.setItem("Eventos", JSON.stringify(arrayEventos))
-    
+
             swal({
                 icon: "success",
                 title: "Evento submetido com sucesso!",
-               
+
             });
-    
-    
+
+
             console.log(arrayEventos)
             event.preventDefault()
-    
-    
+
+
         }
 
-      
+
 
 
     })
 
     //#############################Eliminar eventos######################
 
-    let frmEliminarE = document.getElementById("frmEliminarEventos")
+    let frmEliminarE = document.getElementsByClassName("fas fa-times ar")
 
+  
+    let EventosGuardados = ""
+    let comentariosLocal = ""
+    let pontuaçõesLocais=""
+    let interessadosLocal = ""
 
-    frmEliminarE.addEventListener("submit", function (events) {
-        console.log("merda")
-        let contE = 0
+    for (let i = 0; i < frmEliminarE.length; i++) {
 
-        let IdEventoEliminar = document.getElementById("idEventosAEliminar").value
-
-
-        // eliminar Eventos
-
-
-
-        if (localStorage.getItem("Eventos")) {
-
-            tempArrayEvento = JSON.parse(localStorage.getItem("Eventos"))
-
-        }
-
-
-        for (let i = 0; i < tempArrayEvento.length; i++) {
-
-            if (IdEventoEliminar == tempArrayEvento[i]._idEv) {
-                tempArrayEvento.splice(i, 1)
-
-                localStorage.setItem("Eventos", JSON.stringify(tempArrayEvento))
-                atualizaTabelaEventos()
+        frmEliminarE[i].addEventListener("click", function (event) {
+            if (localStorage.getItem("Eventos")) {
+                EventosGuardados = JSON.parse(localStorage.getItem("Eventos"))
             }
-            else {
-                contE++
+               
+
+            if (localStorage.getItem("Interessados")) {
+                interessadosLocal = JSON.parse(localStorage.getItem("Interessados"))
             }
 
-        }
-        if (contE >= tempArrayEvento.length) {
-            alert("Id inválido")
-        }
-        events.preventDefault()
+            if (localStorage.getItem("Comentarios")) {
+                comentariosLocal = JSON.parse(localStorage.getItem("Comentarios"))
+            }
+            if (localStorage.getItem("Pontuação")) {
+                pontuaçõesLocais = JSON.parse(localStorage.getItem("Pontuação"))
+            }
 
 
-    })
+            let idEliminar = frmEliminarE[i].getAttribute("id")
+
+            confirm("Desejas eliminar o evento?!")
+
+            if (confirm) {
+                EventosGuardados.splice(i, 1)
+                localStorage.setItem("Eventos", JSON.stringify(EventosGuardados))
+
+                // remover interessados do evento eliminado
+                for (let y = interessadosLocal.length-1; y>=0; y--) {
+
+                    if (idEliminar == interessadosLocal[y]._idEvento) {
+                        interessadosLocal.splice(y, 1)
+                    }
+                }
+                localStorage.setItem("Interessados", JSON.stringify(interessadosLocal))
+
+                // remover comentarios do evento eliminado
+                for (let h = comentariosLocal.length-1; h>=0; h--) {
+                    console.log(comentariosLocal[h]._idDoEventoComentado)
+
+                    if (idEliminar == comentariosLocal[h]._idDoEventoComentado) {
+                        comentariosLocal.splice(h, 1)
+
+                    }
+
+                }
+                localStorage.setItem("Comentarios", JSON.stringify(comentariosLocal))
+
+                 // remover pontuações do evento pontuaçõesLocais
+                 for (let j = pontuaçõesLocais.length-1; j>=0; j--) {
+                   
+                    if (idEliminar == pontuaçõesLocais[j]._idEventoPontuado) {
+                        pontuaçõesLocais.splice(j, 1)
+
+                    }
+
+                }
+                localStorage.setItem("Pontuação", JSON.stringify(pontuaçõesLocais))
+            }
+
+            alert("Evento eliminado")
+            window.location.reload()
+            atualizaTabelaEventos()
+
+        })
+
+    }
+
 
 
 }
@@ -216,13 +252,13 @@ function atualizaTabelaEventos() {
 
     let tblEventos = document.getElementById("tblEventos")
     let str = ""
-    str = "<thead class='thead-dark'><tr><th>IMAGEM</th><th>NOME</th><th>ID</th></tr></thead><tbody>"
+    str = "<thead class='thead-dark'><tr><th>IMAGEM</th><th>DATA</th><th>NOME</th><th>AÇÃO</th></tr></thead><tbody>"
     for (let i = 0; i < tempArrayEvento.length; i++) {
         str += "<tr>"
         str += "<td> <img class='card-img-top' style='width:20%; height:40%' src='" + tempArrayEvento[i]._imagem + "'></td>"
-
+        str += "<td style=>" + tempArrayEvento[i]._data + "</td>"
         str += "<td style=>" + tempArrayEvento[i]._categoria + "</td>"
-        str += "<td style=>" + tempArrayEvento[i]._idEv + "</td>"
+        str += "<td style=><a href=''><i id=" + tempArrayEvento[i]._idEv + " class='fas fa-times ar'></i></a></td>"
         str += "</tr>"
     }
     str += "<tbody>"

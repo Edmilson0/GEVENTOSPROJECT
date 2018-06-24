@@ -7,13 +7,15 @@
     <meta charset="utf-8">
     <link rel="icon" type="image/png" sizes="16x16" href="Fotos/favicon-16x16.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="TestemunhoConfig.js"></script>
+    <script src="utilizadorConfig.js"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
 </head>
 
 <body>
+
+
     <!--BARRA DE NAVEGAÇÃO-->
     <nav id="navBar" class="navbar navbar-expand-sm navbar-dark bg-dark">
 
@@ -53,7 +55,7 @@
                 <li id="optParcerias" class="nav-item">
                     <a class="nav-link" href="Parcerias.html">Parcerias</a>
                 </li>
-               
+              
                 <!--OPÇÃO Logout-->
                 <li id="optLogout" class="nav-item">
 
@@ -64,7 +66,6 @@
                     </a>
                 </li>
 
-               
                 <!--OPÇÃO Cnfiguraçao-->
                 <li id="optConfig" class="nav-item active">
                     <a id="linkConfig" class="nav-link " href="Config.html">
@@ -83,68 +84,55 @@
 
     <div class="container">
 
+        
+            <div class="col-sm-3">
+                    <li id="" class="">
+                        <a id="linkConfig" class="" href="EventoConfig.html">
+                            Eventos
+                        </a>
+    
+                    </li>
+                </div>
+                <div class="col-sm-3">
+                        <li id="" class="">
+                            <a id="linkConfig" class="" href="TestemunhoConfig.html">
+                               Testemunhos
+                            </a>
+        
+                        </li>
+                    </div>
+                    <div class="col-sm-3">
+                            <li id="" class="">
+                                <a id="linkConfig" class="active" href="DocenteConfig.html">
+                                   Docentes
+                                </a>
+            
+                            </li>
+                        </div>
+                        <div class="col-sm-3">
+                                <li id="" class="">
+                                    <a id="linkConfig" class="" href="ParceriasConfig.html">
+                                       Parcerias
+                                    </a>
+                
+                                </li>
+                            </div>
+                            <div class="col-sm-3">
+                                    <li id="" class="">
+                                        <a id="linkConfig" class="" href="utilizadorConfig.html">
+                                           Utilizadores
+                                        </a>
+                    
+                                    </li>
+                                </div>
+                                <br>
+                                <br>
 
 
-        <div class="col-sm-3">
-            <li id="" class="">
-                <a id="linkConfig" class="" href="EventoConfig.html">
-                    Eventos
-                </a>
+        <table id="tblUtilizadorConfig" class="table"></table>
 
-            </li>
-        </div>
-        <div class="col-sm-3">
-            <li id="" class="">
-                <a id="linkConfig" class="active" href="TestemunhoConfig.html">
-                    Testemunhos
-                </a>
-
-            </li>
-        </div>
-        <div class="col-sm-3">
-            <li id="" class="">
-                <a id="linkConfig" class="" href="DocenteConfig.html">
-                    Docentes
-                </a>
-
-            </li>
-        </div>
-        <div class="col-sm-3">
-            <li id="" class="">
-                <a id="linkConfig" class="" href="ParceriasConfig.html">
-                    Parcerias
-                </a>
-
-            </li>
-        </div>
-        <div class="col-sm-3">
-            <li id="" class="">
-                <a id="linkConfig" class="" href="utilizadorConfig.html">
-                    Utilizadores
-                </a>
-
-            </li>
-        </div>
-        <!--eliminar testemunhos-->
-        <form id="frmEliminarTestemunhos">
-
-            <h3 style="text-align:center;">Eliminar testemunho</h3>
-
-            <br>
-
-
-            <div class="form-group">
-
-                <input type="text" class="form-control" name="" id="nomeTeEliminar" placeholder="Nome do testemunho">
-                <br>
-                <table id="tblTestemunhos" class="table"></table>
-            </div>
-
-            <button type="submit" class="btn btn-warning">Submeter</button>
-
-
-        </form>
     </div>
+
 
 
 

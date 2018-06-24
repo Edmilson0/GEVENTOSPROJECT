@@ -91,6 +91,7 @@ class Eventos {
 //################ Comentarios ################################################
 
 let arrayComentarios = []
+let arrayTotalComentarios=[]
 
 class Comentarios {
     constructor(NomeUilizador, comentario, idDoEventoComentado) {
@@ -207,6 +208,8 @@ class Utilizador {
 
 let arrayIrEventos = []
 
+let arrayTotalIrEventos = []
+
 class IrEventos {
     constructor(idEvento, interessado, ir) {
 
@@ -245,13 +248,116 @@ class IrEventos {
 
 
 }
+//################ Classe pontuar eventos ################################################
+
+let arrayPontuarEventos = []
+
+class Pontuação {
+    constructor(idEventoPontuado, nomeUti, pontuação) {
+
+        this.idEventoPontuado = idEventoPontuado
+        this.nomeUti = nomeUti
+        this.pontuação = pontuação
+
+
+    }
+
+    // PropriedadeidEventoPontuado
+    get idEventoPontuado() {
+        return this._idEventoPontuado
+    }
+    set idEventoPontuado(novoidEventoPontuado) {
+        this._idEventoPontuado = novoidEventoPontuado
+    }
+
+    // Propriedade nomeUti
+    get nomeUti() {
+        return this._nomeUti
+    }
+
+    set nomeUti(novonomeUti) {
+        this._nomeUti = novonomeUti
+    }
+    // Propriedade pontuação
+    get pontuação() {
+        return this._pontuação
+    }
+
+    set pontuação(novopontuação) {
+        this._pontuação = novopontuação
+    }
+
+}
+
+//################ Classe total pontuação dos eventos ################################################
+
+let arrayTotalPontuaçãoEventos = []
+let arrayPontuaçãoGeral = []
+
+class PontuaçãoTotal {
+
+    constructor(idEventoPontuaçãoTotal, pontuacaoTotal, nomeEvento, dataRealizacao, eventoImage) {
+
+        this.idEventoPontuaçãoTotal = idEventoPontuaçãoTotal
+        this.pontuacaoTotal = pontuacaoTotal
+        this.nomeEvento = nomeEvento
+        this.dataRealizacao = dataRealizacao
+        this.eventoImage = eventoImage
+
+        /*  arrayTotalPontuaçãoEventos.sort(function(a,b) {return (a.pontuacaoTotal > b.pontuacaoTotal) ? 1 : ((b.pontuacaoTotal > a.pontuacaoTotal) ? -1 : 0);} );*/
+    }
+
+
+    // Propriedade idEventoPontuaçãoTotal
+    get idEventoPontuaçãoTotal() {
+        return this.idEventoPontuaçãoTotal
+    }
+    set idEventoPontuaçãoTotal(novoidEventoPontuaçãoTotal) {
+        this._idEventoPontuaçãoTotal = novoidEventoPontuaçãoTotal
+    }
+
+    // Propriedade pontuacaoTotal
+    get pontuacaoTotal() {
+        return this._pontuacaoTotal
+    }
+
+    set pontuacaoTotal(novopontuacaoTotal) {
+        this._pontuacaoTotal = novopontuacaoTotal
+    }
+    // Propriedade nomeEvento
+    get nomeEvento() {
+        return this._nomeEvento
+    }
+
+    set nomeEvento(novonomeEvento) {
+        this._nomeEvento = novonomeEvento
+    }
+    // Propriedade dataRealizacao
+    get dataRealizacao() {
+        return this._dataRealizacao
+    }
+
+    set dataRealizacao(novodataRealizacao) {
+        this._dataRealizacao = novodataRealizacao
+    }
+    // Propriedade eventoImage
+    get eventoImage() {
+        return this._eventoImage
+    }
+
+    set eventoImage(novoeventoImage) {
+        this._eventoImage = novoeventoImage
+    }
+
+
+}
 
 
 window.onload = function () {
 
     renderCatalog()
-
-
+    esconderIcon()
+    PontuarEventos()
 
     let CodigoDocenteGuardado = ""
 
@@ -277,18 +383,19 @@ window.onload = function () {
 
 
 
-
-
     if (localStorage.getItem("Eventos")) {
         let tempArrayEventos = []
         tempArrayEventos = JSON.parse(localStorage.getItem("Eventos"))
         for (let i = 0; i < tempArrayEventos.length; i++) {
             let novoEvents = new Eventos(tempArrayEventos[i]._data, tempArrayEventos[i]._hora, tempArrayEventos[i]._sala, tempArrayEventos[i]._categoria, tempArrayEventos[i]._responsavel, tempArrayEventos[i]._imagem, tempArrayEventos[i]._designacao)
-            arrayEventos.push(novoEvents)
+
 
         }
 
     }
+
+
+
 
 
     if (localStorage.getItem("utilizadores")) {
@@ -304,12 +411,8 @@ window.onload = function () {
 
     if (localStorage.getItem("Interessados")) {
         let tempArrayInteressados = []
-        tempArrayInteressados = JSON.parse(localStorage.getItem("Interessados"))
-        for (let i = 0; i < tempArrayInteressados.length; i++) {
-            let novoInteressado = new IrEventos(tempArrayInteressados[i]._idEvento, tempArrayInteressados[i]._interessado, tempArrayInteressados[i]._ir)
-            arrayIrEventos.push(novoInteressado)
+        arrayIrEventos = JSON.parse(localStorage.getItem("Interessados"))
 
-        }
 
     }
 
@@ -325,30 +428,48 @@ window.onload = function () {
     let substring4 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
     let substring3 = utilizadorOnline.substring(pos1 + 1, pos2)
 
-
     if (substring4 == "Visitante" || substring4 == "estudante" && substring3 == "true") {
-        console.log("entrei")
         btnCriarEventos.style.display = 'none'
+    }
+
+    if (substring3 == "true") {
+
+
         btnLogout.style.display = 'block'
         btnLogin.style.display = 'none'
         btnRegisto.style.display = 'none'
     }
-    if (substring2=="admin"&&substring3=="true") {
+    if (substring2 == "admin" && substring3 == "true") {
 
-        btnLogout.style.display='block'
-        btnLogin.style.display='none'
-        btnRegisto.style.display='none'
-        btnConfig.style.display='block'
-        
-    }
-
-    if (substring4 == "docente") {
-        btnCriarEventos.style.display = 'block'
         btnLogout.style.display = 'block'
         btnLogin.style.display = 'none'
         btnRegisto.style.display = 'none'
+        btnConfig.style.display = 'block'
 
     }
+    let x = 0
+    let navBarFoto = document.getElementById("fotoUser")
+    for (let i = 0; i < arrayUtilizadores.length; i++) {
+
+        if (substring2 == arrayUtilizadores[i]._nome && substring3 == "true") {
+
+            navBarFoto.innerHTML += " <img class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='" + arrayUtilizadores[i]._foto + "' alt='' srcset=''>"
+            navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + arrayUtilizadores[i]._nome + "</small>"
+
+        }
+
+
+
+
+    }
+
+
+    if (substring3 == "false") {
+
+        navBarFoto.innerHTML += " <img class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='' alt='' srcset=''>"
+        navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' ></small>"
+    }
+
 
 
 
@@ -397,6 +518,7 @@ window.onload = function () {
                 arrayEstadoUt = []
 
                 frmLogin.reset()
+                window.location.reload()
                 event.preventDefault()
 
             }
@@ -408,7 +530,12 @@ window.onload = function () {
         }
         //se o utilizador não exister emite uma mensagem
         if (cont == utGuardados.length) {
-            alert("Utilizador não existente")
+            swal({
+                icon: "error",
+                title: "Utilizador não existente!",
+              
+            });
+         
             event.preventDefault()
         }
 
@@ -420,7 +547,7 @@ window.onload = function () {
         let pos2 = utilizadorOnline.lastIndexOf(",")
         let substring2 = utilizadorOnline.substring(0, pos1)
         let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
-
+        let substring5 = utilizadorOnline.substring(pos1 + 1, pos2)
 
         if (substring3 == "Visitante" || substring3 == "Estudante") {
             btnCriarEventos.style.display = 'none'
@@ -431,7 +558,30 @@ window.onload = function () {
         }
 
 
-        event.preventDefault()
+        for (let i = 0; i < arrayUtilizadores.length; i++) {
+
+            if (substring2 == arrayUtilizadores[i]._nome && substring5 == "true") {
+
+                navBarFoto.innerHTML += " <img class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='" + arrayUtilizadores[i]._foto + "' alt='' srcset=''>"
+                navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + arrayUtilizadores[i]._nome + "</small>"
+                console.log("putak pari")
+            }
+            else {
+                x++
+            }
+
+
+
+        }
+        if (x == arrayUtilizadores.length && substring5 == "true") {
+
+            navBarFoto.innerHTML += " <i class='fas fa-user'></i>"
+            navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + substring2 + "</small>"
+
+        }
+
+
+
 
     })
 
@@ -459,9 +609,10 @@ window.onload = function () {
         btnLogout.style.display = 'none'
         btnConfig.style.display = 'none'
 
+        navBarFoto.innerHTML += ""
+        navBarFoto.innerHTML += ""
 
-        event.preventDefault()
-
+        window.location.reload()
     })
 
     //submeter os dados do utilizador 
@@ -493,14 +644,15 @@ window.onload = function () {
         } else {
             //verificar se as checked boxes estão preenchidas e criar o objeto
             if (estudante.checked == true) {
-                tipoutilizador = "Estudante"
+                tipoutilizador = "estudante"
             } else if (docente.checked == true) {
 
                 while (confirmarCodigoDocente != CodigoDocenteGuardado) {
                     confirmarCodigoDocente = prompt("Escreva o código de confimação")
 
                 }
-                tipoutilizador = "Docente"
+                tipoutilizador = "docente"
+                window.location.reload()
             }
             else {
                 tipoutilizador = "Visitante"
@@ -563,7 +715,7 @@ window.onload = function () {
 
 
             ModalRegistar.reset()
-            console.log(arrayUtilizadores)
+            window.location.reload()
             event.preventDefault()
 
         }
@@ -577,8 +729,6 @@ window.onload = function () {
     //submeter eventos
     frmCriarEventos.addEventListener("submit", function (event) {
 
-
-
         let data = document.getElementById("ModalData").value
         let horario = document.getElementById("ModalHorário").value
         let sala = document.getElementById("ModalSala").value
@@ -587,14 +737,8 @@ window.onload = function () {
         let categoria = document.getElementById("optCategorias").value
         let designacao = document.getElementById("ModalDesigEvento").value
 
-
-        //  Verificar se a data selecionada não é superior à data atual
-        // Date.parse() recebe uma data e converte para milissegundos (desde 1 de janeiro de 1970 até a essa data)
-
-
         let dataEvento = Date.parse(data)
         let dataAtual = Date.parse(Date())
-
 
         if (dataEvento < dataAtual) {
 
@@ -603,7 +747,6 @@ window.onload = function () {
 
         }
         else {
-
 
             let novoEventos = new Eventos(data, horario, sala, categoria, responsavel, imagem, designacao)
             arrayEventos.push(novoEventos)
@@ -617,21 +760,9 @@ window.onload = function () {
 
             renderCatalog()
 
+            event.preventDefault()
+
         }
-
-
-        console.log("")
-
-        let utGuardados = ""
-        // 1. Validar o campo da data
-
-
-        //inputYear.setAttribute()
-
-
-
-        console.log(arrayEventos)
-        event.preventDefault()
 
     })
 
@@ -639,10 +770,37 @@ window.onload = function () {
     let myCard = document.getElementById("myCardEventos")
     let strHtmlCard2 = ""
     let contador = 0
-    let total = 0
+
     let acumulador = 0
 
     btnVer.addEventListener("click", function () {
+
+        let strHtmlCard2 = ""
+        let total = 0
+
+        let somador = 0
+        let acumulado = 0
+
+
+        strHtmlCard2 = ""
+        if (localStorage.getItem("PontuaçãoGeral")) {
+            let tempArrayPontuação = []
+            tempArrayPontuação = JSON.parse(localStorage.getItem("PontuaçãoGeral"))
+            for (let i = 0; i < tempArrayPontuação.length; i++) {
+                let novoPontuaçõesGerais = new Pontuação(tempArrayPontuação[i]._idEventoPontuadoTotal, tempArrayPontuação[i]._pontuacaoTotal, tempArrayPontuação[i].nomeEvento)
+                arrayPontuaçãoGeral.push(novoPontuaçõesGerais)
+
+            }
+
+        }
+
+        if (localStorage.getItem("Interessados")) {
+            arrayIrEventos = JSON.parse(localStorage.getItem("Interessados"))
+        }
+        if (localStorage.getItem("TotalInteressados")) {
+            arrayTotalIrEventos = JSON.parse(localStorage.getItem("TotalInteressados"))
+        }
+
         let EventosGuardados2 = ""
         let EventosGuardadosPorCateg = ""
         let contCategoria = 0
@@ -655,15 +813,11 @@ window.onload = function () {
         }
 
         for (let i = 0; i < EventosGuardados2.length; i++) {
+
             if (verCategoria.value == EventosGuardados2[i]._categoria) {
+                console.log(EventosGuardados2[i]._categoria)
 
                 console.log("entrei")
-
-
-                // 1. Iterar sobre o array de Trips
-
-                // 2. Para cada Trip vou definir uma Card e compô-la com os dados do objeto
-
 
 
                 // Inicia a linha
@@ -674,7 +828,7 @@ window.onload = function () {
                 // Cria a card
                 strHtmlCard2 += `<div class="col-sm-6">
                <br>
-                <div class="card" style="width:80%; height:100%">
+                <div id="${EventosGuardados2[i]._idEv}" class="card" style="width:80%; height:100%">
                 <img class="card-img-top" style="height:235px;" src="${EventosGuardados2[i]._imagem}" alt="Card image cap">
                 <h3 class="card-title" style="background-color:rgb(218, 215, 209);text-align:center">${EventosGuardados2[i]._categoria}</h3>
                
@@ -683,19 +837,16 @@ window.onload = function () {
                     <br>
                        
                     <div class="row">
-
                     <div class="col-sm-6">
                     <li class="card-text">RESPONSAVEL: <small id="helpId" class="form-text text-muted">${EventosGuardados2[i]._responsavel}</small> </li>
                     <li>Data:</li>
                     <h6 class="card-text"> <small id="helpId" class="form-text text-muted">${EventosGuardados2[i]._data}</small> </h6>
                     </div>
-
                     <div class="col-sm-6">
                     <li>Hora:</li>
                     <h6 class="card-text"> <small id="helpId" class="form-text text-muted">${EventosGuardados2[i]._hora}</small> </h6>
                     <li>Sala:</li>
                     <h6 class="card-text"> <small id="helpId" class="form-text text-muted">${EventosGuardados2[i]._sala}</small> </h6>
-
                     </div>
                        
                     </div>
@@ -704,53 +855,47 @@ window.onload = function () {
                 
                         <div class="row">
                         <div class="col-sm-6">
-                       
-                        </div>
-                        <div class="col-sm-3">
-                        <button type="button" class="btn btn-warning">Ir</button>
-                        </div>
-                        <div class="col-sm-3">
-                        <small id="helpId" class="form-text text-muted">Interessados</small>
-                            `//fechar
-                for (let x = contador; x < EventosGuardados2.length; x++) {
+                        <a href="">   <i class="fas fa-trash"></i></a>
+                        `
 
-                    for (let i = 0; i < arrayIrEventos.length; i++) {
-                        acumulador++
-                        if (arrayIrEventos[i]._idEvento == EventosGuardados2[x]._idEv) {
-                            total += arrayIrEventos[i]._ir
+                for (let o = 0; o < arrayPontuaçãoGeral.length; o++) {
 
-                            //acumulador = acumulador + arrayIrEventos[i]._ir
-                            console.log("id do evento " + EventosGuardados2[x]._idEv + " interessados " + arrayIrEventos[i]._ir)
+                    if (EventosGuardados2[i]._idEv == arrayPontuaçãoGeral[o]._idEventoPontuaçãoTotal) {
 
-
-                        }
+                        somador = parseInt(arrayPontuaçãoGeral[o]._pontuacaoTotal)
 
                     }
-                    if (acumulador >= arrayIrEventos.length) {
-                        contador = x + 1
-
-                        console.log()
-                        //abrir
-
-                        strHtmlCard2 += `
-                    <small id="helpId" class="form-text text-muted">${ total / 2}</small>
-                    
-                    `//fechar
-                        total = 0
-                        break
-                    }
-                    else {
-                        contador = x
-
-                    }
-
 
                 }
 
 
+                strHtmlCard2 += ` <h1 class="card-text"> &#x2605; ${somador}</h1> `
+
+                strHtmlCard2 += `
+                        </div>
+                       
+                        <div class="col-sm-3">
+                        <small id="helpId" class="form-text text-muted">Interessados</small>
+                            `//fechar
+
+
+                for (let y = 0; y < arrayTotalIrEventos.length; y++) {
+
+                    if (arrayTotalIrEventos[y]._idEvento == EventosGuardados2[i]._idEv) {
+                        total = parseInt(arrayTotalIrEventos[y]._ir)
+
+                    }
+
+                }
+                //abrir
+
+                strHtmlCard2 += `
+                <small id="helpId" class="form-text text-muted">${ total}</small>
+                
+                `//fechar
+
 
                 strHtmlCard2 += ` <hr style="background-color:rgb(238, 168, 29)">
-
                             </div>
                             </div>
                 
@@ -758,20 +903,7 @@ window.onload = function () {
                 
                             <div class="row">
                                       
-            <div class="stars">
-            <form action="">
-              <input class="star star-5" id="star-5" type="radio" name="star"/>
-              <label class="star star-5" for="star-5"></label>
-              <input class="star star-4" id="star-4" type="radio" name="star"/>
-              <label class="star star-4" for="star-4"></label>
-              <input class="star star-3" id="star-3" type="radio" name="star"/>
-              <label class="star star-3" for="star-3"></label>
-              <input class="star star-2" id="star-2" type="radio" name="star"/>
-              <label class="star star-2" for="star-2"></label>
-              <input class="star star-1" id="star-1" type="radio" name="star"/>
-              <label class="star star-1" for="star-1"></label>
-            </form>
-          </div>
+            
                             <div class="col-sm-3">
                             
                             </div>
@@ -786,13 +918,9 @@ window.onload = function () {
                             <div class="row">
                             <div class="form-group">
                 
-                <input type="text" class="form-control co" name="" id="comentario" aria-describedby="helpId" placeholder="Comentar">
+              
                 <br>
        
-                <a href="">
-                <i class="fas fa-location-arrow a"></i>
-                </a>
-
                 
                 </div>
                             </div>
@@ -812,10 +940,13 @@ window.onload = function () {
                 }
 
                 myCard.innerHTML = strHtmlCard2
-                strHtmlCard2 = ""
+
 
             } else if (verCategoria.value != EventosGuardados2[i]._categoria && verCategoria.value != "Todos") {
                 contCategoria++
+            }
+            else if (verCategoria.value == "Todos") {
+                window.location.reload()
             }
 
             if (contCategoria == EventosGuardados2.length) {
@@ -824,80 +955,47 @@ window.onload = function () {
                     title: "Evento não existente!",
 
                 });
+                contCategoria = 0
             }
 
+
+
         }
+
+
+
 
         //interessados em ir aos eventos
         let btnIrEventos = document.getElementsByClassName("btn btn-warning ir"), i;
 
-        for (let x = contador; x < arrayIrEventos.length; x++) {
 
-            for (let i = 0; i < btnIrEventos.length; i++) {
-                acumulador++
-                if (nomeUtilizadorLogado == arrayIrEventos[x]._interessado && EventosGuardados[i]._idEv == arrayIrEventos[x]._idEvento) {
-                    btnIrEventos[i].style.display = 'none'
-                    console.log(arrayIrEventos[x]._interessado)
-                    console.log(EventosGuardados[i]._idEv)
+        for (let z = 0; z < btnIrEventos.length; z++) {
+
+            btnIrEventos[z].style.display = 'none'
+
+        }
+
+        let click = 0
+
+
+        for (let w = 0; w < btnIrEventos.length; w++) {
+
+
+            btnIrEventos[w].addEventListener("click", function () {
+                btnIrEventos[w].style.display = 'none'
+                click = 1
+                if (localStorage.getItem("Interessados")) {
+                    arrayIrEventos = JSON.parse(localStorage.getItem("Interessados"))
                 }
 
+                idDoEvento = EventosGuardados2[i]._idEv
 
-            }
+                let objtIteressados = new IrEventos(idDoEvento, substring2, click)
+                arrayIrEventos.push(objtIteressados)
 
-            if (acumulador >= btnIrEventos.length) {
-                contador = x + 1
+                localStorage.setItem("Interessados", JSON.stringify(arrayIrEventos))
 
-            }
-            else {
-                contador = x
-
-            }
-
-
-        }
-
-
-        if (localStorage.getItem("Interessados")) {
-            arrayIrEventos = JSON.parse(localStorage.getItem("Interessados"))
-        }
-        if (localStorage.getItem("Comentarios")) {
-            arrayComentarios = JSON.parse(localStorage.getItem("Comentarios"))
-        }
-
-
-        //################### comentar eventos#############################
-
-        let btnComentarEventos = document.getElementsByClassName("fas fa-location-arrow a")
-        let comentarioDoUtilizador = document.getElementsByClassName("form-control co")
-        let varCometario = ""
-        let arrayDosComentarios = []
-
-        if (localStorage.getItem("Comentarios")) {
-            arrayComentarios = JSON.parse(localStorage.getItem("Comentarios"))
-        }
-
-        for (let i = 0; i < btnComentarEventos.length; i++) {
-
-            btnComentarEventos[i].addEventListener("click", function () {
-
-                if (comentarioDoUtilizador[i].value != "" && substring3 == "true") {
-                    varCometario = comentarioDoUtilizador[i].value
-
-                    let novoComentarios = new Comentarios(nomeUtilizadorLogado, varCometario, EventosGuardados[i]._idEv)
-                    arrayComentarios.push(novoComentarios)
-                    //comentarioDoUtilizador[i].reset()
-
-
-                    localStorage.setItem("Comentarios", JSON.stringify(arrayComentarios))
-
-                    alert("Comentário enviado com sucesso")
-                }
-                else {
-                    alert("Faça o login ou verefique que escreveu o comentário")
-                    event.preventDefault()
-                }
-
-
+                click = 0
 
 
             })
@@ -907,29 +1005,83 @@ window.onload = function () {
 
 
 
+        //################# ver comentario#############################
+
+        let header = ""
+        let contentUtilizador = ""
+        let contentComentario = ""
+
+        let verComentarios = document.getElementsByClassName("fas fa-comments")
+       
+
+        for (let i = 0; i < verComentarios.length; i++) {
+
+            verComentarios[i].addEventListener("click", function (event) {
+             
+                if (localStorage.getItem("Comentarios")) {
+                    arrayComentarios = JSON.parse(localStorage.getItem("Comentarios"))
+                }
+                
+
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth() + 1
+                var yyyy = today.getFullYear();
+
+                for (let x = contador; x < EventosGuardados2.length; x++) {
+
+                    for (let i = 0; i < arrayComentarios.length; i++) {
+                        acumulador++
+                        if (arrayComentarios[i]._idDoEventoComentado == EventosGuardados2[x]._idEv) {
+
+                            header = "Comentários";
+                            contentUtilizador += " <i class='fas fa-user'></i>" + "<h4 style='color:black; background-color:whites;font-family:arial'>" + arrayComentarios[i]._NomeUilizador + "<small style = 'padding-left:40%;'><small>" + dd + "/" + mm + "/" + yyyy + "</small></small>" + "</h4>" + "\n" + arrayComentarios[i]._comentario + "\n" + "<br><br>";
+
+
+                        }
+
+                    }
+                    if (acumulador >= arrayComentarios.length) {
+                        contador = x + 1
+
+                        console.log()
+                        total = 0
+                        break
+                    }
+                    else {
+                        contador = x
+
+                    }
+
+
+                }
+
+                console.log(contentUtilizador)
+                doModal('myModal', header, contentUtilizador);
+             
+                event.preventDefault()
+
+            })
+
+        }
+
 
 
         event.preventDefault()
 
     })
 
-    /*
-           
-   */
 }
 
 
 // Função que vai alimentar o meu catálogo
 function renderCatalog() {
 
-
+    esconderIcon()
 
     let myCard = document.getElementById("myCardEventos")
 
     let EventosGuardados = ""
-
-
-
 
     let strHtmlCard = ""
 
@@ -938,9 +1090,7 @@ function renderCatalog() {
     let idDoUtilizador = ""
     let nomeUtilizadorLogado = ""
 
-    if (localStorage.getItem("Eventos")) {
-        EventosGuardados = JSON.parse(localStorage.getItem("Eventos"))
-    }
+
 
     let estado = ""
     if (localStorage.getItem("estadoUtitlizador")) {
@@ -949,22 +1099,40 @@ function renderCatalog() {
     let pos1 = estado.indexOf(",")
     let pos2 = estado.lastIndexOf(",")
     let substring1 = estado.substring(pos1 + 1, pos2)
-
+    let tipoutilizador = estado.substring(pos2 + 1, estado.length)
     nomeUtilizadorLogado = estado.substring(0, pos1)
 
     if (localStorage.getItem("Interessados")) {
         arrayIrEventos = JSON.parse(localStorage.getItem("Interessados"))
     }
 
+    if (localStorage.getItem("Eventos")) {
+        EventosGuardados = JSON.parse(localStorage.getItem("Eventos"))
+    }
 
+    if (localStorage.getItem("Pontuação")) {
+        let tempArrayPontuação = []
+        tempArrayPontuação = JSON.parse(localStorage.getItem("Pontuação"))
+        for (let i = 0; i < tempArrayPontuação.length; i++) {
+            let novoPontuação = new Pontuação(tempArrayPontuação[i]._idEventoPontuado, tempArrayPontuação[i]._nomeUti, tempArrayPontuação[i]._pontuação)
+            arrayPontuarEventos.push(novoPontuação)
+
+        }
+
+    }
 
     let contador = 0
     let acumulador = 0
     let total = 0
 
+    let t = 0
+    let somador = 0
+    let acumulado = 0
+    let vezes = 0
 
     for (let i = 0; i < EventosGuardados.length; i++) {
         console.log()
+
 
 
         // Inicia a linha
@@ -976,7 +1144,7 @@ function renderCatalog() {
         strHtmlCard += ` <div class="col-sm-6">
                    <br>
                    
-                    <div class="card" style="width:80%; height:100%">
+                    <div id="${EventosGuardados[i]._idEv}" class="card" style="width:80%; height:100%">
                    
                     <img class="card-img-top" style="height:235px;" src="${EventosGuardados[i]._imagem}" alt="Card image cap">
  
@@ -988,13 +1156,11 @@ function renderCatalog() {
                            
                             
                             <div class="row">
-
                             <div class="col-sm-6">
-                            <li class="card-text">RESPONSAVEL: <small id="helpId" class="form-text text-muted">${EventosGuardados[i]._responsavel}</small> </li>
+                            <li class="card-text">RESPONSAVEL:&#x263a; <small id="helpId" class="form-text text-muted">${EventosGuardados[i]._responsavel}</small> </li>
                             <li>Data:</li>
                             <h6 class="card-text"> <small id="helpId" class="form-text text-muted">${EventosGuardados[i]._data}</small> </h6>
                             </div>
-
                             <div class="col-sm-6">
                             <li>Hora:</li>
                             <h6 class="card-text"> <small id="helpId" class="form-text text-muted">${EventosGuardados[i]._hora}</small> </h6>
@@ -1008,27 +1174,61 @@ function renderCatalog() {
                         <br>
                             <div class="row">
                             <div class="col-sm-6">
-                           
+                            <a href="">   <i id="${EventosGuardados[i]._idEv}" class="fas fa-trash"></i></a>
+                          
+                           `
+        for (let x = t; x < EventosGuardados.length; x++) {
+
+            for (let a = 0; a < arrayPontuarEventos.length; a++) {
+                acumulado++
+                if (EventosGuardados[x]._idEv == arrayPontuarEventos[a]._idEventoPontuado) {
+
+                    somador += parseInt(arrayPontuarEventos[a]._pontuação)
+                    vezes++
+
+                }
+
+            }
+            if (acumulado >= arrayPontuarEventos.length) {
+                t = x + 1
+                strHtmlCard += ` <h1 class="card-text"> &#x2605; ${somador}</h1> `
+
+
+                let novoPontuaçãoTotal = new PontuaçãoTotal(EventosGuardados[x]._idEv, somador / vezes, EventosGuardados[x]._categoria, EventosGuardados[x]._data, EventosGuardados[x]._imagem)
+                let novoPontuaçãoGeral = new PontuaçãoTotal(EventosGuardados[x]._idEv, somador, EventosGuardados[x]._categoria, EventosGuardados[x]._data, EventosGuardados[x]._imagem)
+                arrayTotalPontuaçãoEventos.push(novoPontuaçãoTotal)
+                arrayPontuaçãoGeral.push(novoPontuaçãoGeral)
+                var sorted = _.sortBy(arrayTotalPontuaçãoEventos, "pontuacaoTotal")
+                localStorage.setItem("PontuaçãoGeral", JSON.stringify(arrayPontuaçãoGeral))
+                localStorage.setItem("TotalPontuação", JSON.stringify(sorted))
+                somador = 0
+                vezes = 0
+                break
+            }
+            else {
+                t = x
+            }
+
+        }
+
+
+        strHtmlCard += `
                             </div>
                             <div class="col-sm-3">
                             <button id="btnIrEvento" type="button" class="btn btn-warning ir">Ir</button>
                             </div>
                             <div class="col-sm-3">
                             <small id="helpId" class="form-text text-muted">Interessados</small>
-
                             `//fechar
         for (let x = contador; x < EventosGuardados.length; x++) {
 
-            for (let i = 0; i < arrayIrEventos.length; i++) {
+            for (let q = 0; q < arrayIrEventos.length; q++) {
                 acumulador++
-                if (arrayIrEventos[i]._idEvento == EventosGuardados[x]._idEv) {
-                    total += arrayIrEventos[i]._ir
-
-                    //acumulador = acumulador + arrayIrEventos[i]._ir
-                    console.log("id do evento " + EventosGuardados[x]._idEv + " interessados " + arrayIrEventos[i]._ir)
-
+                if (arrayIrEventos[q]._idEvento == EventosGuardados[x]._idEv) {
+                    total += parseInt(arrayIrEventos[q]._ir)
 
                 }
+
 
             }
             if (acumulador >= arrayIrEventos.length) {
@@ -1039,8 +1239,12 @@ function renderCatalog() {
 
                 strHtmlCard += `
 <small id="helpId" class="form-text text-muted">${ total}</small>
-
 `//fechar
+                let objtIteressados = new IrEventos(EventosGuardados[x]._idEv, nomeUtilizadorLogado, total)
+                arrayTotalIrEventos.push(objtIteressados)
+
+
+                localStorage.setItem("TotalInteressados", JSON.stringify(arrayTotalIrEventos))
                 total = 0
                 break
             }
@@ -1052,42 +1256,30 @@ function renderCatalog() {
 
         }
 
-        strHtmlCard += ` <hr style="background-color:rgb(238, 168, 29)">
 
+
+
+
+
+        strHtmlCard += ` <hr style="background-color:rgb(238, 168, 29)">
         
             </div>
             </div>
-
   
-
             <div class="row">
-                      
-            <div class="stars">
-            <form action="">
-             <label id="${i}" class="star star" value="1" for="star-1"></label>
-            <label  id="${i}" class="star star" value="2" for="star-4"></label>
-           
-            <label  id="${i}" class="star star" value="3" for="star-3"></label>
-          
-            <label  id="${i}" class="star star" value="4" for="star-2"></label>
-            <label  id="${i}" class="star star" value="5" for="star-1"></label>
-             
-       
-              
-              
-             
-            
-           
-              <a href="">  <i class="fas fa-hand-point-right"></i></a>
-              <small id="helpId" class="form-text text-muted">enviar pontuação</small>
-             
-            </form>
-          </div>
-            
+
+
+            <form>
+            <small id="helpId" class="form-text text-muted">Pontuar de 1 a 5</small>
+            <input class="inputPontuar" type="number" name="quantity" min="1" max="5">
+          </form>
+
             <div class="col-sm-3">
             
+            <a href="">  <i class="fas fa-hand-point-right"></i></a>
+            <small id="helpId" class="form-text text-muted p">enviar pontuação</small>
+           
             </div>
-
             <div class="col-sm-9">
             
             
@@ -1097,12 +1289,8 @@ function renderCatalog() {
             <br>
             <div class="row">
             <div class="form-group">
-
 <input type="text" class="form-control co" name="" id="comentario" aria-describedby="helpId" placeholder="Comentar">
 <br>
-
-
-
 <a href="">
 <i class="fas fa-comments"><small>Ver comentários</small></i>
 </a>
@@ -1110,10 +1298,7 @@ _ _
 <a href="">
 <i class="fas fa-location-arrow a"></i>
 </a>
-
-
 </div>
-
             </div>
           
             `
@@ -1132,52 +1317,47 @@ _ _
 
     myCard.innerHTML = strHtmlCard
 
+
+
     //interessados em ir aos eventos
     let btnIrEventos = document.getElementsByClassName("btn btn-warning ir"), i;
 
-    for (let x = contador; x < arrayIrEventos.length; x++) {
+    let contadorr = 0
+    let acumuladorr = 0
+
+    for (let x = contadorr; x < arrayIrEventos.length; x++) {
 
         for (let i = 0; i < btnIrEventos.length; i++) {
             acumulador++
             if (nomeUtilizadorLogado == arrayIrEventos[x]._interessado && EventosGuardados[i]._idEv == arrayIrEventos[x]._idEvento) {
                 btnIrEventos[i].style.display = 'none'
-                console.log(arrayIrEventos[x]._interessado)
+                console.log(nomeUtilizadorLogado)
                 console.log(EventosGuardados[i]._idEv)
             }
 
 
         }
 
-        if (acumulador >= btnIrEventos.length) {
-            contador = x + 1
+        if (acumuladorr >= btnIrEventos.length) {
+            contadorr = x + 1
 
         }
         else {
-            contador = x
+            contadorr = x
 
         }
 
 
     }
 
-
-    let strHtmlCard3 = ""
-
     let click = 0
 
 
     for (let i = 0; i < btnIrEventos.length; i++) {
-        //btnIrEventos[i].style.display = 'none'
 
-        /* if (substring1 == "true") {
-             btnIrEventos[i].style.display = 'block'
-         }*/
-
-
-        //esconder o btn Ir e criar o objeto
 
         btnIrEventos[i].addEventListener("click", function () {
-
+            btnIrEventos[i].style.display = 'none'
             click = 1
             if (localStorage.getItem("Interessados")) {
                 arrayIrEventos = JSON.parse(localStorage.getItem("Interessados"))
@@ -1188,15 +1368,15 @@ _ _
             let objtIteressados = new IrEventos(idDoEvento, nomeUtilizadorLogado, click)
             arrayIrEventos.push(objtIteressados)
 
-            console.log(EventosGuardados[i]._idEv)
+
             localStorage.setItem("Interessados", JSON.stringify(arrayIrEventos))
 
-            btnIrEventos[i].style.display = 'none'
+
             click = 0
 
             //##################### atualizar catalogo ########################
 
-
+            window.location.reload()
 
 
         })
@@ -1219,17 +1399,17 @@ _ _
 
         btnComentarEventos[i].addEventListener("click", function () {
 
-            if (comentarioDoUtilizador[i].value != "" && substring1 == true) {
+            if (comentarioDoUtilizador[i].value != "" && substring1 == "true") {
                 varCometario = comentarioDoUtilizador[i].value
 
                 let novoComentarios = new Comentarios(nomeUtilizadorLogado, varCometario, EventosGuardados[i]._idEv)
                 arrayComentarios.push(novoComentarios)
-                //comentarioDoUtilizador[i].reset()
-
-
+            
                 localStorage.setItem("Comentarios", JSON.stringify(arrayComentarios))
 
                 alert("Comentário enviado com sucesso")
+                window.location.reload()
+                event.preventDefault()
             }
             else {
                 alert("Faça o login ou verefique que escreveu o comentário")
@@ -1257,17 +1437,48 @@ _ _
     let verComentarios = document.getElementsByClassName("fas fa-comments")
     contador = 0
 
+    if (localStorage.getItem("Comentarios")) {
+        arrayComentarios = JSON.parse(localStorage.getItem("Comentarios"))
+    }
+    for (let x = contador; x < EventosGuardados.length; x++) {
 
+        for (let i = 0; i < arrayComentarios.length; i++) {
+            
+            if (arrayComentarios[i]._idDoEventoComentado == EventosGuardados[x]._idEv) {
+                console.log("fodas")
+                let novoTotalComentarios = new Comentarios(nomeUtilizadorLogado, arrayComentarios[i]._comentario, EventosGuardados[x]._idEv)
+                arrayTotalComentarios.push(novoTotalComentarios)
+            
+                localStorage.setItem("TotalComentarios", JSON.stringify(arrayTotalComentarios))
+
+            }
+            acumulador++
+        }
+        if (acumulador >= arrayComentarios.length) {
+            contador = x + 1
+
+            console.log()
+            total = 0
+            break
+        }
+        else {
+            contador = x
+
+        }
+
+
+    }
 
     for (let i = 0; i < verComentarios.length; i++) {
 
         verComentarios[i].addEventListener("click", function (event) {
             contador = i
-            if (localStorage.getItem("Comentarios")) {
-                arrayComentarios = JSON.parse(localStorage.getItem("Comentarios"))
-            }
+           
 
-
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1
+            var yyyy = today.getFullYear();
 
             for (let x = contador; x < EventosGuardados.length; x++) {
 
@@ -1276,9 +1487,7 @@ _ _
                     if (arrayComentarios[i]._idDoEventoComentado == EventosGuardados[x]._idEv) {
 
                         header = "Comentários";
-                        contentUtilizador += " " + arrayComentarios[i]._NomeUilizador + ": " + "\n" + arrayComentarios[i]._comentario + "\n" + "___________________________________________________________________________________";
-
-                        contentComentario += arrayComentarios[i]._comentario + "\n";
+                        contentUtilizador += " <i class='fas fa-user'></i>" + "<h4 style='color:black; background-color:whites;font-family:arial'>" + arrayComentarios[i]._NomeUilizador + "<small style = 'padding-left:40%;'><small>" + dd + "/" + mm + "/" + yyyy + "</small></small>" + "</h4>" + "\n" + arrayComentarios[i]._comentario + "\n" + "<br><br>";
 
 
                     }
@@ -1309,42 +1518,85 @@ _ _
 
     }
 
-    //###################### pontuar eventos #####################
-    let contar = 0
-    let estrelas = document.getElementsByClassName("star star")
-    let idDaEstrela = 0
-    let valorDaEstrela = 0
-    console.log(estrelas.length)
-    for (let i = 0; i < estrelas.length; i++) {
-        estrelas[i].style.color = "#444;"
+    //##################### Eliminar eventos ###########################
 
-        estrelas[i].addEventListener("click", function () {
+    let iconRemoverEvento = document.getElementsByClassName("fas fa-trash")
+    if (localStorage.getItem("Eventos")) {
+        EventosGuardados = JSON.parse(localStorage.getItem("Eventos"))
+    }
 
-            contar++
-            idDaEstrela = estrelas[i].getAttribute("id")
-            valorDaEstrela = estrelas[i].getAttribute("value")
+    let comentariosLocal = ""
+    let pontuaçõesLocais = ""
+    let interessadosLocal = ""
 
 
-            for (let j = idDaEstrela; j < valorDaEstrela; j++) {
-                estrelas[j].style.color = " #FE7"
-                console.log("i: "+i)
+
+    for (let i = 0; i < iconRemoverEvento.length; i++) {
+
+        iconRemoverEvento[i].addEventListener("click", function (event) {
+            if (localStorage.getItem("Interessados")) {
+                interessadosLocal = JSON.parse(localStorage.getItem("Interessados"))
+            }
+
+            if (localStorage.getItem("Comentarios")) {
+                comentariosLocal = JSON.parse(localStorage.getItem("Comentarios"))
+            }
+            if (localStorage.getItem("Pontuação")) {
+                pontuaçõesLocais = JSON.parse(localStorage.getItem("Pontuação"))
             }
 
 
+            let apanhaId = iconRemoverEvento[i].getAttribute("id")
 
-            let bloquiarEstrelas = document.getElementsByClassName("star star")[i].disable = true
+            let confirmação = confirm("Desejas eliminar o evento?!")
 
-            console.log(estrelas[i])
-            console.log(valorDaEstrela)
+            if (confirmação) {
+                EventosGuardados.splice(i, 1)
+                localStorage.setItem("Eventos", JSON.stringify(EventosGuardados))
 
+                // remover interessados do evento eliminado
+                for (let y = interessadosLocal.length - 1; y >= 0; y--) {
 
+                    if (apanhaId == interessadosLocal[y]._idEvento) {
+                        interessadosLocal.splice(y, 1)
+                    }
+                }
+                localStorage.setItem("Interessados", JSON.stringify(interessadosLocal))
 
+                // remover comentarios do evento eliminado
+                for (let h = comentariosLocal.length - 1; h >= 0; h--) {
+                    console.log(comentariosLocal[h]._idDoEventoComentado)
+
+                    if (apanhaId == comentariosLocal[h]._idDoEventoComentado) {
+                        comentariosLocal.splice(h, 1)
+
+                    }
+
+                }
+                localStorage.setItem("Comentarios", JSON.stringify(comentariosLocal))
+
+                // remover pontuações do evento pontuaçõesLocais
+                for (let j = pontuaçõesLocais.length - 1; j >= 0; j--) {
+
+                    if (apanhaId == pontuaçõesLocais[j]._idEventoPontuado) {
+                        pontuaçõesLocais.splice(j, 1)
+
+                    }
+
+                }
+                localStorage.setItem("Pontuação", JSON.stringify(pontuaçõesLocais))
+                alert("Evento eliminado")
+            }
+
+           
+            window.location.reload()
+            event.preventDefault()
         })
-
-
-
-
     }
+
+
+
+
 
 
 }
@@ -1353,7 +1605,7 @@ function doModal(placementId, heading, formContent) {
 
     let html = '<div id="modalWindow" class="modal fade" style="display:none;left:30%; width:50%;height: 50%; background-color:white">';
     html += '<div class="modal-header">';
-    html += '<a class="btn btn-danger" data-dismiss="modal">×</a>';
+    html += '<a id="fecharModal" class="btn btn-danger" data-dismiss="modal">×</a>';
 
     html += '<h4 style="color:black">' + heading + '</h4>'
     html += '</div>';
@@ -1368,6 +1620,11 @@ function doModal(placementId, heading, formContent) {
     $("#myModalCo").html(html);
     $("#modalWindow").modal();
 
+    let btnFechar = document.getElementById("fecharModal")
+
+    btnFechar.addEventListener("click", function () {
+        window.location.reload()
+    })
 
 }
 
@@ -1377,4 +1634,173 @@ function hideModal() {
     // will remove the modal window but not the mask
     $('#myModalCo').modal('hide');
 }
+
+function esconderIcon() {
+
+    let iconRemoverEvento = document.getElementsByClassName("fas fa-trash"), i;
+
+    let nomeUtilizadorLogado = ""
+
+    let EventosGuardados = ""
+
+    if (localStorage.getItem("Eventos")) {
+        EventosGuardados = JSON.parse(localStorage.getItem("Eventos"))
+    }
+
+    let estado = ""
+    if (localStorage.getItem("estadoUtitlizador")) {
+        estado = localStorage.getItem("estadoUtitlizador")
+    }
+    let pos1 = estado.indexOf(",")
+    let pos2 = estado.lastIndexOf(",")
+    let substring1 = estado.substring(pos1 + 1, pos2)
+    let tipoutilizador = estado.substring(pos2 + 1, estado.length)
+    console.log(substring1)
+    nomeUtilizadorLogado = estado.substring(0, pos1)
+
+
+    for (let i = 0; i < iconRemoverEvento.length; i++) {
+
+
+        if (nomeUtilizadorLogado == "admin" || tipoutilizador == "docente" && substring1 == "true") {
+            iconRemoverEvento[i].style.display = 'block'
+
+
+        }
+
+        else if (substring1 == "false") {
+            iconRemoverEvento[i].style.display = 'none'
+        }
+        else {
+            iconRemoverEvento[i].style.display = 'none'
+        }
+
+    }
+
+}
+function PontuarEventos() {
+
+    let nomeUtilizadorLogado = ""
+
+
+
+    let estado = ""
+    if (localStorage.getItem("estadoUtitlizador")) {
+        estado = localStorage.getItem("estadoUtitlizador")
+    }
+    let pos1 = estado.indexOf(",")
+    let pos2 = estado.lastIndexOf(",")
+    let substrings1 = estado.substring(pos1 + 1, pos2)
+    let substrings2 = estado.substring(pos1 + 1, estado.length)
+    let tipoutilizador = estado.substring(pos2 + 1, estado.length)
+    nomeUtilizadorLogados = estado.substring(0, pos1)
+
+    /* if (localStorage.getItem("Pontuação")) {
+         let tempArrayPontuação = []
+         tempArrayPontuação = JSON.parse(localStorage.getItem("Pontuação"))
+         for (let i = 0; i < tempArrayPontuação.length; i++) {
+             let novoPontuação = new Pontuação(tempArrayPontuação[i]._idEventoPontuado,tempArrayPontuação[i]._nomeUti, tempArrayPontuação[i]._pontuação)
+             arrayPontuarEventos.push(novoPontuação)
+ 
+         }
+ 
+     }*/
+
+    if (localStorage.getItem("Eventos")) {
+        let tempArrayEventos = []
+        tempArrayEventos = JSON.parse(localStorage.getItem("Eventos"))
+        for (let i = 0; i < tempArrayEventos.length; i++) {
+            let novoEvents = new Eventos(tempArrayEventos[i]._data, tempArrayEventos[i]._hora, tempArrayEventos[i]._sala, tempArrayEventos[i]._categoria, tempArrayEventos[i]._responsavel, tempArrayEventos[i]._imagem, tempArrayEventos[i]._designacao)
+            arrayEventos.push(novoEvents)
+
+        }
+
+    }
+
+
+    //###################### pontuar eventos #####################
+    let contar = 0
+    let valorPontuação = document.getElementsByClassName("inputPontuar")
+    let label = document.getElementsByClassName("form-text text-muted p")
+    let enviarPont = document.getElementsByClassName("fas fa-hand-point-right"), i
+
+    for (let i = 0; i < enviarPont.length; i++) {
+
+
+
+        if (substrings2 == "false") {
+            enviarPont[i].style.display = 'none'
+        }
+
+        if (substrings1 == "true") {
+
+            enviarPont[i].style.display = 'block'
+
+        }
+        else {
+            enviarPont[i].style.display = 'none'
+        }
+
+
+    }
+
+    for (let x = 0; x < arrayPontuarEventos.length; x++) {
+
+        for (let i = 0; i < arrayEventos.length; i++) {
+
+            if (nomeUtilizadorLogados == arrayPontuarEventos[x]._nomeUti && arrayEventos[i]._idEv == arrayPontuarEventos[x]._idEventoPontuado) {
+                enviarPont[i].style.display = 'none'
+                label[i].style.display = 'none'
+
+                console.log("porra")
+            }
+
+        }
+        if (x == arrayEventos.length) {
+            x++
+        }
+        else {
+            x = x
+        }
+
+    }
+
+
+    for (let i = 0; i < enviarPont.length; i++) {
+
+        enviarPont[i].addEventListener("click", function (event) {
+
+            if (valorPontuação[i].value != "" && valorPontuação[i].value <= 5) {
+
+                if (localStorage.getItem("Pontuação")) {
+
+                    arrayPontuarEventos = JSON.parse(localStorage.getItem("Pontuação"))
+
+
+                }
+
+                let novoPontos = new Pontuação(arrayEventos[i]._idEv, nomeUtilizadorLogados, valorPontuação[i].value)
+                arrayPontuarEventos.push(novoPontos)
+                localStorage.setItem("Pontuação", JSON.stringify(arrayPontuarEventos))
+                enviarPont[i].style.display = 'none'
+                label[i].style.display = 'none'
+
+                alert("Pontuação enviado com sucesso")
+                window.location.reload()
+                event.preventDefault()
+            }
+            else {
+                alert("Primeiro tem de adicionar uma pontuação ou verefique se a pontuação é menor ou igual a 5")
+                console.log(valorPontuação.length)
+                event.preventDefault()
+            }
+
+        })
+
+    }
+
+
+}
+
+
 

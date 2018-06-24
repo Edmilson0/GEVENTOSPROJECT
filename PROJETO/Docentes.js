@@ -132,6 +132,8 @@ class Utilizador {
 
 
 window.onload = function () {
+
+    renderCatalog()
     let CodigoDocenteGuardado = ""
 
     let codigoDocente = "Docente"
@@ -140,7 +142,7 @@ window.onload = function () {
     let btnLogout = document.getElementById("optLogout")
     let btnConfig = document.getElementById("linkConfig")
     btnLogout.style.display = 'none'
-    //btnConfig.style.display = 'none'
+    btnConfig.style.display = 'none'
 
     let nomeDocente = document.getElementById("modalNomeDocente")
     let formaçao = document.getElementById("modalFormaçaoDocente")
@@ -150,6 +152,7 @@ window.onload = function () {
     let btnRegisto = document.getElementById("optRegisto")
     let btnLogin = document.getElementById("optLogin")
     let btnCriarDocentes = document.getElementById("btnAdDocentes")
+    btnCriarDocentes.style.display = 'none'
     let ModalRegistar = document.getElementById("frmRegistar")
     let iconRemoverDocentes = document.getElementsByClassName("fas fa-trash d"), i;
     for (let i = 0; i < iconRemoverDocentes.length; i++) {
@@ -180,7 +183,6 @@ window.onload = function () {
         }
 
     }
-
     let utilizadorOnline = ""
 
     if (localStorage.getItem("estadoUtitlizador")) {
@@ -192,33 +194,52 @@ window.onload = function () {
     let substring4 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
     let substring3 = utilizadorOnline.substring(pos1 + 1, pos2)
 
+    if (substring4 == "estudante" || substring4 == "Visitante" && substring3 == "true") {
 
-    if (substring4 == "Visitante" || substring4 == "estudante" && substring3 == "true") {
-        console.log("Docente")
         btnCriarDocentes.style.display = 'none'
         btnLogout.style.display = 'block'
         btnLogin.style.display = 'none'
         btnRegisto.style.display = 'none'
-        btnConfig.style.display = 'none'
     }
-    if (substring2=="admin"&&substring3=="true") {
+    else if (substring4 == "docente" || substring4 == "admin" && substring3 == "true") {
 
-        btnLogout.style.display='block'
-        btnLogin.style.display='none'
-        btnRegisto.style.display='none'
-        btnConfig.style.display='block'
-        
-    }
-
-    if (substring4 == "docente") {
         btnCriarDocentes.style.display = 'block'
         btnLogout.style.display = 'block'
         btnLogin.style.display = 'none'
         btnRegisto.style.display = 'none'
-        btnConfig.style.display = 'none'
+    }
+    else if (substring2 == "admin" && substring3 == "true") {
+
+        btnLogout.style.display = 'block'
+        btnLogin.style.display = 'none'
+        btnRegisto.style.display = 'none'
+        btnConfig.style.display = 'block'
+        btnCriarDocentes.style.display = 'block'
 
     }
 
+    let x = 0
+    let navBarFoto = document.getElementById("fotoUser")
+    for (let i = 0; i < arrayUtilizadores.length; i++) {
+
+        if (substring2 == arrayUtilizadores[i]._nome && substring3 == "true") {
+
+            navBarFoto.innerHTML += " <img  class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='" + arrayUtilizadores[i]._foto + "' alt='' srcset=''>"
+            navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + arrayUtilizadores[i]._nome + "</small>"
+
+        }
+
+
+
+
+    }
+
+
+    if (substring3 == "false") {
+
+        navBarFoto.innerHTML += " <img  class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='' alt='' srcset=''>"
+        navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' ></small>"
+    }
     renderCatalog()
 
 
@@ -268,6 +289,7 @@ window.onload = function () {
                 arrayEstadoUt = []
 
                 frmLogin.reset()
+                window.location.reload()
                 event.preventDefault()
 
             }
@@ -282,7 +304,11 @@ window.onload = function () {
         }
         //se o utilizador não exister emite uma mensagem
         if (cont == utGuardados.length) {
-            alert("Utilizador não existente")
+            swal({
+                icon: "error",
+                title: "Utilizador não existente!",
+               
+            });
             event.preventDefault()
         }
 
@@ -293,9 +319,9 @@ window.onload = function () {
         let pos2 = utilizadorOnline.lastIndexOf(",")
         let substring2 = utilizadorOnline.substring(0, pos1)
         let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
+        let substring4 = utilizadorOnline.substring(pos1 + 1, pos2)
 
-
-        if (substring3 == "Visitante" || substring3 == "estudante") {
+        if (substring3 == "Visitante" || substring3 == "estudante" && substring4 == "true") {
             btnCriarDocentes.style.display = 'none'
             for (let i = 0; i < iconRemoverDocentes.length; i++) {
                 iconRemoverDocentes[i].style.display = 'none'
@@ -312,6 +338,29 @@ window.onload = function () {
 
             }
         }
+
+        for (let i = 0; i < arrayUtilizadores.length; i++) {
+
+            if (substring2 == arrayUtilizadores[i]._nome && substring4 == "true") {
+
+                navBarFoto.innerHTML += " <img  class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='" + arrayUtilizadores[i]._foto + "' alt='' srcset=''>"
+                navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + arrayUtilizadores[i]._nome + "</small>"
+                console.log("putak pari")
+            }
+            else {
+                x++
+            }
+
+
+
+        }
+        if (x == arrayUtilizadores.length && substring4 == "true") {
+
+            navBarFoto.innerHTML += " <i class='fas fa-user'></i>"
+            navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + substring2 + "</small>"
+
+        }
+
 
         renderCatalog()
 
@@ -357,8 +406,9 @@ window.onload = function () {
 
         }
 
-
-
+        navBarFoto.innerHTML += ""
+        navBarFoto.innerHTML += ""
+        window.location.reload()
         event.preventDefault()
 
     })
@@ -381,9 +431,9 @@ window.onload = function () {
         let Password = document.getElementById("ModalPasswordR").value
         let confPassword = document.getElementById("ModalConfPassword").value
         let stadoUtilizador = false
-        let varContNome=0
-        let varContEmail=0
-       
+        let varContNome = 0
+        let varContEmail = 0
+
 
         let confirmarCodigoDocente = ""
 
@@ -399,7 +449,7 @@ window.onload = function () {
 
                 while (confirmarCodigoDocente != CodigoDocenteGuardado) {
                     confirmarCodigoDocente = prompt("Escreva o código de confimação")
-
+                    window.location.reload()
                 }
 
 
@@ -413,39 +463,39 @@ window.onload = function () {
                 tipoutilizador = "Visitante"
             }
             for (let i = 0; i < arrayUtilizadores.length; i++) {
-              
-                if (emailUt!=arrayUtilizadores[i]._email) {
-                varContEmail++
+
+                if (emailUt != arrayUtilizadores[i]._email) {
+                    varContEmail++
                 }
-                
+
             }
 
             for (let i = 0; i < arrayUtilizadores.length; i++) {
-              
-                if (nomeUt!=arrayUtilizadores[i]._nome) {
-                varContNome++
+
+                if (nomeUt != arrayUtilizadores[i]._nome) {
+                    varContNome++
                 }
-                
+
             }
-            
-            if ( varContNome==arrayUtilizadores.length) {
-                
-           
+
+            if (varContNome == arrayUtilizadores.length) {
+
+
             }
-            else{
+            else {
                 alert("Nome do utilizador já existente.")
             }
-           
-            if (varContEmail==arrayUtilizadores.length) {
-                
+
+            if (varContEmail == arrayUtilizadores.length) {
+
             }
-            else{
+            else {
                 alert("Email do utilizador já existente.")
             }
 
 
 
-            if (varContEmail==arrayUtilizadores.length&&varContNome==arrayUtilizadores.length) {
+            if (varContEmail == arrayUtilizadores.length && varContNome == arrayUtilizadores.length) {
                 let novoutilizador = new Utilizador(nomeUt, emailUt, Password, fotoUt, tipoutilizador)
                 arrayUtilizadores.push(novoutilizador)
                 swal({
@@ -453,18 +503,18 @@ window.onload = function () {
                     title: "Registo com secesso!",
                     text: "Bem vindo! ",
                 });
-                
-            localStorage.setItem("utilizadores", JSON.stringify(arrayUtilizadores))
-            btnRegisto.style.display = 'none'
-            btnLogin.style.display = 'none'
-            btnLogout.style.display = 'block'
-            stadoUtilizador = true
-            arrayEstadoUt.push(nomeUt)
-            arrayEstadoUt.push(stadoUtilizador)
-            arrayEstadoUt.push(tipoutilizador)
-            localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
-            arrayEstadoUt = []
-    
+
+                localStorage.setItem("utilizadores", JSON.stringify(arrayUtilizadores))
+                btnRegisto.style.display = 'none'
+                btnLogin.style.display = 'none'
+                btnLogout.style.display = 'block'
+                stadoUtilizador = true
+                arrayEstadoUt.push(nomeUt)
+                arrayEstadoUt.push(stadoUtilizador)
+                arrayEstadoUt.push(tipoutilizador)
+                localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
+                arrayEstadoUt = []
+
             }
 
 
@@ -473,30 +523,9 @@ window.onload = function () {
             event.preventDefault()
 
         }
-       
 
 
-        if (localStorage.getItem("estadoUtitlizador")) {
-            utilizadorOnline = localStorage.getItem("estadoUtitlizador")
-        }
-        let pos1 = utilizadorOnline.indexOf(",")
-        let pos2 = utilizadorOnline.lastIndexOf(",")
-        let substring2 = utilizadorOnline.substring(0, pos1)
-        let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
 
-
-        if (substring3 == "Visitante" || substring3 == "estudante") {
-            btnCriarDocentes.style.display = 'none'
-            for (let i = 0; i < iconRemoverDocentes.length; i++) {
-                iconRemoverDocentes[i].style.display = 'none'
-
-            }
-
-
-        }
-        else {
-            btnCriarDocentes.style.display = 'block'
-        }
 
 
     })
@@ -538,15 +567,15 @@ function renderCatalog() {
 
 
         // Inicia a linha
-        if (i % 4 == 0) {
+        if (i % 3 == 0) {
             strHtmlCard += `<div class="row">`
         }
 
         // Cria a card
-        strHtmlCard += `<div class="col-sm-3">
+        strHtmlCard += `<div class="col-sm-4">
         <br>
         <div class="card" style="width:70%; height:100%">
-        <img style="border-radius: 80px;"  src="${DocentesGuardados[i]._foto}" alt="">
+        <img style="border-radius: 50%;padding-left:25%;padding-right:25%;height:35%;padding-top:8%;""  src="${DocentesGuardados[i]._foto}" alt="">
        
             <div class="card-body">
             <h5 class="card-text">${DocentesGuardados[i]._NomeDocente}</h5>
@@ -555,9 +584,9 @@ function renderCatalog() {
                 <br>
                 <input name="" id="btnLerCV" class="btn z" type="button" value="Ler">
                 <small id="helpId" class="form-text text-muted">Ler o Curriculum Vitae do docente</small>
-                <a href=""><i id="iconRemoverDocentes" class="fas fa-trash d"></i></a>
+                <a href=""><i id="iconRemoverDocentes" class="fas fa-trash de"></i></a>
                
-                    <hr>`
+                   `
 
 
         strHtmlCard += `</div>
@@ -565,15 +594,20 @@ function renderCatalog() {
                 </div>`
 
         // Fecha a linha
-        if (i % 4 == 3) {
-            strHtmlCard += `</div>`
+        if (i % 3 == 2) {
+            strHtmlCard += `</div> <hr> <hr>`
         }
     }
 
 
     myCard.innerHTML = strHtmlCard
 
-    let iconRemoverDocentes = document.getElementsByClassName("fas fa-trash d"), i;
+    let iconRemoverDocentes = document.getElementsByClassName("fas fa-trash de"), i;
+
+    for (let i = 0; i < iconRemoverDocentes.length; i++) {
+        iconRemoverDocentes[i].style.display = 'none'
+
+    }
 
     let utilizadorOnline = ""
 
@@ -584,14 +618,19 @@ function renderCatalog() {
     let pos2 = utilizadorOnline.lastIndexOf(",")
     let substring2 = utilizadorOnline.substring(0, pos1)
     let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
+    let substring4 = utilizadorOnline.substring(pos1 + 1, pos2)
 
-    if (substring3 == "Visitante" || substring3 == "estudante") {
+    console.log(iconRemoverDocentes.length)
+    for (let i = 0; i < iconRemoverDocentes.length; i++) {
 
-        for (let i = 0; i < iconRemoverDocentes.length; i++) {
+        if (substring3 == "Visitante" || substring3 == "estudante" && substring4 == "true") {
             iconRemoverDocentes[i].style.display = 'none'
+        }
+        if (substring3 == "docente" || substring2 == "admin" && substring4 == "true") {
+
+            iconRemoverDocentes[i].style.display = 'block'
 
         }
-
     }
 
 
@@ -600,22 +639,26 @@ function renderCatalog() {
 
 
     for (let i = 0; i < iconRemoverDocentes.length; i++) {
-        iconRemoverDocentes[i].style.display = 'none'
+
         iconRemoverDocentes[i].addEventListener("click", function (event) {
-            console.log("entrei")
-            DocentesGuardados.splice(i, 1)
-            localStorage.setItem("Docentes", JSON.stringify(DocentesGuardados))
+            let confirmação = confirm("Deseja mesmo eliminar o docente?")
 
-            // Inicia a linha
-            if (i % 4 == 0) {
-                strHtmlCard += `<div class="row">`
-            }
+            if (confirmação) {
+                DocentesGuardados.splice(i, 1)
+                alert("Docente eliminado com sucesso")
+                localStorage.setItem("Docentes", JSON.stringify(DocentesGuardados))
 
-            // Cria a card
-            strHtmlCard += `<div class="col-sm-3">
+
+                // Inicia a linha
+                if (i % 3 == 0) {
+                    strHtmlCard += `<div class="row">`
+                }
+
+                // Cria a card
+                strHtmlCard += `<div class="col-sm-4">
         <br>
         <div class="card" style="width:80%; height:100%">
-        <img style="width:100%" src="${DocentesGuardados[i]._foto}" alt="">
+        <imgstyle="border-radius: 50%;padding-left:25%;padding-right:25%;height:35%;padding-top:8%;"" src="${DocentesGuardados[i]._foto}" alt="">
        
             <div class="card-body">
             <h5 class="card-text">${DocentesGuardados[i]._NomeDocente}</h5>
@@ -624,20 +667,24 @@ function renderCatalog() {
                 <br>
                 <input name="" id="btnLerCV" class="btn z" type="button" value="Ler">
                 <small id="helpId" class="form-text text-muted">Ler o Curriculum Vitae do docente</small>
-                <a href=""><i id="iconRemoverDocentes" class="fas fa-trash d"></i></a>
+                <a href=""><i id="iconRemoverDocentes" class="fas fa-trash de"></i></a>
                
-                    <hr>`
+                    `
 
 
-            strHtmlCard += `</div>
+                strHtmlCard += `</div>
                     </div>      
                 </div>`
 
-            // Fecha a linha
-            if (i % 4 == 3) {
-                strHtmlCard += `</div>`
+                // Fecha a linha
+                if (i % 3 == 2) {
+                    strHtmlCard += `</div> <hr> <hr>`
+                }
+
+
             }
-            event.preventDefault()
+
+
         })
 
     }
@@ -687,9 +734,9 @@ function renderCatalog() {
 }
 
 function doModal(placementId, heading, formContent) {
-    let html = '<div id="modalWindow" class="modal hide fade in" style="display:none; width:50%;height: 50%; background-color:white">';
+    let html = '<div id="modalWindow" class="modal hide fade in"style="left:30%; width:50%;height: 50%; background-color:white;">';
     html += '<div class="modal-header">';
-    html += '<a class="btn btn-danger" data-dismiss="modal">×</a>';
+    html += '<a id="fecharModalComentario" class="btn btn-danger" data-dismiss="modal">×</a>';
 
     html += '<h4 style="color:black">' + heading + '</h4>'
     html += '</div>';
@@ -702,6 +749,11 @@ function doModal(placementId, heading, formContent) {
     html += '</div>';  // modalWindow
     $("#myModal").html(html);
     $("#modalWindow").modal();
+
+    let btnFechar = document.getElementById("fecharModalComentario")
+    btnFechar.addEventListener("click", function () {
+        window.location.reload()
+    })
 }
 
 

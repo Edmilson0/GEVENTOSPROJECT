@@ -6,6 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <link rel="icon" type="image/png" sizes="16x16" href="Fotos/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="Fotos/favicon-16x16.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src=""></script>
     <!-- Bootstrap CSS -->
@@ -39,7 +40,7 @@
             font-family: "particle regular";
         }
 
-     
+
 
         #eventosContainer {
             background-color: floralwhite;
@@ -62,6 +63,9 @@
 
         #imgModal {
             text-align: center;
+        }
+        body{
+            background-color:rgb(223, 215, 215);
         }
     </style>
 </head>
@@ -108,15 +112,7 @@
                 <li id="optParcerias" class="nav-item">
                     <a class="nav-link" href="Parcerias.html">Parcerias</a>
                 </li>
-                <!--OPÇÃO Login-->
-                <li id="optLogin" class="nav-item">
-
-                    <a data-toggle="modal" data-target="#loginModal" class="nav-link" href="#">
-                        <i class="fas fa-user-circle">
-                            <small style="font-family:Arial">Login</small>
-                        </i>
-                    </a>
-                </li>
+               
                 <!--OPÇÃO Logout-->
                 <li id="optLogout" class="nav-item">
 
@@ -127,14 +123,6 @@
                     </a>
                 </li>
 
-                <!--OPÇÃO Registo-->
-                <li id="optRegisto" class="nav-item">
-                    <a id="linkRegistar" data-toggle="modal" data-target="#registoModal" class="nav-link" href="#">
-                        <i class="fas fa-user-plus">
-                            <small style="font-family:Arial">Registar</small>
-                        </i>
-                    </a>
-                </li>
                 <!--OPÇÃO Cnfiguraçao-->
                 <li id="optConfig" class="nav-item active">
                     <a id="linkConfig" class="nav-link " href="Config.html">
@@ -165,49 +153,57 @@
                 </li>
             </div>
             <div class="col-sm-3">
-                    <li id="" class="">
-                        <a id="linkConfig" class="" href="TestemunhoConfig.html">
-                           Testemunhos
-                        </a>
-    
-                    </li>
-                </div>
-                <div class="col-sm-3">
-                        <li id="" class="">
-                            <a id="linkConfig" class="" href="DocenteConfig.html">
-                               Docentes
-                            </a>
-        
-                        </li>
-                    </div>
-                    <div class="col-sm-3">
-                            <li id="" class="">
-                                <a id="linkConfig" class="" href="ParceriasConfig.html">
-                                   Parcerias
-                                </a>
-            
-                            </li>
-                        </div>
+                <li id="" class="">
+                    <a id="linkConfig" class="" href="TestemunhoConfig.html">
+                        Testemunhos
+                    </a>
+
+                </li>
+            </div>
+            <div class="col-sm-3">
+                <li id="" class="">
+                    <a id="linkConfig" class="" href="DocenteConfig.html">
+                        Docentes
+                    </a>
+
+                </li>
+            </div>
+            <div class="col-sm-3">
+                <li id="" class="">
+                    <a id="linkConfig" class="" href="ParceriasConfig.html">
+                        Parcerias
+                    </a>
+
+                </li>
+            </div>
+            <div class="col-sm-3">
+                <li id="" class="">
+                    <a id="linkConfig" class="" href="utilizadorConfig.html">
+                        Utilizadores
+                    </a>
+
+                </li>
+            </div>
         </div>
 
 
 
-     
 
 
 
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
-        crossorigin="anonymous">
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+            crossorigin="anonymous">
 </body>
 
 </html>

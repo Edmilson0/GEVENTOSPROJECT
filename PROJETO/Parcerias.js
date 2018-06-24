@@ -142,11 +142,13 @@ window.onload = function () {
     let btnRemover = document.getElementById("btnRemoverr")
     let btnAdicionarParceria = document.getElementById("btnAdParcerias")
     let ModalRegistar = document.getElementById("frmRegistar")
+    btnAdicionarParceria.style.display='none'
 
     let btnLogout = document.getElementById("optLogout")
     let btnConfig = document.getElementById("linkConfig")
     let btnRegisto = document.getElementById("optRegisto")
     let btnLogin = document.getElementById("optLogin")
+ 
     btnLogout.style.display = 'none'
     btnConfig.style.display = 'none'
 
@@ -183,6 +185,7 @@ window.onload = function () {
     }
 
 
+
     if (localStorage.getItem("estadoUtitlizador")) {
         utilizadorOnline = localStorage.getItem("estadoUtitlizador")
     }
@@ -191,8 +194,7 @@ window.onload = function () {
     let substring2 = utilizadorOnline.substring(0, pos1)
     let substring4 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
     let substring3 = utilizadorOnline.substring(pos1 + 1, pos2)
-
-
+   
     if (substring4 == "Visitante" || substring4 == "estudante" && substring3 == "true") {
         console.log("Docente")
         btnAdicionarParceria.style.display = 'none'
@@ -218,7 +220,28 @@ window.onload = function () {
         btnConfig.style.display = 'none'
 
     }
+  
+    let x = 0
+    let navBarFoto = document.getElementById("fotoUser")
+    for (let i = 0; i < arrayUtilizadores.length; i++) {
 
+        if (substring2 == arrayUtilizadores[i]._nome && substring3 == "true") {
+
+            navBarFoto.innerHTML += " <img class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='" + arrayUtilizadores[i]._foto + "' alt='' srcset=''>"
+            navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + arrayUtilizadores[i]._nome + "</small>"
+
+        }
+
+
+
+
+    }
+
+    if (substring3 == "false") {
+
+        navBarFoto.innerHTML += " <img class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='' alt='' srcset=''>"
+        navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' ></small>"
+    }
 
     //fazendo login
     frmLogin.addEventListener("submit", function (event) {
@@ -259,6 +282,7 @@ window.onload = function () {
                 arrayEstadoUt = []
 
                 frmLogin.reset()
+                window.location.reload()
                 event.preventDefault()
 
             }
@@ -289,13 +313,36 @@ window.onload = function () {
         }
         //se o utilizador não exister emite uma mensagem
         if (cont == utGuardados.length) {
-            alert("Utilizador não existente")
+            swal({
+                icon: "error",
+                title: "Utilizador não existente!",
+               
+            });
             event.preventDefault()
         }
 
+        for (let i = 0; i < arrayUtilizadores.length; i++) {
+
+            if (substring2 == arrayUtilizadores[i]._nome && substring3 == "true") {
+
+                navBarFoto.innerHTML += " <img class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='" + arrayUtilizadores[i]._foto + "' alt='' srcset=''>"
+                navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + arrayUtilizadores[i]._nome + "</small>"
+             
+            }
+            else {
+                x++
+            }
 
 
-        event.preventDefault()
+
+        }
+        if (x == arrayUtilizadores.length && substring3 == "true") {
+
+            navBarFoto.innerHTML += " <i class='fas fa-user'></i>"
+            navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + substring2 + "</small>"
+
+        }
+
 
     })
 
@@ -333,7 +380,7 @@ window.onload = function () {
 
                 while (confirmarCodigoDocente != CodigoDocenteGuardado) {
                     confirmarCodigoDocente = prompt("Escreva o código de confimação")
-
+                    window.location.reload()
                 }
 
                 tipoutilizador = "docente"
@@ -450,8 +497,7 @@ window.onload = function () {
         btnLogin.style.display = 'block'
         btnLogout.style.display = 'none'
         btnAdicionarParceria.style.display = 'none'
-
-        event.preventDefault()
+        window.location.reload()
 
     })
 
@@ -480,9 +526,7 @@ function renderCatalog() {
 
     let myCard = document.getElementById("cardParserias")
     let parceriasGuardados = ""
-    // 1. Iterar sobre o array de Trips
-
-    // 2. Para cada Trip vou definir uma Card e compô-la com os dados do objeto
+  
     let strHtmlCard = ""
 
     if (localStorage.getItem("Parcerias")) {
@@ -509,9 +553,18 @@ function renderCatalog() {
         <br>
         <h5>Localização:</h5>
         <h6 class="card-text">${parceriasGuardados[i]._localizaçao}</h6>
-        
-            <input id="btnRemoverr" value="Remover" type="submit" class="btn btn-warning P"></input>
+        <br>
+        <br>
+        <a href=""style="text-align:left">
+        <i  class="fas fa-times"></i>
 
+        
+        </a>
+        <small style="text-align:left" class="form-text text-muted">
+        Eliminar parceria
+        </small>
+      
+                
                `
 
 
@@ -529,69 +582,86 @@ function renderCatalog() {
 
     myCard.innerHTML = strHtmlCard
 
-
+  
 
 
     let parceriasGuardadosLocais = ""
-    let btnRemoverParcerias = document.getElementsByClassName("btn btn-warning P"), i;
+    let btnRemoverParcerias = document.getElementsByClassName("fas fa-times"), i;
 
     // 2. Para cada Trip vou definir uma Card e compô-la com os dados do objeto
+    for (let i = 0; i < btnRemoverParcerias.length; i++) {
+        btnRemoverParcerias[i].style.display = 'none'
 
+    }
 
-
+    //remover parcerias
     for (let i = 0; i < btnRemoverParcerias.length; i++) {
 
         btnRemoverParcerias[i].addEventListener("click", function () {
 
-            parceriasGuardados.splice(i, 1)
-            localStorage.setItem("Parcerias", JSON.stringify(parceriasGuardados))
-            console.log(parceriasGuardados)
-            if (localStorage.getItem("Parcerias")) {
-                parceriasGuardados = JSON.parse(localStorage.getItem("Parcerias"))
-            }
-            console.log(parceriasGuardados)
+            let confirmação = confirm("Quer mesmo eliminar esta parceria?!")
+            if (confirmação) {
 
-            for (let i = 0; i < parceriasGuardados.length; i++) {
-
-
-
-                // Inicia a linha
-                if (i % 2 == 0) {
-                    strHtmlCard += `<div class="row">`
+                parceriasGuardados.splice(i, 1)
+                localStorage.setItem("Parcerias", JSON.stringify(parceriasGuardados))
+                console.log(parceriasGuardados)
+                if (localStorage.getItem("Parcerias")) {
+                    parceriasGuardados = JSON.parse(localStorage.getItem("Parcerias"))
                 }
-
-                // Cria a card
-                strHtmlCard += `<div class="col-sm-6">
-           <br>
-           <br>
+                console.log(parceriasGuardados)
+    
+                for (let i = 0; i < parceriasGuardados.length; i++) {
+    
+    
+    
+                    // Inicia a linha
+                    if (i % 2 == 0) {
+                        strHtmlCard += `<div class="row">`
+                    }
+    
+                    // Cria a card
+                    strHtmlCard += `<div class="col-sm-6">
+               <br>
+               <br>
+               
+               <div class="card card-primary text-center">
+               <img class="card-img-top" src="${parceriasGuardados[i]._linkLogotipo}" alt="Card image cap">
+               <h3 class="card-title" style="background-color:rgb(218, 215, 209)">${parceriasGuardados[i]._Empresa}</h3>
+              
+                   <div class="card-body">
+                   <a class="nav-link" target="${parceriasGuardados[i]._link}"  href="">Visite-nos</a>
+            <br>
+            <h5>Localização:</h5>
+            <h6 class="card-text">${parceriasGuardados[i]._localizaçao}</h6>
+            
+            <a href="">
+            <i style="text-align:left" class="fas fa-times"></i>
+            </a>
+            <small style="text-align:left" class="form-text text-muted">
+            Eliminar parceria
+            </small>
+    
            
-           <div class="card card-primary text-center">
-           <img class="card-img-top" src="${parceriasGuardados[i]._linkLogotipo}" alt="Card image cap">
-           <h3 class="card-title" style="background-color:rgb(218, 215, 209)">${parceriasGuardados[i]._Empresa}</h3>
-          
-               <div class="card-body">
-               <a class="nav-link" target="${parceriasGuardados[i]._link}"  href="">Visite-nos</a>
-        <br>
-        <h5>Localização:</h5>
-        <h6 class="card-text">${parceriasGuardados[i]._localizaçao}</h6>
-        
-            <input id="btnRemoverr" value="Remover" type="submit" class="btn btn-warning P"></input>
-          
-                    `
-
-
-
-
-                strHtmlCard += `</div>
-                    </div>      
-                </div>`
-
-                // Fecha a linha
-                if (i % 2 == 1) {
-                    strHtmlCard += `</div>`
+              
+                        `
+    
+    
+    
+    
+                    strHtmlCard += `</div>
+                        </div>      
+                    </div>`
+    
+                    // Fecha a linha
+                    if (i % 2 == 1) {
+                        strHtmlCard += `</div>`
+                    }
                 }
+    
+                
             }
 
+           
 
         })
 
@@ -629,7 +699,7 @@ function renderCatalog() {
 
     }
     else if (substring2 == "admin"&&substring3==true) {
-        
+
         for (let i = 0; i < btnRemoverParcerias.length; i++) {
             btnRemoverParcerias[i].style.display = 'block'
 

@@ -75,7 +75,7 @@ window.onload = function () {
     renderCatalog()
     renderCatalogEventos()
     renderCatalogD()
-
+   
     let CodigoDocenteGuardado = ""
 
     let ModalRegistar = document.getElementById("frmRegistar")
@@ -135,6 +135,34 @@ window.onload = function () {
         btnConfig.style.display='block'
         
     }
+    let x = 0
+    let navBarFoto = document.getElementById("fotoUser")
+    for (let i = 0; i < arrayUtilizadores.length; i++) {
+
+        if (substring2 == arrayUtilizadores[i]._nome && substring3 == "true") {
+
+            navBarFoto.innerHTML += " <img class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='" + arrayUtilizadores[i]._foto + "' alt='' srcset=''>"
+            navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + arrayUtilizadores[i]._nome + "</small>"
+
+        }
+       
+      
+
+
+    }
+  
+
+    if (substring3 == "false") {
+
+        navBarFoto.innerHTML += " <img class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='' alt='' srcset=''>"
+        navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' ></small>"
+    }
+
+
+    /*let x=new Utilizador("admin","admin@admin.com","admin","...","admin")
+    let ye=[]
+    ye.push(x)
+    localStorage.setItem("utilizadores", JSON.stringify(ye))*/
    
 
     //submeter os dados do utilizador 
@@ -157,7 +185,7 @@ window.onload = function () {
         let varContNome=0
         let varContEmail=0
         let confirmarCodigoDocente = ""
-
+      
 
         //validar as passwords
         if (confPassword != Password) {
@@ -170,8 +198,8 @@ window.onload = function () {
             } else if (docente.checked == true) {
 
                 while (confirmarCodigoDocente != CodigoDocenteGuardado) {
+                  
                     confirmarCodigoDocente = prompt("Escreva o código de confimação")
-
                 }
 
                 tipoutilizador = "docente"
@@ -239,6 +267,7 @@ window.onload = function () {
 
             ModalRegistar.reset()
             console.log(arrayUtilizadores)
+            window.location.reload()
             event.preventDefault()
 
         }
@@ -255,8 +284,10 @@ window.onload = function () {
             estado = localStorage.getItem("estadoUtitlizador")
         }
         let pos1 = estado.indexOf(",")
+        let pos2 = utilizadorOnline.lastIndexOf(",")
         let substring1 = estado.substring(pos1 + 1, estado.length)
         let substring2 = estado.substring(0, pos1)
+        let substring5 = utilizadorOnline.substring(pos1 + 1, pos2)
         stadoUtilizador = false
 
         arrayEstadoUt.push(substring2)
@@ -266,10 +297,10 @@ window.onload = function () {
         btnRegistar.style.display = 'block'
         btnLogin.style.display = 'block'
         btnLogout.style.display = 'none'
-
-        console.log(substring2)
-        event.preventDefault()
-
+        navBarFoto.innerHTML += ""
+        navBarFoto.innerHTML += ""
+     
+        window.location.reload()
     })
 
     //fazendo login
@@ -311,6 +342,7 @@ window.onload = function () {
                 arrayEstadoUt = []
 
                 frmLogin.reset()
+                window.location.reload()
                 event.preventDefault()
 
             }
@@ -325,13 +357,38 @@ window.onload = function () {
         }
         //se o utilizador não exister emite uma mensagem
         if (cont == utGuardados.length) {
-            alert("Utilizador não existente")
+            swal({
+                icon: "error",
+                title: "Utilizador não existente!",
+               
+            });
             event.preventDefault()
         }
 
 
 
-        event.preventDefault()
+        for (let i = 0; i < arrayUtilizadores.length; i++) {
+
+            if (substring2 == arrayUtilizadores[i]._nome && substring5 == "true") {
+
+                navBarFoto.innerHTML += " <img class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='" + arrayUtilizadores[i]._foto + "' alt='' srcset=''>"
+                navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + arrayUtilizadores[i]._nome + "</small>"
+                console.log("putak pari")
+            }
+            else {
+                x++
+            }
+
+
+
+        }
+        if (x == arrayUtilizadores.length && substring5 == "true") {
+
+            navBarFoto.innerHTML += " <i class='fas fa-user'></i>"
+            navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + substring2 + "</small>"
+
+        }
+
 
     })
 
@@ -374,7 +431,7 @@ function renderCatalog() {
           
                <div class="card-body">
              
-               <a class="nav-link" href="${parceriasGuardados[i]._link}">Visite-nos</a>
+               <a class="nav-link" target="${parceriasGuardados[i]._link}" href="">Visite-nos</a>
         <br>
         <h5>Loacalização:</h5>
         <h6 class="card-text">${parceriasGuardados[i]._localizaçao}</h6>
@@ -405,57 +462,50 @@ function renderCatalogEventos() {
 
 
     let myCard = document.getElementById("HomePageCartEventos")
-    let EventosGuardados = ""
+    let TotalPontuaçãoGuardados = ""
     // 1. Iterar sobre o array de Trips
 
     // 2. Para cada Trip vou definir uma Card e compô-la com os dados do objeto
     let strHtmlCardE = ""
-    if (localStorage.getItem("Eventos")) {
+    if (localStorage.getItem("TotalPontuação")) {
        
-        EventosGuardados = JSON.parse(localStorage.getItem("Eventos"))
+        TotalPontuaçãoGuardados = JSON.parse(localStorage.getItem("TotalPontuação"))
     }
-
    
-    for (let i = 0; i < EventosGuardados.length; i++) {
+    for (let i = TotalPontuaçãoGuardados.length-1; i >= TotalPontuaçãoGuardados.length- 3 ; i--) {
+        
 
-        if (i < 4) {
-            // Inicia a linha
-            if (i % 3 == 0) {
-                strHtmlCardE += `<div class="row">`
-            }
-
-            // Cria a card
-            strHtmlCardE += `<div class="col-sm-4">
-   <br>
-    <div class="card" style="width:80%; height:100%">
-  
-    <img style="height:100%;" class="card-img-top" src="${EventosGuardados[i]._imagem}" alt="Card image cap">
-    <h3 class="card-title" style="text-align:center">${EventosGuardados[i]._categoria}</h3>
-        <div class="card-body">
-           
-            <h5>Responsável:</h5>
-            <h6 class="card-text">${EventosGuardados[i]._responsavel}</h6>
-            <h5>Data:</h5>
-            <h6 class="card-text">${EventosGuardados[i]._data}</h6>
-          
-            <br>`
-
-
-
-
-            strHtmlCardE += `</div>
-            </div>      
-        </div>`
-
-            // Fecha a linha
-            if (i % 3 == 1) {
-                strHtmlCardE += `</div>`
-            }
-
+        // Inicia a linha
+        if(i % 4 == 1) {
+            strHtmlCardE += `<br><br><div class="row">`    
         }
 
-
-
+        // Cria a card
+        strHtmlCardE += `<div class="col-sm-4">
+            <div class="card" style="width: 18rem;background-color:antiquewhite;">
+            <img style="height:100%;" class="card-img-top" src="${TotalPontuaçãoGuardados[i]._eventoImage}" alt="Card image cap">
+                <div class="card-body">
+                <h3 class="card-title" style="text-align:center">${TotalPontuaçãoGuardados[i]._nomeEvento}</h3>
+                <div class="row">
+                <div class="col-sm-6">
+                <h5>Pontuação média:</h5>
+                <h1 class="card-text"> &#x2605;${TotalPontuaçãoGuardados[i]._pontuacaoTotal}</h1> 
+                </div>
+                <div class="col-sm-6">
+                <h5>Data:</h5>
+                <h6 class="card-text">${TotalPontuaçãoGuardados[i]._dataRealizacao}</h6>
+                </div>
+                </div> <br>`
+        strHtmlCardE += `</div>
+            </div>      
+        </div>`
+        
+        // Fecha a linha
+        if(i % 4 == 2) {
+            strHtmlCardE += `</div><br>`    
+        }        
+      
+           
     }
 
     myCard.innerHTML = strHtmlCardE
@@ -492,12 +542,10 @@ function renderCatalogD() {
             // Cria a card
             strHtmlCardD += `<div class="col-sm-2">
         <div class="card card-primary text-center" style="width:80%; height:100%">
-        <img style="border-radius: 60px;" style="width:100%" src="${DocentesGuardados[i]._foto}" alt="">
+        <img style="border-radius: 50%;padding-left:10%;padding-right:10%;height:50%;padding-top:8%;""  src="${DocentesGuardados[i]._foto}" alt="">
        
             <div class="card-body">
             <h6 class="card-text">${DocentesGuardados[i]._NomeDocente}</h6>
-               
-       
                
                     <br>`
 

@@ -148,7 +148,7 @@ window.onload = function () {
     let btnLogout = document.getElementById("optLogout")
     let btnConfig = document.getElementById("linkConfig")
     btnLogout.style.display = 'none'
-    btnConfig.style.display='none'
+    btnConfig.style.display = 'none'
 
 
     let fotoTe = document.getElementById("fotoTe")
@@ -168,7 +168,6 @@ window.onload = function () {
     let stadoUtilizador = false
     let utilizadorOnline = ""
 
-
     if (localStorage.getItem("estadoUtitlizador")) {
         utilizadorOnline = localStorage.getItem("estadoUtitlizador")
     }
@@ -177,32 +176,57 @@ window.onload = function () {
     let substring2 = utilizadorOnline.substring(0, pos1)
     let substring4 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
     let substring3 = utilizadorOnline.substring(pos1 + 1, pos2)
-    console.log(substring4)
 
 
-    if (substring4 == "Visitante" || substring4 == "docente" && substring3 == "true") {
-
-        btnLogout.style.display = 'block'
-        btnLogin.style.display = 'none'
-        btnRegisto.style.display = 'none'
-
-        btnConfig.style.display = 'none'
-    }
-    if (substring2=="admin"&&substring3=="true") {
-
-        btnLogout.style.display='block'
-        btnLogin.style.display='none'
-        btnRegisto.style.display='none'
-        btnConfig.style.display='block'
-        
-    }
-    if (substring4 == "estudante") {
-        btnLogout.style.display = 'block'
-        btnLogin.style.display = 'none'
-        btnRegisto.style.display = 'none'
-
+    if (substring4 == "estudante" || substring4 == "Visitante" && substring3 == "true") {
         maisTestemunho.style.display = 'block'
     }
+    else {
+        maisTestemunho.style.display = 'none'
+    }
+
+
+
+
+    if (substring3 == "true") {
+
+
+        btnLogout.style.display = 'block'
+        btnLogin.style.display = 'none'
+        btnRegisto.style.display = 'none'
+    }
+    if (substring2 == "admin" && substring3 == "true") {
+
+        btnLogout.style.display = 'block'
+        btnLogin.style.display = 'none'
+        btnRegisto.style.display = 'none'
+        btnConfig.style.display = 'block'
+
+    }
+
+    let x = 0
+    let navBarFoto = document.getElementById("fotoUser")
+    for (let i = 0; i < arrayUtilizadores.length; i++) {
+
+        if (substring2 == arrayUtilizadores[i]._nome && substring3 == "true") {
+
+            navBarFoto.innerHTML += " <img class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='" + arrayUtilizadores[i]._foto + "' alt='' srcset=''>"
+            navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + arrayUtilizadores[i]._nome + "</small>"
+
+        }
+
+
+
+
+    }
+
+
+    if (substring3 == "false") {
+
+        navBarFoto.innerHTML += " <img class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='' alt='' srcset=''>"
+        navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' ></small>"
+    }
+
 
 
 
@@ -248,7 +272,7 @@ window.onload = function () {
                 arrayEstadoUt = []
 
                 frmLogin.reset()
-
+                window.location.reload()
                 event.preventDefault()
 
             }
@@ -266,7 +290,11 @@ window.onload = function () {
         }
         //se o utilizador não exister emite uma mensagem
         if (cont == utGuardados.length) {
-            alert("Utilizador não existente")
+            swal({
+                icon: "error",
+                title: "Utilizador não existente!",
+               
+            });
             event.preventDefault()
         }
 
@@ -280,20 +308,36 @@ window.onload = function () {
         let substring4 = utilizadorOnline.substring(pos1 + 1, pos2)
 
 
-        if (substring3 == "Visitante" || substring3 == "docente" && substring4 == "true" || substring2 != arrayTestemuhos._nomeTe) {
-            console.log(substring4)
 
-            btnCriarTestemunho.style.display = 'none'
-            maisTestemunho.style.display = 'none'
+        if (substring4 == "estudante") {
 
-        }
-
-
-        else if (substring4 == "estudante") {
-            btnCriarTestemunho.style.display = 'block'
             maisTestemunho.style.display = 'block'
         }
+        else {
+            maisTestemunho.style.display = 'none'
+        }
 
+        for (let i = 0; i < arrayUtilizadores.length; i++) {
+
+            if (substring2 == arrayUtilizadores[i]._nome && substring4 == "true") {
+
+                navBarFoto.innerHTML += " <img class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='" + arrayUtilizadores[i]._foto + "' alt='' srcset=''>"
+                navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + arrayUtilizadores[i]._nome + "</small>"
+               
+            }
+            else {
+                x++
+            }
+
+
+
+        }
+        if (x == arrayUtilizadores.length && substring4 == "true") {
+
+            navBarFoto.innerHTML += " <i class='fas fa-user'></i>"
+            navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + substring2 + "</small>"
+
+        }
 
 
 
@@ -318,8 +362,8 @@ window.onload = function () {
         let Password = document.getElementById("ModalPasswordR").value
         let confPassword = document.getElementById("ModalConfPassword").value
         let stadoUtilizador = false
-        let varContNome=0
-        let varContEmail=0
+        let varContNome = 0
+        let varContEmail = 0
         let confirmarCodigoDocente = ""
 
 
@@ -335,9 +379,9 @@ window.onload = function () {
 
                 while (confirmarCodigoDocente != CodigoDocenteGuardado) {
                     confirmarCodigoDocente = prompt("Escreva o código de confimação")
-
+                    window.location.reload()
                 }
-                
+
                 tipoutilizador = "docente"
             }
             else {
@@ -345,39 +389,39 @@ window.onload = function () {
             }
 
             for (let i = 0; i < arrayUtilizadores.length; i++) {
-              
-                if (emailUt!=arrayUtilizadores[i]._email) {
-                varContEmail++
+
+                if (emailUt != arrayUtilizadores[i]._email) {
+                    varContEmail++
                 }
-                
+
             }
 
             for (let i = 0; i < arrayUtilizadores.length; i++) {
-              
-                if (nomeUt!=arrayUtilizadores[i]._nome) {
-                varContNome++
+
+                if (nomeUt != arrayUtilizadores[i]._nome) {
+                    varContNome++
                 }
-                
+
             }
-            
-            if ( varContNome==arrayUtilizadores.length) {
-                
-           
+
+            if (varContNome == arrayUtilizadores.length) {
+
+
             }
-            else{
+            else {
                 alert("Nome do utilizador já existente.")
             }
-           
-            if (varContEmail==arrayUtilizadores.length) {
-                
+
+            if (varContEmail == arrayUtilizadores.length) {
+
             }
-            else{
+            else {
                 alert("Email do utilizador já existente.")
             }
 
 
 
-            if (varContEmail==arrayUtilizadores.length&&varContNome==arrayUtilizadores.length) {
+            if (varContEmail == arrayUtilizadores.length && varContNome == arrayUtilizadores.length) {
                 let novoutilizador = new Utilizador(nomeUt, emailUt, Password, fotoUt, tipoutilizador)
                 arrayUtilizadores.push(novoutilizador)
                 swal({
@@ -397,11 +441,11 @@ window.onload = function () {
                 arrayEstadoUt = []
             }
 
-        
+
 
         }
-      
-    
+
+
 
         if (localStorage.getItem("estadoUtitlizador")) {
             utilizadorOnline = localStorage.getItem("estadoUtitlizador")
@@ -412,13 +456,13 @@ window.onload = function () {
         let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
 
 
-        if (substring3 == "Visitante") {
+        if (substring3 == "docente") {
             btnCriarTestemunho.style.display = 'none'
             maisTestemunho.style.display = 'none'
-            btnConfig.style.display='none'
+            btnConfig.style.display = 'none'
         }
         else {
-            btnConfig.style.display='none'
+            btnConfig.style.display = 'none'
             maisTestemunho.style.display = 'block'
         }
 
@@ -452,8 +496,10 @@ window.onload = function () {
         btnLogin.style.display = 'block'
         btnLogout.style.display = 'none'
 
+        navBarFoto.innerHTML += ""
+        navBarFoto.innerHTML += ""
+        window.location.reload()
 
-        event.preventDefault()
 
     })
 
@@ -462,10 +508,14 @@ window.onload = function () {
         let novoTestemunho = new Testemunhos(substring2, testemunho.value, fotoTe.value)
         arrayTestemuhos.push(novoTestemunho)
         localStorage.setItem("Testemunho", JSON.stringify(arrayTestemuhos))
-        events.preventDefault()
-
 
         renderCatalog()
+
+        swal({
+            icon: "success",
+            title: "Testemunho adicionado com secesso!",
+            text: "Bem vindo! ",
+        });
 
 
     })
@@ -479,9 +529,9 @@ function renderCatalog() {
 
     let myCard = document.getElementById("myCardTestemunhos")
     let TestemunhosGuardados = ""
-    // 1. Iterar sobre o array de Trips
 
-    // 2. Para cada Trip vou definir uma Card e compô-la com os dados do objeto
+
+    // 2. criar card dos testemunhos
     let strHtmlCard = ""
 
     if (localStorage.getItem("Testemunho")) {
@@ -540,7 +590,7 @@ function renderCatalog() {
     let substring2 = utilizadorOnline.substring(pos1 + 1, pos2)
 
 
-
+    //remover testemunhos
     for (let i = 0; i < btnTrash.length; i++) {
 
         btnTrash[i].style.display = 'none'
@@ -549,16 +599,23 @@ function renderCatalog() {
             console.log(TestemunhosGuardados[i])
             TestemunhosGuardados.splice(i, 1)
             localStorage.setItem("Testemunho", JSON.stringify(TestemunhosGuardados))
-            event.preventDefault()
+            swal({
+                icon: "success",
+                title: "Testemunho eliminado com secesso!",
+                text: "Bem vindo! ",
+            });
+
+            for (let i = 0; i < TestemunhosGuardados.length; i++) {
 
 
-            // Inicia a linha
-            if (i % 4 == 0) {
-                strHtmlCard += `<div class="row">`
-            }
 
-            // Cria a card
-            strHtmlCard += `<div class="col-sm-12">
+                // Inicia a linha
+                if (i % 4 == 0) {
+                    strHtmlCard += `<div class="row">`
+                }
+
+                // Cria a card
+                strHtmlCard += `<div class="col-sm-12">
            <br>
             <div style="border:0px" class="card card-primary w-100">
         
@@ -577,20 +634,29 @@ function renderCatalog() {
 
 
 
-            strHtmlCard += `</div>
+                strHtmlCard += `</div>
                     </div>      
                 </div>`
 
-            // Fecha a linha
-            if (i % 4 == 3) {
-                strHtmlCard += `</div>`
+                // Fecha a linha
+                if (i % 4 == 3) {
+                    strHtmlCard += `</div>`
+                }
             }
+        
 
         })
+
 
         if (substring3 == "Visitante" && substring2 == "true") {
 
             btnTrash[i].style.display = 'none'
+
+        }
+
+        else if (substring3 == "docente" && substring2 == "true") {
+
+            btnTrash[i].style.display = 'block'
 
         }
         else if (substring == "admin" && substring2 == "true") {
@@ -598,21 +664,19 @@ function renderCatalog() {
             btnTrash[i].style.display = 'block'
 
         }
-        else if (substring3 == "docente") {
 
-            btnTrash[i].style.display = 'block'
 
-        }
-        else if (substring == TestemunhosGuardados[i]._nomeTe && substring2 == "true") {
-            btnTrash[i].style.display = 'block'
-            console.log(TestemunhosGuardados[i]._nomeTe)
-        }
-        else if (substring != TestemunhosGuardados[i]._nomeTe || substring2 == "false") {
+        else {
 
             btnTrash[i].style.display = 'none'
+        }
+        if (substring == TestemunhosGuardados[i]._nomeTe && substring2 == "true") {
+            btnTrash[i].style.display = 'block'
+
+            console.log(TestemunhosGuardados[i]._nomeTe)
         }
 
 
     }
-  
+
 }
