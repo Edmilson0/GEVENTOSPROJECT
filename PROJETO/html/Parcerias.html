@@ -13,16 +13,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="estilo.css">
     <style>
-<<<<<<< HEAD:PROJETO/html/Parcerias.html
   
-=======
-        
-
-        
->>>>>>> f946180ce1b8d085139b27cfcd74a235f3408c5d:PROJETO/Parcerias.html
     </style>
 </head>
 
@@ -30,71 +22,90 @@
 
 
     <!--BARRA DE NAVEGAÇÃO-->
-    <div class="banner">
-        <header>
-            <nav id="navbarInicial" class="navbar navbar-expand-sm">
-                <a class="navbar-brand" id="myImgGeventos" href="HomePage.html">
-                    <img class="img-responsive2" src="Fotos/GEventosLogoFinal.png">
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                      </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                                                    
-                        <li id="optEventos" class="nav-item">
-                            <a class="nav-link" href="Eventos.html">Eventos</a>
-                        </li>
-                        <!--OPÇÃO Testemunhos-->
-                        <li id="optTestemunhos" class="nav-item">
-                            <a class="nav-link" href="testemunhos.html">Testemunhos</a>
-                        </li>
-                        <!--OPÇÃO Docentes-->
-                        <li id="optDocentes" class="nav-item">
-                            <a class="nav-link" href="Docentes.html">Docentes</a>
-                        </li>
-                        <!--OPÇÃO Parcerias-->
-                        <li id="optParcerias" class="nav-item">
-                            <a class="nav-link" href="Parcerias.html">Parcerias</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav ml-auto">
-                        <li id="optLogin" class="nav-item">
+    <nav id="navBar" class="navbar navbar-expand-sm navbar-dark bg-dark" style="background-color: #00000000;">
 
-                            <a data-toggle="modal" data-target="#loginModal" class="nav-link" href="#">
+        <img class="img-responsive2" src="fotos/TSIW.png">
+
+
+        <li>
+            <a id="myImgGeventos" href="HomePage.html">
+                <img class="img-responsive2" src="fotos/GEventosLogoFinal.png">
+            </a>
+        </li>
+
+
+        <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav mr-auto">
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+               
+            </form>
+            <ul class="navbar-nav">
+                <!--OPÇÃO eventos-->
+                <li id="optEventos" class="nav-item">
+                    <a class="nav-link" href="Eventos.html">Eventos</a>
+                </li>
+                <!--OPÇÃO Testemunhos-->
+                <li id="optTestemunhos" class="nav-item">
+                    <a class="nav-link" href="testemunhos.html">Testemunhos</a>
+                </li>
+                <!--OPÇÃO Docentes-->
+                <li id="optDocentes" class="nav-item">
+                    <a class="nav-link" href="Docentes.html">Docentes</a>
+                </li>
+                <!--OPÇÃO Parcerias-->
+                <li id="optParcerias" class="nav-item active">
+                    <a class="nav-link" href="Parcerias.html">Parcerias</a>
+                </li>
+                 <!--OPÇÃO Login-->
+                 <li id="optLogin" class="nav-item">
+                      
+                        <a data-toggle="modal" data-target="#loginModal" class="nav-link" href="#">
                                 <i class="fas fa-user-circle">
-                                    <small >Login</small>
+                                    <small style="font-family:Arial">Login</small>
                                 </i>
-                            </a>
-                        </li>
-                        <li id="optLogout" class="nav-item">
-
-                            <a data-target="#" class="nav-link" href="#">
+                        </a>
+                    </li>
+                    <!--OPÇÃO Logout-->
+                    <li id="optLogout" class="nav-item">
+                         
+                        <a data-target="#" class="nav-link" href="#">
                                 <i class="fas fa-sign-out-alt">
-                                    <small >Logout</small>
+                                        <small style="font-family:Arial">Logout</small>
                                 </i>
-                            </a>
-                        </li>
-                        <li id="optRegisto" class="nav-item">
-                            <a id="linkRegistar" data-toggle="modal" data-target="#registoModal" class="nav-link" href="#">
+                        </a>
+                    </li>
+                   
+                    <!--OPÇÃO Registo-->
+                    <li id="optRegisto" class="nav-item">
+                        <a id="linkRegistar" data-toggle="modal" data-target="#registoModal" class="nav-link" href="#">
                                 <i class="fas fa-user-plus">
-                                    <small >Registar</small>
+                                        <small style="font-family:Arial">Registar</small>
                                 </i>
-                            </a>
-                        </li>
-                        <li id="optConfig" class="nav-item">
-                            <a id="linkConfig" class="nav-link " href="Config.html">
+                        </a>
+                    </li>
+                    <!--OPÇÃO Cnfiguraçao-->
+                    <li id="optConfig" class="nav-item">
+                        <a id="linkConfig" class="nav-link " href="Config.html">
                                 <i class="fas fa-cogs">
-        
+                                    
                                 </i>
-                            </a>
-        
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-</div>
+                        </a>
+    
+                    </li>
+                  
+            </ul>
+            <a id="fotoUser" class="nav-items">
+                 
+            </a>
+
+        </div>
+    </nav>
     <br>
     <br>
 
@@ -291,7 +302,6 @@
 
    
     <footer class="container-fluid text-center">
-<<<<<<< HEAD:PROJETO/html/Parcerias.html
         <div class="container">
             <div class="row">
 
@@ -312,9 +322,6 @@
                 </div>
             </div>
         </div>
-=======
-        <p>Developed by TSIW students</p>
->>>>>>> f946180ce1b8d085139b27cfcd74a235f3408c5d:PROJETO/Parcerias.html
     </footer>
 
 

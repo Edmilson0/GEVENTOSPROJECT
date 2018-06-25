@@ -1,45 +1,57 @@
-let arrayTestemuhos = []
+let arrayParcerias = []
 
-class Testemunhos {
-    constructor(nomeTe, testemunho, fotoTe) {
-        this._idTes = Testemunhos.getLastId() + 1
-        this.nomeTe = nomeTe
-        this.testemunho = testemunho
-        this.fotoTe = fotoTe
+class Parcerias {
+    constructor(Empresa, localizaçao, linkLogotipo, link) {
+        this._IdParcerias = Parcerias.getLastId() + 1
+        this.Empresa = Empresa
+        this.localizaçao = localizaçao
+        this.linkLogotipo = linkLogotipo
+        this.link = link
     }
+
     // Propriedade id
-    get idTes() {
-        return this._idTes
+    get IdParcerias() {
+        return this._IdParcerias
     }
 
-    // Propriedade nomeTe
-    get nomeTe() {
-        return this._nomeTe
+    // Propriedade empresa
+    get Empresa() {
+        return this._Empresa
     }
-    set nomeTe(novoNomeTe) {
-        this._nomeTe = novoNomeTe
-    }
-
-    // Propriedade testemunho
-    get testemunho() {
-        return this._testemunho
+    set Empresa(novoEmpresa) {
+        this._Empresa = novoEmpresa
     }
 
-    set testemunho(novoTestemunho) {
-        this._testemunho = novoTestemunho
+    // Propriedade localizaçao
+    get localizaçao() {
+        return this._localizaçao
     }
-    // Propriedade fotoTe
-    get fotoTe() {
-        return this._fotoTe
+
+    set localizaçao(novoLocalizaçao) {
+        this._localizaçao = novoLocalizaçao
+
     }
-    set fotoTe(novoFotoTe) {
-        this._fotoTe = novoFotoTe
+    // Propriedade LinkLogotipo
+    get linkLogotipo() {
+        return this._linkLogotipo
     }
+    set linkLogotipo(novoLinkLogotipo) {
+        this._linkLogotipo = novoLinkLogotipo
+    }
+
+    // Propriedade Link
+    get link() {
+        return this._link
+    }
+    set link(novoLink) {
+        this._link = novoLink
+    }
+
     // obter o ultimo id
     static getLastId() {
         let lastId = 0
-        if (arrayTestemuhos.length > 0) {
-            lastId = arrayTestemuhos[arrayTestemuhos.length - 1].idTes
+        if (arrayParcerias.length > 0) {
+            lastId = arrayParcerias[arrayParcerias.length - 1].IdParcerias
         }
         return lastId
     }
@@ -118,20 +130,49 @@ class Utilizador {
 }
 
 window.onload = function () {
-    $(window).on('scroll', function () {
-    
-        if ($(window).scrollTop()) {
-            $('nav').addClass('black');
-        }
-        else {
-            $('nav').removeClass('black');
-        }
-    })
-
     renderCatalog()
+
     let CodigoDocenteGuardado = ""
 
-    //buscar todos os utilizadores
+    let nomeEmpresa = document.getElementById("modalNomeEmpresa")
+    let locaEmpresa = document.getElementById("modalLocalizaçaoEmpresa")
+    let linkEmpresa = document.getElementById("modalLinkEmpresa")
+    let linkLogotipo = document.getElementById("modalImagemEmpresa")
+    let frmParcerias = document.getElementById("frmParcerias")
+    let btnRemover = document.getElementById("btnRemoverr")
+    let btnAdicionarParceria = document.getElementById("btnAdParcerias")
+    let ModalRegistar = document.getElementById("frmRegistar")
+    btnAdicionarParceria.style.display='none'
+
+    let btnLogout = document.getElementById("optLogout")
+    let btnConfig = document.getElementById("linkConfig")
+    let btnRegisto = document.getElementById("optRegisto")
+    let btnLogin = document.getElementById("optLogin")
+ 
+    btnLogout.style.display = 'none'
+    btnConfig.style.display = 'none'
+
+
+    let arrayEstadoUt = []
+    let estado = ""
+
+    let stadoUtilizador = false
+    let utilizadorOnline = ""
+
+
+
+    if (localStorage.getItem("Parcerias")) {
+        let tempArrayParcerias = []
+        tempArrayParcerias = JSON.parse(localStorage.getItem("Parcerias"))
+        for (let i = 0; i < tempArrayParcerias.length; i++) {
+            let novoParceria = new Parcerias(tempArrayParcerias[i]._Empresa, tempArrayParcerias[i]._localizaçao, tempArrayParcerias[i]._linkLogotipo, tempArrayParcerias[i]._link)
+            arrayParcerias.push(novoParceria)
+
+        }
+
+    }
+
+
     if (localStorage.getItem("utilizadores")) {
         let tempArray = []
         tempArray = JSON.parse(localStorage.getItem("utilizadores"))
@@ -142,42 +183,9 @@ window.onload = function () {
         }
 
     }
-    //buscar todos os testemunhos
-    if (localStorage.getItem("Testemunho")) {
-        let tempArrayTestemunho = []
-        tempArrayTestemunho = JSON.parse(localStorage.getItem("Testemunho"))
-        for (let i = 0; i < tempArrayTestemunho.length; i++) {
-            let novotestemunho = new Testemunhos(tempArrayTestemunho[i]._nomeTe, tempArrayTestemunho[i]._testemunho, tempArrayTestemunho[i]._fotoTe)
-            arrayTestemuhos.push(novotestemunho)
-
-        }
-
-    }
 
 
-    let btnLogout = document.getElementById("optLogout")
-    let btnConfig = document.getElementById("linkConfig")
-    btnLogout.style.display = 'none'
-    btnConfig.style.display = 'none'
 
-
-    let fotoTe = document.getElementById("fotoTe")
-    let utGuardados = ""
-    let frmTestemunho = document.getElementById("frmTestemunhos")
-    let testemunho = document.getElementById("modelTestemunho")
-    let ModalRegistar = document.getElementById("frmRegistar")
-    let btnRegisto = document.getElementById("optRegisto")
-    let btnLogin = document.getElementById("optLogin")
-    let btnCriarDocentes = document.getElementById("btnAdDocentes")
-    let btnCriarTestemunho = document.getElementById("btnSubmeterTestemunho")
-    let maisTestemunho = document.getElementById("+Testemunhos")
-    maisTestemunho.style.display = 'none'
-    let arrayEstadoUt = []
-    let estado = ""
-
-    let stadoUtilizador = false
-    let utilizadorOnline = ""
-    //buscar o utilizador online 
     if (localStorage.getItem("estadoUtitlizador")) {
         utilizadorOnline = localStorage.getItem("estadoUtitlizador")
     }
@@ -186,20 +194,18 @@ window.onload = function () {
     let substring2 = utilizadorOnline.substring(0, pos1)
     let substring4 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
     let substring3 = utilizadorOnline.substring(pos1 + 1, pos2)
-
-    //tirar botoes de acordo com o utilizador online
-    if (substring4 == "estudante" || substring4 == "Visitante" && substring3 == "true") {
-        maisTestemunho.style.display = 'block'
-    }
-    else {
-        maisTestemunho.style.display = 'none'
-    }
-    if (substring3 == "true") {
-
-
+    let substring1 = utilizadorOnline.substring(pos1 + 1, utilizadorOnline.length)
+   
+    if (substring4 == "Visitante" || substring4 == "estudante" && substring3 == "true") {
+        console.log("Docente")
+        btnAdicionarParceria.style.display = 'none'
         btnLogout.style.display = 'block'
         btnLogin.style.display = 'none'
         btnRegisto.style.display = 'none'
+        btnConfig.style.display = 'none'
+    }
+    if (substring1=="false") {
+        
     }
     if (substring2 == "admin" && substring3 == "true") {
 
@@ -207,23 +213,34 @@ window.onload = function () {
         btnLogin.style.display = 'none'
         btnRegisto.style.display = 'none'
         btnConfig.style.display = 'block'
-
+        btnAdicionarParceria.style.display='block'
     }
 
+    if (substring4 == "docente") {
+        btnAdicionarParceria.style.display = 'block'
+        btnLogout.style.display = 'block'
+        btnLogin.style.display = 'none'
+        btnRegisto.style.display = 'none'
+        btnConfig.style.display = 'none'
+
+    }
+  
     let x = 0
     let navBarFoto = document.getElementById("fotoUser")
     for (let i = 0; i < arrayUtilizadores.length; i++) {
 
         if (substring2 == arrayUtilizadores[i]._nome && substring3 == "true") {
-            //inserir foto na navbar
+
             navBarFoto.innerHTML += " <img class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='" + arrayUtilizadores[i]._foto + "' alt='' srcset=''>"
             navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + arrayUtilizadores[i]._nome + "</small>"
 
         }
 
+
+
+
     }
 
-    //tirar foto da navbar
     if (substring3 == "false") {
 
         navBarFoto.innerHTML += " <img class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='' alt='' srcset=''>"
@@ -250,15 +267,14 @@ window.onload = function () {
 
         //verificar se o utilizador existe ou não
         for (let i = 0; i < utGuardados.length; i++) {
-            //validar os campos do nome e password
+
             if (utGuardados[i]._nome == loginName.value && utGuardados[i]._password == loginPass.value) {
                 swal({
                     icon: "success",
                     title: "Login com sucesso!",
                     text: "Bem vindo! " + utGuardados[i]._nome,
                 });
-                renderCatalog()
-                maisTestemunho.style.display = 'block'
+
                 btnRegisto.style.display = 'none'
                 btnLogin.style.display = 'none'
                 btnLogout.style.display = 'block'
@@ -278,45 +294,44 @@ window.onload = function () {
             else {
                 cont++
             }
-            if (utGuardados[i]._tipoUtilizador == "Visitante" || utGuardados[i]._tipoUtilizador == "docente") {
-                maisTestemunho.style.display = 'none'
+
+            if (substring4 == "Visitante" || substring4 == "estudante" && substring3 == "true") {
+                console.log("Docente")
+                btnAdicionarParceria.style.display = 'none'
+                btnLogout.style.display = 'block'
+                btnLogin.style.display = 'none'
+                btnRegisto.style.display = 'none'
+                btnConfig.style.display = 'none'
             }
+
+            if (substring4 == "docente") {
+                btnAdicionarParceria.style.display = 'block'
+                btnLogout.style.display = 'block'
+                btnLogin.style.display = 'none'
+                btnRegisto.style.display = 'none'
+                btnConfig.style.display = 'none'
+
+            }
+
+
         }
         //se o utilizador não exister emite uma mensagem
         if (cont == utGuardados.length) {
             swal({
                 icon: "error",
-                title: "Utilizador não existente!", P
-
+                title: "Utilizador não existente!",
+               
             });
             event.preventDefault()
         }
 
-        //mudar o estado di utilizador
-        if (localStorage.getItem("estadoUtitlizador")) {
-            utilizadorOnline = localStorage.getItem("estadoUtitlizador")
-        }
-        let pos1 = utilizadorOnline.indexOf(",")
-        let pos2 = utilizadorOnline.lastIndexOf(",")
-        let substring2 = utilizadorOnline.substring(0, pos1)
-        let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
-        let substring4 = utilizadorOnline.substring(pos1 + 1, pos2)
-
-        if (substring4 == "estudante") {
-
-            maisTestemunho.style.display = 'block'
-        }
-        else {
-            maisTestemunho.style.display = 'none'
-        }
-
         for (let i = 0; i < arrayUtilizadores.length; i++) {
 
-            if (substring2 == arrayUtilizadores[i]._nome && substring4 == "true") {
-                //inserir foto na navbar
+            if (substring2 == arrayUtilizadores[i]._nome && substring3 == "true") {
+
                 navBarFoto.innerHTML += " <img class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='" + arrayUtilizadores[i]._foto + "' alt='' srcset=''>"
                 navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + arrayUtilizadores[i]._nome + "</small>"
-
+             
             }
             else {
                 x++
@@ -325,22 +340,21 @@ window.onload = function () {
 
 
         }
-        //tirar foto da navbar
-        if (x == arrayUtilizadores.length && substring4 == "true") {
+        if (x == arrayUtilizadores.length && substring3 == "true") {
 
             navBarFoto.innerHTML += " <i class='fas fa-user'></i>"
             navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + substring2 + "</small>"
 
         }
 
-        event.preventDefault()
 
     })
 
     //submeter os dados do utilizador 
     ModalRegistar.addEventListener("submit", function (event) {
-        // buscar codigo do docente
+
         if (localStorage.getItem("Codigo")) {
+
             CodigoDocenteGuardado = localStorage.getItem("Codigo")
 
         }
@@ -357,7 +371,6 @@ window.onload = function () {
         let varContNome = 0
         let varContEmail = 0
         let confirmarCodigoDocente = ""
-
 
         //validar as passwords
         if (confPassword != Password) {
@@ -379,7 +392,7 @@ window.onload = function () {
             else {
                 tipoutilizador = "Visitante"
             }
-            // validar o campo do email
+            //validar o campo de email
             for (let i = 0; i < arrayUtilizadores.length; i++) {
 
                 if (emailUt != arrayUtilizadores[i]._email) {
@@ -387,7 +400,7 @@ window.onload = function () {
                 }
 
             }
-            //validar o campo do nome
+            //validar o nome
             for (let i = 0; i < arrayUtilizadores.length; i++) {
 
                 if (nomeUt != arrayUtilizadores[i]._nome) {
@@ -395,10 +408,10 @@ window.onload = function () {
                 }
 
             }
-
+            //enviar alerta
             if (varContNome == arrayUtilizadores.length) {
 
-                // enviar alerta
+
             }
             else {
                 alert("Nome do utilizador já existente.")
@@ -410,7 +423,7 @@ window.onload = function () {
             else {
                 alert("Email do utilizador já existente.")
             }
-            //criar o utilizador
+            //criar utilizador
             if (varContEmail == arrayUtilizadores.length && varContNome == arrayUtilizadores.length) {
                 let novoutilizador = new Utilizador(nomeUt, emailUt, Password, fotoUt, tipoutilizador)
                 arrayUtilizadores.push(novoutilizador)
@@ -419,6 +432,7 @@ window.onload = function () {
                     title: "Registo com secesso!",
                     text: "Bem vindo! ",
                 });
+
                 localStorage.setItem("utilizadores", JSON.stringify(arrayUtilizadores))
                 btnRegisto.style.display = 'none'
                 btnLogin.style.display = 'none'
@@ -429,10 +443,15 @@ window.onload = function () {
                 arrayEstadoUt.push(tipoutilizador)
                 localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
                 arrayEstadoUt = []
+
             }
 
+            ModalRegistar.reset()
+            console.log(arrayUtilizadores)
+            event.preventDefault()
+
         }
-        // buscar o estado do utlizador e esconder botoes
+
         if (localStorage.getItem("estadoUtitlizador")) {
             utilizadorOnline = localStorage.getItem("estadoUtitlizador")
         }
@@ -442,26 +461,24 @@ window.onload = function () {
         let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
 
 
-        if (substring3 == "docente") {
-            btnCriarTestemunho.style.display = 'none'
-            maisTestemunho.style.display = 'none'
-            btnConfig.style.display = 'none'
+        if (substring3 == "Visitante" || substring3 == "Estudante") {
+            btnAdicionarParceria.style.display = 'none'
+
         }
         else {
-            btnConfig.style.display = 'none'
-            maisTestemunho.style.display = 'block'
+            btnAdicionarParceria.style.display = 'block'
         }
 
-        renderCatalog()
 
     })
+
+
+
 
     //Fazendo logout
     btnLogout.addEventListener("click", function (event) {
         let estado = ""
-        btnCriarTestemunho.style.display = 'none'
 
-        //ver o estado do utilizador
         if (localStorage.getItem("estadoUtitlizador")) {
             estado = localStorage.getItem("estadoUtitlizador")
         }
@@ -469,7 +486,8 @@ window.onload = function () {
         let substring1 = estado.substring(pos1 + 1, estado.length)
         let substring2 = estado.substring(0, pos1)
         stadoUtilizador = false
-        //atualizar o estado do utlizador
+        console.log(substring2)
+
         arrayEstadoUt.push(substring2)
         arrayEstadoUt.push(stadoUtilizador)
         localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
@@ -477,176 +495,211 @@ window.onload = function () {
         btnRegisto.style.display = 'block'
         btnLogin.style.display = 'block'
         btnLogout.style.display = 'none'
-
-        navBarFoto.innerHTML += ""
-        navBarFoto.innerHTML += ""
+        btnAdicionarParceria.style.display = 'none'
         window.location.reload()
 
-
     })
-    //sbmeter testemunho
-    frmTestemunho.addEventListener("submit", function (event) {
 
-        let novoTestemunho = new Testemunhos(substring2, testemunho.value, fotoTe.value)
-        arrayTestemuhos.push(novoTestemunho)
-        localStorage.setItem("Testemunho", JSON.stringify(arrayTestemuhos))
 
+
+    frmParcerias.addEventListener("submit", function (events) {
+
+        let novaParceria = new Parcerias(nomeEmpresa.value, locaEmpresa.value, linkLogotipo.value, linkEmpresa.value)
+        arrayParcerias.push(novaParceria)
+        localStorage.setItem("Parcerias", JSON.stringify(arrayParcerias))
+        alert("Adicionado com sucesso")
+        events.preventDefault()
+        frmParcerias.reset()
         renderCatalog()
-
-        swal({
-            icon: "success",
-            title: "Testemunho adicionado com secesso!",
-            text: "Bem vindo! ",
-        });
-
-
     })
+
+
+
 
 }
+
 // Função que vai alimentar o meu catálogo
 function renderCatalog() {
 
-    let myCard = document.getElementById("myCardTestemunhos")
-    let TestemunhosGuardados = ""
 
+
+    let myCard = document.getElementById("cardParserias")
+    let parceriasGuardados = ""
+  
     let strHtmlCard = ""
 
-    if (localStorage.getItem("Testemunho")) {
-        TestemunhosGuardados = JSON.parse(localStorage.getItem("Testemunho"))
+    if (localStorage.getItem("Parcerias")) {
+        parceriasGuardados = JSON.parse(localStorage.getItem("Parcerias"))
     }
- //criar card dos testemunhos
-    for (let i = 0; i < TestemunhosGuardados.length; i++) {
+    for (let i = 0; i < parceriasGuardados.length; i++) {
 
 
         // Inicia a linha
-        if (i % 4 == 0) {
+        if (i % 2 == 0) {
             strHtmlCard += `<div class="row">`
         }
 
         // Cria a card
-        strHtmlCard += `<div class="col-sm-12">
+        strHtmlCard += `<div class="col-sm-6">
            <br>
-            <div style="border:0px" class="card card-primary w-100">
-        
-                <div class="card-body">
-                <img style="border-radius: 80px;" src="${TestemunhosGuardados[i]._fotoTe}" alt="">
-                <br>
-                <h4 class="card-text">${TestemunhosGuardados[i]._nomeTe}</h4>
-                    <p class="card-text">${ TestemunhosGuardados[i]._testemunho}</p>
+           <br>
+           <div class="card card-primary text-center" style="width:80%; height:100%">
+           <img class="card-img-top" src="${parceriasGuardados[i]._linkLogotipo}" alt="Card image cap">
+           <h3 class="card-title" style="background-color:rgb(218, 215, 209)">${parceriasGuardados[i]._Empresa}</h3>
+          
+               <div class="card-body">
+               <a target="${parceriasGuardados[i]._link}" href="">Visite-nos</a>
+              
+        <br>
+        <h5>Localização:</h5>
+        <h6 class="card-text">${parceriasGuardados[i]._localizaçao}</h6>
+        <br>
+        <br>
+        <a href=""style="text-align:left">
+        <i  class="fas fa-times"></i>
 
-                    <a class='remove' href=""> <i class="far fa-trash-alt"></i></a>
-                   
-                    <br>
-                    <hr>
-                    <br>`
+        
+        </a>
+        <small style="text-align:left" class="form-text text-muted">
+        Eliminar parceria
+        </small>
+      
+                
+               `
+
+
+
 
         strHtmlCard += `</div>
                     </div>      
                 </div>`
 
         // Fecha a linha
-        if (i % 4 == 3) {
+        if (i % 2 == 1) {
             strHtmlCard += `</div>`
         }
     }
 
     myCard.innerHTML = strHtmlCard
-    let btnTrash = document.getElementsByClassName("remove"), i;
+
+  
+
+
+    let parceriasGuardadosLocais = ""
+    let btnRemoverParcerias = document.getElementsByClassName("fas fa-times"), i;
+
+    // 2. Para cada Trip vou definir uma Card e compô-la com os dados do objeto
+    for (let i = 0; i < btnRemoverParcerias.length; i++) {
+        btnRemoverParcerias[i].style.display = 'none'
+
+    }
+
+    //remover parcerias
+    for (let i = 0; i < btnRemoverParcerias.length; i++) {
+
+        btnRemoverParcerias[i].addEventListener("click", function () {
+
+            let confirmação = confirm("Quer mesmo eliminar esta parceria?!")
+            if (confirmação) {
+
+                parceriasGuardados.splice(i, 1)
+                localStorage.setItem("Parcerias", JSON.stringify(parceriasGuardados))
+                console.log(parceriasGuardados)
+                if (localStorage.getItem("Parcerias")) {
+                    parceriasGuardados = JSON.parse(localStorage.getItem("Parcerias"))
+                }
+                console.log(parceriasGuardados)
+    
+                for (let i = 0; i < parceriasGuardados.length; i++) {
+    
+    
+    
+                    // Inicia a linha
+                    if (i % 2 == 0) {
+                        strHtmlCard += `<div class="row">`
+                    }
+    
+                    // Cria a card
+                    strHtmlCard += `<div class="col-sm-6">
+               <br>
+               <br>
+               
+               <div class="card card-primary text-center">
+               <img class="card-img-top" src="${parceriasGuardados[i]._linkLogotipo}" alt="Card image cap">
+               <h3 class="card-title" style="background-color:rgb(218, 215, 209)">${parceriasGuardados[i]._Empresa}</h3>
+              
+                   <div class="card-body">
+                   <br>
+                   <a target="${parceriasGuardados[i]._link}" href="">Visite-nos</a>
+                
+            <br>
+            <br>
+            <h5>Localização:</h5>
+            <h6 class="card-text">${parceriasGuardados[i]._localizaçao}</h6>
+            
+            <a href="">
+            <i style="text-align:left" class="fas fa-times"></i>
+            </a>
+            <small style="text-align:left" class="form-text text-muted">
+            Eliminar parceria
+            </small>
+    
+                        `
+    
+                    strHtmlCard += `</div>
+                        </div>      
+                    </div>`
+    
+                    // Fecha a linha
+                    if (i % 2 == 1) {
+                        strHtmlCard += `</div>`
+                    }
+                }
+    
+                
+            }
+
+        })
+
+    }
+
+    let utilizadorOnline = ""
+
     // ver o estado do utilizador
     if (localStorage.getItem("estadoUtitlizador")) {
         utilizadorOnline = localStorage.getItem("estadoUtitlizador")
     }
     let pos1 = utilizadorOnline.indexOf(",")
     let pos2 = utilizadorOnline.lastIndexOf(",")
-    let substring = utilizadorOnline.substring(0, pos1)
-    let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
-    let substring2 = utilizadorOnline.substring(pos1 + 1, pos2)
+    let substring2 = utilizadorOnline.substring(0, pos1)
+    let substring4 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
+    let substring3 = utilizadorOnline.substring(pos1 + 1, pos2)
 
-    //remover testemunhos
-    for (let i = 0; i < btnTrash.length; i++) {
+    // esconder botoes de acordo com o utlizador
+    if (substring4 == "Visitante" || substring4 == "estudante" && substring3 == "true") {
+        console.log("Docente")
 
-        btnTrash[i].style.display = 'none'
 
-        btnTrash[i].addEventListener("click", function (event) {
-            //confirmar a ação
-            let confirmação = confirm("Deseja mesmo eliminar o testemunho?!")
-
-            if (confirmação) {
-                TestemunhosGuardados.splice(i, 1)
-                localStorage.setItem("Testemunho", JSON.stringify(TestemunhosGuardados))
-                swal({
-                    icon: "success",
-                    title: "Testemunho eliminado com secesso!",
-                    text: "Bem vindo! ",
-                });
-
-                for (let i = 0; i < TestemunhosGuardados.length; i++) {
-                    //criar card
-                    // Inicia a linha
-                    if (i % 4 == 0) {
-                        strHtmlCard += `<div class="row">`
-                    }
-
-                    // Cria a card
-                    strHtmlCard += `<div class="col-sm-12">
-               <br>
-                <div style="border:0px" class="card card-primary w-100">
-            
-                    <div class="card-body">
-                    <img style="border-radius: 80px;" src="${TestemunhosGuardados[i]._fotoTe}" alt="">
-                    <br>
-                    <h4 class="card-text">${TestemunhosGuardados[i]._nomeTe}</h4>
-                        <p class="card-text">${ TestemunhosGuardados[i]._testemunho}</p>
-    
-                        <a class='remove' href=""> <i class="far fa-trash-alt"></i></a>
-                       
-                        <br>
-                        <hr>
-                        <br>`
-
-                    strHtmlCard += `</div>
-                        </div>      
-                    </div>`
-
-                    // Fecha a linha
-                    if (i % 4 == 3) {
-                        strHtmlCard += `</div>`
-                    }
-                }
-
-            }
-
-        })
-
-        // ver o tipo de utilizador online e esconder botes
-        if (substring3 == "Visitante" && substring2 == "true") {
-
-            btnTrash[i].style.display = 'none'
+        for (let i = 0; i < btnRemoverParcerias.length; i++) {
+            btnRemoverParcerias[i].style.display = 'none'
 
         }
-
-        else if (substring3 == "docente" && substring2 == "true") {
-
-            btnTrash[i].style.display = 'block'
-
-        }
-        else if (substring == "admin" && substring2 == "true") {
-
-            btnTrash[i].style.display = 'block'
-
-        }
-
-        else {
-
-            btnTrash[i].style.display = 'none'
-        }
-        if (substring == TestemunhosGuardados[i]._nomeTe && substring2 == "true") {
-            btnTrash[i].style.display = 'block'
-
-            console.log(TestemunhosGuardados[i]._nomeTe)
-        }
-
-
     }
 
+    else if (substring4 == "docente") {
+        for (let i = 0; i < btnRemoverParcerias.length; i++) {
+            btnRemoverParcerias[i].style.display = 'block'
+
+        }
+
+    }
+    else if (substring2 == "admin"&&substring3=="true") {
+
+        for (let i = 0; i < btnRemoverParcerias.length; i++) {
+            btnRemoverParcerias[i].style.display = 'block'
+
+        }
+
+    }
 }
+
