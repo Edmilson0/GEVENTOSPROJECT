@@ -12,163 +12,81 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="">
+    <link rel="stylesheet" type="text/css" href="estilo.css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
-    <style>
-        .navBar {
-
-            position: fixed;
-
-        }
-
-        .card {
-            box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2);
-            transition: 0.3s;
-
-        }
-
-        .card:hover {
-            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-        }
-
-
-
-        h6 {
-            font-family: "arial";
-
-        }
-
-        h2 {
-            text-align: center;
-            font-family: "particle regular";
-        }
-
-        body {
-            background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkktvWaZyRKPwZOXa_R0jDwiy0NDJSg72xmhdMigIda40ynj5C2w)
-        }
-
-        #eventosContainer {}
-
-        h1 {
-            font-family: "particle regular";
-            text-align: center;
-
-        }
-
-        #imgModal {
-            text-align: center;
-
-        }
-
-        .button {
-            background-color: rgb(243, 177, 35);
-            border: none;
-            color: white;
-            padding: 10px 28px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-
-        }
-
-       
-    </style>
+   
 </head>
 
 <body>
 
 
     <!--BARRA DE NAVEGAÇÃO-->
-    <nav id="navBar" class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="banner">
+        <header>
+            <nav id="navbarInicial" class="navbar navbar-expand-sm">
+                <a class="navbar-brand" id="myImgGeventos" href="HomePage.html">
+                    <img class="img-responsive2" src="Fotos/GEventosLogoFinal.png">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                                                    
+                        <li id="optEventos" class="nav-item">
+                            <a class="nav-link" href="Eventos.html">Eventos</a>
+                        </li>
+                        <!--OPÇÃO Testemunhos-->
+                        <li id="optTestemunhos" class="nav-item">
+                            <a class="nav-link" href="testemunhos.html">Testemunhos</a>
+                        </li>
+                        <!--OPÇÃO Docentes-->
+                        <li id="optDocentes" class="nav-item">
+                            <a class="nav-link" href="Docentes.html">Docentes</a>
+                        </li>
+                        <!--OPÇÃO Parcerias-->
+                        <li id="optParcerias" class="nav-item">
+                            <a class="nav-link" href="Parcerias.html">Parcerias</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li id="optLogin" class="nav-item">
 
-        <img class="img-responsive2" src="fotos/TSIW.png">
+                            <a data-toggle="modal" data-target="#loginModal" class="nav-link" href="#">
+                                <i class="fas fa-user-circle">
+                                    <small >Login</small>
+                                </i>
+                            </a>
+                        </li>
+                        <li id="optLogout" class="nav-item">
 
-
-        <li>
-            <a id="myImgGeventos" href="HomePage.html">
-                <img class="img-responsive2" src="fotos/GEventosLogoFinal.png">
-            </a>
-        </li>
-
-
-        <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="collapsibleNavId">
-            <ul class="navbar-nav mr-auto">
-
-            </ul>
-
-            <ul class="navbar-nav">
-                <!--OPÇÃO eventos-->
-                <li id="optEventos" class="nav-item">
-                    <a class="nav-link active" href="Eventos.html">Eventos</a>
-                </li>
-                <!--OPÇÃO Testemunhos-->
-                <li id="optTestemunhos" class="nav-item">
-                    <a class="nav-link" href="testemunhos.html">Testemunhos</a>
-                </li>
-                <!--OPÇÃO Docentes-->
-                <li id="optDocentes" class="nav-item">
-                    <a class="nav-link" href="Docentes.html">Docentes</a>
-                </li>
-                <!--OPÇÃO Parcerias-->
-                <li id="optParcerias" class="nav-item">
-                    <a class="nav-link" href="Parcerias.html">Parcerias</a>
-                </li>
-                <!--OPÇÃO Login-->
-                <li id="optLogin" class="nav-item">
-
-                    <a data-toggle="modal" data-target="#loginModal" class="nav-link" href="#">
-                        <i class="fas fa-user-circle">
-                            <small style="font-family:Arial">Login</small>
-                        </i>
-                    </a>
-                </li>
-                <!--OPÇÃO Logout-->
-                <li id="optLogout" class="nav-item">
-
-                    <a data-target="#" class="nav-link" href="#">
-                        <i class="fas fa-sign-out-alt">
-                            <small style="font-family:Arial">Logout</small>
-                        </i>
-                    </a>
-                </li>
-
-                <!--OPÇÃO Registo-->
-                <li id="optRegisto" class="nav-item">
-                    <a id="linkRegistar" data-toggle="modal" data-target="#registoModal" class="nav-link" href="#">
-                        <i class="fas fa-user-plus">
-                            <small style="font-family:Arial">Registar</small>
-                        </i>
-                    </a>
-                </li>
-                <!--OPÇÃO Cnfiguraçao-->
-                <li id="optConfig" class="nav-item">
-                    <a id="linkConfig" class="nav-link " href="Config.html">
-                        <i class="fas fa-cogs">
-
-                        </i>
-
-                    </a>
-
-                </li>
-               
-            </ul>
-
-            <a id="fotoUser" class="nav-items">
-
-            </a>
-
-
-        </div>
-
-    </nav>
+                            <a data-target="#" class="nav-link" href="#">
+                                <i class="fas fa-sign-out-alt">
+                                    <small >Logout</small>
+                                </i>
+                            </a>
+                        </li>
+                        <li id="optRegisto" class="nav-item">
+                            <a id="linkRegistar" data-toggle="modal" data-target="#registoModal" class="nav-link" href="#">
+                                <i class="fas fa-user-plus">
+                                    <small >Registar</small>
+                                </i>
+                            </a>
+                        </li>
+                        <li id="optConfig" class="nav-item">
+                            <a id="linkConfig" class="nav-link " href="Config.html">
+                                <i class="fas fa-cogs">
+        
+                                </i>
+                            </a>
+        
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+</div>
     <br>
     <br>
 
@@ -420,7 +338,7 @@
 
     </div>
     <footer class="container-fluid text-center">
-        <p>Footer Text</p>
+        <p>Developed by TSIW students</p>
     </footer>
 
 

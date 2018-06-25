@@ -1,7 +1,6 @@
 //classe utilizador
 let arrayUtilizadores = []
 
-
 class Utilizador {
     constructor(nome, email, password, foto, tipoUtilizador) {
         this._idUt = Utilizador.getLastId() + 1
@@ -72,6 +71,19 @@ class Utilizador {
 
 
 window.onload = function () {
+
+    $(window).on('scroll', function () {
+    
+            if ($(window).scrollTop()) {
+                $('nav').addClass('black');
+            }
+            else {
+                $('nav').removeClass('black');
+            }
+        })
+    
+    
+
     renderCatalog()
     renderCatalogEventos()
     renderCatalogD()
