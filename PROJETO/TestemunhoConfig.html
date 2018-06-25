@@ -2,24 +2,22 @@
 <html lang="en">
 
 <head>
-    <title>Title</title>
+    <title>TestemunhoConfig</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <link rel="icon" type="image/png" sizes="16x16" href="Fotos/favicon-16x16.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="ParceriasConfig.js"></script>
+    <script src="TestemunhoConfig.js"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
 </head>
 
 <body>
-
-
     <!--BARRA DE NAVEGAÇÃO-->
     <nav id="navBar" class="navbar navbar-expand-sm navbar-dark bg-dark">
 
-        <img class="img-responsive2" src="fotos/TSIW.png">
+       
 
 
         <li>
@@ -55,7 +53,7 @@
                 <li id="optParcerias" class="nav-item">
                     <a class="nav-link" href="Parcerias.html">Parcerias</a>
                 </li>
-              
+               
                 <!--OPÇÃO Logout-->
                 <li id="optLogout" class="nav-item">
 
@@ -83,7 +81,6 @@
     <br>
     <br>
 
-
     <div class="container">
 
 
@@ -98,7 +95,7 @@
         </div>
         <div class="col-sm-3">
             <li id="" class="">
-                <a id="linkConfig" class="" href="TestemunhoConfig.html">
+                <a id="linkConfig" class="active" href="TestemunhoConfig.html">
                     Testemunhos
                 </a>
 
@@ -114,7 +111,7 @@
         </div>
         <div class="col-sm-3">
             <li id="" class="">
-                <a id="linkConfig" class="active" href="ParceriasConfig.html">
+                <a id="linkConfig" class="" href="ParceriasConfig.html">
                     Parcerias
                 </a>
 
@@ -128,60 +125,29 @@
 
             </li>
         </div>
+        <!--eliminar testemunhos-->
+        <form id="frmEliminarTestemunhos">
 
-
-        <!--Parcerias-->
-
-        <form id="frmCriarParceriasConfig">
-
-
-            <h3 style="text-align:center;">Adicionar parcerias</h3>
+            <h3 style="text-align:center;">Eliminar testemunho</h3>
 
             <br>
-            <div class="form-group">
-                <label for=""></label>
-                <input type="text" class="form-control" name="" id="configNomeEmpresa" placeholder="Nome da empresa" required>
 
-            </div>
 
             <div class="form-group">
-                <input type="text" class="form-control" id="configLocalizaçaoEmpresa" placeholder="Localização da empresa" required>
 
-            </div>
-            <div class="form-group">
-                <input type="url" class="form-control" id="configImagemEmpresa" placeholder="Link do logótipo">
-
+                <input type="text" class="form-control" name="" id="nomeTeEliminar" placeholder="Nome do testemunho">
+                <br>
+                <table id="tblTestemunhos" class="table"></table>
             </div>
 
-            <div class="form-group">
-                <input type="url" class="form-control" id="configLinkEmpresa" placeholder="Link da empresa">
-
-            </div>
-
-            <div>
+            <button type="submit" class="btn btn-warning">Submeter</button>
 
 
-                <button id="submterBtn" type="submit" class="btn btn-warning">Submeter</button>
-            </div>
         </form>
-        <br>
-        <br>
-
-        <!--eliminar parcerias-->
-        <form id="frmEliminarParcerias">
-
-            <h3 style="text-align:center;">Eliminar parcerias</h3>
-
-            <div class="form-group">
-                <label for=""></label>
-                <input type="text" class="form-control" name="" id="nomeParceriaAEliminar" placeholder="Nome da parceria" required>
-
-            </div>
-
-            <input id="btnPOntuar" type="submit" class="btn btn-warning"></input>
-        </form>
-
     </div>
+
+
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

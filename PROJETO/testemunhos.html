@@ -2,28 +2,47 @@
 <html lang="en">
 
 <head>
-    <title>Eventos</title>
+    <title>Testemunhos</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <link rel="icon" type="image/png" sizes="16x16" href="Fotos/favicon-16x16.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" href="Eventos.css">
-    <script src="Eventos.js"></script>
+    <link rel="stylesheet" type="text/css" href="testemunhos.css">
+    <script src="testemunhos.js"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="">
+    <!-- Font Awesome -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="estilo.css">
     <style>
-       
+<<<<<<< HEAD:PROJETO/html/testemunhos.html
+=======
+        
+        /* rigth modal*/
+
+        .modal.right .modal-dialog {
+            padding-top: 80px;
+            position: relative;
+            margin-right: 100px;
+            width: 320px;
+            height: 60%;
+            -webkit-transform: translate3d(0%, 0, 0);
+            -ms-transform: translate3d(0%, 0, 0);
+            -o-transform: translate3d(0%, 0, 0);
+            transform: translate3d(0%, 0, 0);
+        }
+>>>>>>> f946180ce1b8d085139b27cfcd74a235f3408c5d:PROJETO/testemunhos.html
     </style>
 </head>
 
 <body>
 
-
+    
     <!--BARRA DE NAVEGAÇÃO-->
+<<<<<<< HEAD:PROJETO/html/testemunhos.html
     <nav id="navBar" class="navbar navbar-expand-sm navbar-dark bg-dark">
 
         <img class="img-responsive2" src="fotos/TSIW.png">
@@ -48,10 +67,10 @@
             <ul class="navbar-nav">
                 <!--OPÇÃO eventos-->
                 <li id="optEventos" class="nav-item">
-                    <a class="nav-link active" href="Eventos.html">Eventos</a>
+                    <a class="nav-link" href="Eventos.html">Eventos</a>
                 </li>
                 <!--OPÇÃO Testemunhos-->
-                <li id="optTestemunhos" class="nav-item">
+                <li id="optTestemunhos" class="nav-item active">
                     <a class="nav-link" href="testemunhos.html">Testemunhos</a>
                 </li>
                 <!--OPÇÃO Docentes-->
@@ -67,8 +86,9 @@
 
                     <a data-toggle="modal" data-target="#loginModal" class="nav-link" href="#">
                         <i class="fas fa-user-circle">
-                            <small style="font-family:Arial">Login</small>
+
                         </i>
+                        <small style="font-family:Arial">Login</small>
                     </a>
                 </li>
                 <!--OPÇÃO Logout-->
@@ -76,8 +96,10 @@
 
                     <a data-target="#" class="nav-link" href="#">
                         <i class="fas fa-sign-out-alt">
-                            <small style="font-family:Arial">Logout</small>
+
                         </i>
+                        <small style="font-family:Arial">Logout</small>
+
                     </a>
                 </li>
 
@@ -85,8 +107,12 @@
                 <li id="optRegisto" class="nav-item">
                     <a id="linkRegistar" data-toggle="modal" data-target="#registoModal" class="nav-link" href="#">
                         <i class="fas fa-user-plus">
-                            <small style="font-family:Arial">Registar</small>
+                            <small style="font-family:Arial">
+
+                            </small>
                         </i>
+                        <small style="font-family:Arial">Registar</small>
+
                     </a>
                 </li>
                 <!--OPÇÃO Cnfiguraçao-->
@@ -95,29 +121,92 @@
                         <i class="fas fa-cogs">
 
                         </i>
-
                     </a>
 
                 </li>
-               
-            </ul>
 
+            </ul>
             <a id="fotoUser" class="nav-items">
 
             </a>
-
-
         </div>
-
     </nav>
+=======
+    <div class="banner">
+        <header>
+            <nav id="navbarInicial" class="navbar navbar-expand-sm">
+                <a class="navbar-brand" id="myImgGeventos" href="HomePage.html">
+                    <img class="img-responsive2" src="Fotos/GEventosLogoFinal.png">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                                                    
+                        <li id="optEventos" class="nav-item">
+                            <a class="nav-link" href="Eventos.html">Eventos</a>
+                        </li>
+                        <!--OPÇÃO Testemunhos-->
+                        <li id="optTestemunhos" class="nav-item">
+                            <a class="nav-link" href="testemunhos.html">Testemunhos</a>
+                        </li>
+                        <!--OPÇÃO Docentes-->
+                        <li id="optDocentes" class="nav-item">
+                            <a class="nav-link" href="Docentes.html">Docentes</a>
+                        </li>
+                        <!--OPÇÃO Parcerias-->
+                        <li id="optParcerias" class="nav-item">
+                            <a class="nav-link" href="Parcerias.html">Parcerias</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li id="optLogin" class="nav-item">
+
+                            <a data-toggle="modal" data-target="#loginModal" class="nav-link" href="#">
+                                <i class="fas fa-user-circle">
+                                    <small >Login</small>
+                                </i>
+                            </a>
+                        </li>
+                        <li id="optLogout" class="nav-item">
+
+                            <a data-target="#" class="nav-link" href="#">
+                                <i class="fas fa-sign-out-alt">
+                                    <small >Logout</small>
+                                </i>
+                            </a>
+                        </li>
+                        <li id="optRegisto" class="nav-item">
+                            <a id="linkRegistar" data-toggle="modal" data-target="#registoModal" class="nav-link" href="#">
+                                <i class="fas fa-user-plus">
+                                    <small >Registar</small>
+                                </i>
+                            </a>
+                        </li>
+                        <li id="optConfig" class="nav-item">
+                            <a id="linkConfig" class="nav-link " href="Config.html">
+                                <i class="fas fa-cogs">
+        
+                                </i>
+                            </a>
+        
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+</div>
+>>>>>>> f946180ce1b8d085139b27cfcd74a235f3408c5d:PROJETO/testemunhos.html
     <br>
     <br>
+
 
     <!-- Modal Login -->
-    <div class="modal right fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <form id="frmLogin">
             <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content">
+                <div style="text-align:center" class="modal-content">
                     <!-- image on the modal -->
                     <div class="modal-body">
                         <div id="imgModal">
@@ -149,13 +238,14 @@
         </form>
     </div>
 
+
     <!-- Modal de registo -->
     <div class="modal fade" id="registoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <form id="frmRegistar">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <!-- image on the modal -->
-                    <div class="modal-body">
+                    <div style="text-align:center" class="modal-body">
 
                         <div id="imgModal">
                             <img src="fotos/G.png" alt="">
@@ -183,7 +273,8 @@
                         </div>
                         <div class="form-group">
                             <label for=""></label>
-                            <input type="Password" class="form-control" name="" id="ModalConfPassword" placeholder="Confirmar password" maxlength="10" required>
+                            <input type="Password" class="form-control" name="" id="ModalConfPassword" placeholder="Confirmar password" maxlength="10"
+                                required>
 
                         </div>
                         <div class="form-group">
@@ -222,144 +313,109 @@
     </div>
 
 
-
-    <!--botão criar eventos e categorias-->
-    <div id="eventosContainer" class="container">
-        <h1>Eventos</h1>
-
+    <div class="container">
+        <h1>Testemunhos</h1>
         <br>
-        <p style="text-align:center"> Aqui encontra todos os eventos relacionados ao curso com as suas respectivas informações
+        <p style="text-align:center">Página dedicada aos testemunhos do curso. Testemunhos estes que estão atualmente frquentando o curso ou alunos que
+            já se formaram no referido curso
         </p>
         <small style="text-align:center">
-            <p>Para deixar o seu comentário e interesse no evento basta fazer o login</p>
+            <p>Para deixar o seu testemunho basta fazer o login</p>
+
         </small>
         <br>
         <hr>
         <div class="row">
-
-
-            <div class="col-sm-5">
+            <div class="col-sm-2">
 
             </div>
-            <div class="col-sm-3">
-                <button id="btnCriarEventos" type="button" class="button " data-target="#criarEventos" data-toggle="modal">
-                    Criar eventos
-                </button>
-            </div>
-
-            <div class="col-sm-4">
+            <div class="col-sm-2">
 
             </div>
-            <div class="form-group">
-                <label for="">Ver por categorias</label>
-                <select class="form-control" name="" id="optVerPorCategorias">
-                    <option value="Todos">Todos</option>
-                    <option value="Workshops">Workshops</option>
-                    <option value="Seminários">Seminários</option>
-                    <option value="Conferências">Conferências</option>
-                    <option value="Encontros">Encontros</option>
-                </select>
-                <button id="ver" value="Ver" type="button" class="button">Ver</button>
+            <div class="col-sm-2">
+
+            </div>
+            <div class="col-sm-2">
+
+            </div>
+            <div class="col-sm-2">
+
+            </div>
+            <div class="col-sm-2">
+                <a id="+Testemunhos" data-toggle="modal" data-target="#modelTestemunhos" href="">
+                    <i class="fas fa-plus-square">
+
+                    </i>
+                    <small id="helpId" class="form-text text-muted">Testemunhar</small>
+                </a>
+
             </div>
 
+            <br>
 
         </div>
-        <!--Titulos dos eventos-->
+
+        <div class="row">
+            <div class="col-sm-3">
+
+
+            </div>
+
+            <br>
+
+        </div>
+        <div id="myCardTestemunhos">
+
+        </div>
+
+    </div>
+
+
+    </div>
+
+    <!-- Modal Testemunhos -->
+
+    <div class="modal right fade" id="modelTestemunhos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form id="frmTestemunhos">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+
+                    <h3 class="modal-title" id="exampleModalLabel" style="text-align:center">Testemunhar</h3>
+                    <small style="text-align:center">
+                        <p>Tamanho do texto 30 caracteres</p>
+                    </small>
+                    <br>
+                    <div class="form-group">
+                        <div class="form-group">
+
+                            <textarea class="form-control" name="" id="modelTestemunho" rows="3" cols="2" maxlength="100" required></textarea>
+                        </div>
 
 
 
-        <!-- Modal criar eventos -->
-        <div class="modal  left fade" id="criarEventos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <form id="frmCriarEventos">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <!-- image on the modal -->
-                        <div class="modal-body">
+                        <div class="form-group">
 
-
-                            <h3 class="modal-title" id="exampleModalLabel" style="text-align:center; font-family:particle regular">Evento</h3>
-
-                            <br>
-
-                            <div class="form-group">
-                                <label for=""></label>
-                                <input type="Date" class="form-control" name="" id="ModalData" placeholder="Data" required>
-
-                            </div>
-                            <div class="form-group">
-                                <label for=""></label>
-                                <input type="Time" class="form-control" name="" id="ModalHorário" placeholder="Horário" required>
-
-                            </div>
-                            <div class="form-group">
-                                <label for=""></label>
-                                <input type="text" class="form-control" name="" id="ModalSala" placeholder="Sala" maxlength="4" required>
-
-                            </div>
-                            <div class="form-group">
-                                <label for=""></label>
-                                <input type="url" class="form-control" name="" id="ModalImagem" placeholder="Link da imagem do evento">
-
-                            </div>
-                            <div class="form-group">
-                                <label for=""></label>
-                                <input type="text" class="form-control" name="" id="ModalResponsavel" placeholder="Responsável">
-
-                            </div>
-                            <div class="form-group">
-                                <label for="">Categoria do evento</label>
-                                <select class="form-control" name="" id="optCategorias">
-                                    <option value="Outros">Outros</option>
-                                    <option value="Workshops">Workshops</option>
-                                    <option value="Seminários">Seminários</option>
-                                    <option value="Conferências">Conferências</option>
-                                    <option value="Encontros">Encontros</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for=""></label>
-                                <textarea class="form-control" name="" id="ModalDesigEvento" rows="3" placeholder="Designação do evento" maxlength="30" required></textarea>
-
-                            </div>
-                            <br>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                <input id="ModalCriarEvento" type="submit" class="btn btn-warning"></input>
-                            </div>
+                            <input type="url" class="form-control" name="" id="fotoTe" aria-describedby="helpId" placeholder="foto">
 
                         </div>
 
                     </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button id="btnSubmeterTestemunho" type="submit" class="btn btn-warning">Submeter</button>
+                    </div>
                 </div>
-            </form>
 
-        </div>
-
-
-        <!--Evento-->
-
-        <br>
-
-
-        <div id="myCardEventos" class="">
-
-        </div>
-
-        <div id="myCardEventos2" class="">
-
-        </div>
-
-        <br>
+            </div>
+        </form>
     </div>
+<<<<<<< HEAD:PROJETO/html/testemunhos.html
     <br>
     <br>
     <br>
-
-    <div id="myModalCo">
-
-    </div>
     <footer class="container-fluid text-center">
         <div class="container">
             <div class="row">
@@ -384,6 +440,16 @@
     </footer>
 
 
+
+
+=======
+    
+
+     <!-- footer -->
+     <footer class="container-fluid text-center">
+        <p>Developed by TSIW students</p>
+    </footer>
+>>>>>>> f946180ce1b8d085139b27cfcd74a235f3408c5d:PROJETO/testemunhos.html
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -394,7 +460,7 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
         crossorigin="anonymous">
-        
+
 </body>
 
 </html>
