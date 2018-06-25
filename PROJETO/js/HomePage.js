@@ -68,14 +68,11 @@ class Utilizador {
 
 }
 
-
-
-
 window.onload = function () {
     renderCatalog()
     renderCatalogEventos()
     renderCatalogD()
-   
+
     let CodigoDocenteGuardado = ""
 
     let ModalRegistar = document.getElementById("frmRegistar")
@@ -89,27 +86,31 @@ window.onload = function () {
 
     btnLogout.style.display = 'none'
     btnConfig.style.display = 'none'
-   
 
+    //buscar todos os utilizadores
     if (localStorage.getItem("utilizadores")) {
         let tempArray = []
         tempArray = JSON.parse(localStorage.getItem("utilizadores"))
         for (let i = 0; i < tempArray.length; i++) {
             let novoutilizador = new Utilizador(tempArray[i]._nome, tempArray[i]._email, tempArray[i]._password, tempArray[i]._foto, tempArray[i]._tipoUtilizador)
-            arrayUtilizadores.push(novoutilizador)   
-            
+            arrayUtilizadores.push(novoutilizador)
+
         }
 
     }
+
+    // adicionar admin
+
     /*let arrayAdmmin=[]
 
     let newAdmin= new Utilizador("admin","admin@admin","admin","....","admin")
     arrayAdmmin.push(newAdmin)
     localStorage.setItem("utilizadores",JSON.stringify(arrayAdmmin))*/
 
-   
+
     let utilizadorOnline = ""
 
+    // tirar botões de acordo com o utilizador online
     if (localStorage.getItem("estadoUtitlizador")) {
         utilizadorOnline = localStorage.getItem("estadoUtitlizador")
     }
@@ -118,61 +119,54 @@ window.onload = function () {
     let substring2 = utilizadorOnline.substring(0, pos1)
     let substring4 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
     let substring3 = utilizadorOnline.substring(pos1 + 1, pos2)
-   
 
-    if (substring3=="true") {
-        
-      
-        btnLogout.style.display='block'
-        btnLogin.style.display='none'
-        btnRegistar.style.display='none'
+
+    if (substring3 == "true") {
+
+
+        btnLogout.style.display = 'block'
+        btnLogin.style.display = 'none'
+        btnRegistar.style.display = 'none'
     }
-    if (substring2=="admin"&&substring3=="true") {
+    if (substring2 == "admin" && substring3 == "true") {
 
-        btnLogout.style.display='block'
-        btnLogin.style.display='none'
-        btnRegistar.style.display='none'
-        btnConfig.style.display='block'
-        
+        btnLogout.style.display = 'block'
+        btnLogin.style.display = 'none'
+        btnRegistar.style.display = 'none'
+        btnConfig.style.display = 'block'
+
     }
     let x = 0
     let navBarFoto = document.getElementById("fotoUser")
     for (let i = 0; i < arrayUtilizadores.length; i++) {
-
+        // inserir foto do utilizODR na navbar
         if (substring2 == arrayUtilizadores[i]._nome && substring3 == "true") {
 
             navBarFoto.innerHTML += " <img class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='" + arrayUtilizadores[i]._foto + "' alt='' srcset=''>"
             navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + arrayUtilizadores[i]._nome + "</small>"
 
         }
-       
-      
+
+
 
 
     }
-  
 
+    // tirar a foto da navbar
     if (substring3 == "false") {
 
         navBarFoto.innerHTML += " <img class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='' alt='' srcset=''>"
         navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' ></small>"
     }
 
-
-    /*let x=new Utilizador("admin","admin@admin.com","admin","...","admin")
-    let ye=[]
-    ye.push(x)
-    localStorage.setItem("utilizadores", JSON.stringify(ye))*/
-   
-
     //submeter os dados do utilizador 
     ModalRegistar.addEventListener("submit", function (event) {
+        // buscar o codigo do docente
         if (localStorage.getItem("Codigo")) {
-
             CodigoDocenteGuardado = localStorage.getItem("Codigo")
 
         }
-
+        // dados do utilizador
         let estudante = document.getElementById("estudante")
         let docente = document.getElementById("docente")
         let nomeUt = document.getElementById("ModalNome").value
@@ -182,10 +176,10 @@ window.onload = function () {
         let Password = document.getElementById("ModalPasswordR").value
         let confPassword = document.getElementById("ModalConfPassword").value
         let stadoUtilizador = false
-        let varContNome=0
-        let varContEmail=0
+        let varContNome = 0
+        let varContEmail = 0
         let confirmarCodigoDocente = ""
-      
+
 
         //validar as passwords
         if (confPassword != Password) {
@@ -195,10 +189,12 @@ window.onload = function () {
             //verificar se as checked boxes estão preenchidas e criar o objeto
             if (estudante.checked == true) {
                 tipoutilizador = "estudante"
-            } else if (docente.checked == true) {
-
+            }
+            // vereficar checks boxes
+            else if (docente.checked == true) {
+                //se for docente pedir o codigo
                 while (confirmarCodigoDocente != CodigoDocenteGuardado) {
-                  
+
                     confirmarCodigoDocente = prompt("Escreva o código de confimação")
                 }
 
@@ -207,41 +203,41 @@ window.onload = function () {
             else {
                 tipoutilizador = "Visitante"
             }
-
+            //validar o campo do email
             for (let i = 0; i < arrayUtilizadores.length; i++) {
-              
-                if (emailUt!=arrayUtilizadores[i]._email) {
-                varContEmail++
-                }
-                
-            }
 
-            for (let i = 0; i < arrayUtilizadores.length; i++) {
-              
-                if (nomeUt!=arrayUtilizadores[i]._nome) {
-                varContNome++
+                if (emailUt != arrayUtilizadores[i]._email) {
+                    varContEmail++
                 }
-                
+
             }
-            
-            if ( varContNome==arrayUtilizadores.length) {
-                
-           
+            //validar o campo do nome
+            for (let i = 0; i < arrayUtilizadores.length; i++) {
+
+                if (nomeUt != arrayUtilizadores[i]._nome) {
+                    varContNome++
+                }
+
             }
-            else{
+            //mandar um alerta se o nome e oemail já tiverem sido criado
+            if (varContNome == arrayUtilizadores.length) {
+
+
+            }
+            else {
                 alert("Nome do utilizador já existente.")
             }
-           
-            if (varContEmail==arrayUtilizadores.length) {
-                
+
+            if (varContEmail == arrayUtilizadores.length) {
+
             }
-            else{
+            else {
                 alert("Email do utilizador já existente.")
             }
 
 
-
-            if (varContEmail==arrayUtilizadores.length&&varContNome==arrayUtilizadores.length) {
+            //criar objeto utulizador
+            if (varContEmail == arrayUtilizadores.length && varContNome == arrayUtilizadores.length) {
                 let novoutilizador = new Utilizador(nomeUt, emailUt, Password, fotoUt, tipoutilizador)
                 arrayUtilizadores.push(novoutilizador)
                 swal({
@@ -254,35 +250,34 @@ window.onload = function () {
                 btnLogin.style.display = 'none'
                 btnLogout.style.display = 'block'
                 stadoUtilizador = true
+                // mudar o estado do utilizador
                 arrayEstadoUt.push(nomeUt)
                 arrayEstadoUt.push(stadoUtilizador)
                 arrayEstadoUt.push(tipoutilizador)
                 localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
                 arrayEstadoUt = []
-    
-    
+
+
             }
 
-           
-
             ModalRegistar.reset()
-            console.log(arrayUtilizadores)
             window.location.reload()
             event.preventDefault()
 
         }
-       
-      
+
+
 
     })
 
     //Fazendo logout
     btnLogout.addEventListener("click", function (event) {
         let estado = ""
-
+        // iterar sobre a strig estado
         if (localStorage.getItem("estadoUtitlizador")) {
             estado = localStorage.getItem("estadoUtitlizador")
         }
+
         let pos1 = estado.indexOf(",")
         let pos2 = utilizadorOnline.lastIndexOf(",")
         let substring1 = estado.substring(pos1 + 1, estado.length)
@@ -294,12 +289,13 @@ window.onload = function () {
         arrayEstadoUt.push(stadoUtilizador)
         localStorage.setItem("estadoUtitlizador", arrayEstadoUt)
         arrayEstadoUt = []
+        //esconder btns
         btnRegistar.style.display = 'block'
         btnLogin.style.display = 'block'
         btnLogout.style.display = 'none'
         navBarFoto.innerHTML += ""
         navBarFoto.innerHTML += ""
-     
+
         window.location.reload()
     })
 
@@ -311,7 +307,7 @@ window.onload = function () {
         let loginName = document.getElementById("ModalName")
         let loginPass = document.getElementById("ModalPassword")
         //buscar no local storage os utilizadores
-        
+
         let utGuardados = ""
         let cont = 0
 
@@ -328,7 +324,7 @@ window.onload = function () {
                 swal({
                     icon: "success",
                     title: "Login com sucesso!",
-                    text: "Bem vindo! "+utGuardados[i]._nome,
+                    text: "Bem vindo! " + utGuardados[i]._nome,
                 });
 
                 btnRegistar.style.display = 'none'
@@ -351,16 +347,13 @@ window.onload = function () {
                 cont++
             }
 
-
-
-
         }
         //se o utilizador não exister emite uma mensagem
         if (cont == utGuardados.length) {
             swal({
                 icon: "error",
                 title: "Utilizador não existente!",
-               
+
             });
             event.preventDefault()
         }
@@ -371,6 +364,7 @@ window.onload = function () {
 
             if (substring2 == arrayUtilizadores[i]._nome && substring5 == "true") {
 
+                // inserir foto na navbar
                 navBarFoto.innerHTML += " <img class='img-responsive2' style=' width:14%; border-radius:50% ; 'src='" + arrayUtilizadores[i]._foto + "' alt='' srcset=''>"
                 navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + arrayUtilizadores[i]._nome + "</small>"
                 console.log("putak pari")
@@ -382,6 +376,7 @@ window.onload = function () {
 
 
         }
+        //tirar foto da navbar
         if (x == arrayUtilizadores.length && substring5 == "true") {
 
             navBarFoto.innerHTML += " <i class='fas fa-user'></i>"
@@ -399,20 +394,16 @@ window.onload = function () {
 // Função que vai alimentar o meu catálogo
 function renderCatalog() {
 
-
-
     let myCard = document.getElementById("HomePageCartParcerias")
     let parceriasGuardados = ""
-    // 1. Iterar sobre o array de Trips
-
-    // 2. Para cada Trip vou definir uma Card e compô-la com os dados do objeto
+  
     let strHtmlCard = ""
-
-
+    //buscar as parcerias
     if (localStorage.getItem("Parcerias")) {
         parceriasGuardados = JSON.parse(localStorage.getItem("Parcerias"))
     }
 
+    //preencher a card
     for (let i = 0; i < parceriasGuardados.length; i++) {
 
         console.log(parceriasGuardados[i])
@@ -426,20 +417,16 @@ function renderCatalog() {
            <br>
            <br>
            <div class="card card-primary text-center" style="width:80%; height:100%">
-           <img class="card-img-top" src="${parceriasGuardados[i]._linkLogotipo}" alt="Card image cap">
-           <h3 class="card-title" style="background-color:rgb(218, 215, 209)">${parceriasGuardados[i]._Empresa}</h3>
+         
+           <br>
           
                <div class="card-body">
-             
-               <a class="nav-link" target="${parceriasGuardados[i]._link}" href="">Visite-nos</a>
+               <img class="card-img-top" src="${parceriasGuardados[i]._linkLogotipo}" alt="Card image cap">
+               <h3 class="card-title" style="background-color:rgb(218, 215, 209)">${parceriasGuardados[i]._Empresa}</h3>
+          
         <br>
-        <h5>Loacalização:</h5>
-        <h6 class="card-text">${parceriasGuardados[i]._localizaçao}</h6>
-        
+      
                     <br>`
-
-
-
 
         strHtmlCard += `</div>
                     </div>      
@@ -459,25 +446,21 @@ function renderCatalog() {
 // Função que vai alimentar o meu catálogo
 function renderCatalogEventos() {
 
-
-
     let myCard = document.getElementById("HomePageCartEventos")
     let TotalPontuaçãoGuardados = ""
-    // 1. Iterar sobre o array de Trips
-
-    // 2. Para cada Trip vou definir uma Card e compô-la com os dados do objeto
+   
     let strHtmlCardE = ""
+    //buscar todos os eventos
     if (localStorage.getItem("TotalPontuação")) {
-       
         TotalPontuaçãoGuardados = JSON.parse(localStorage.getItem("TotalPontuação"))
     }
-   
-    for (let i = TotalPontuaçãoGuardados.length-1; i >= TotalPontuaçãoGuardados.length- 3 ; i--) {
-        
+    // buscar apenas os 3 mais pontuados
+    for (let i = TotalPontuaçãoGuardados.length - 1; i >= TotalPontuaçãoGuardados.length - 3; i--) {
+
 
         // Inicia a linha
-        if(i % 4 == 1) {
-            strHtmlCardE += `<br><br><div class="row">`    
+        if (i % 4 == 1) {
+            strHtmlCardE += `<br><br><div class="row">`
         }
 
         // Cria a card
@@ -499,37 +482,33 @@ function renderCatalogEventos() {
         strHtmlCardE += `</div>
             </div>      
         </div>`
-        
+
         // Fecha a linha
-        if(i % 4 == 2) {
-            strHtmlCardE += `</div><br>`    
-        }        
-      
-           
+        if (i % 4 == 2) {
+            strHtmlCardE += `</div><br>`
+        }
+
     }
 
     myCard.innerHTML = strHtmlCardE
 
-
 }
 
 //##################catalogoDocentes"##########################
+
 // Função que vai alimentar o meu catálogo
 function renderCatalogD() {
 
     let myCard = document.getElementById("HomePageCartDocentes")
     let DocentesGuardados = ""
-    // 1. Iterar sobre o array de Trips
-
-    // 2. Para cada Trip vou definir uma Card e compô-la com os dados do objeto
+  
     let strHtmlCardD = ""
-
+    //buscar todos os docentes
     if (localStorage.getItem("Docentes")) {
-      
         DocentesGuardados = JSON.parse(localStorage.getItem("Docentes"))
     }
 
-   
+    //preencher a card com os dados
     for (let i = 0; i < DocentesGuardados.length; i++) {
 
         if (i < 7) {

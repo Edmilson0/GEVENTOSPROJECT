@@ -91,7 +91,7 @@ class Eventos {
 //################ Comentarios ################################################
 
 let arrayComentarios = []
-let arrayTotalComentarios=[]
+
 
 class Comentarios {
     constructor(NomeUilizador, comentario, idDoEventoComentado) {
@@ -373,16 +373,14 @@ window.onload = function () {
     let btnRange = document.getElementById("inputRange")
     let btnCriarEventos = document.getElementById("btnCriarEventos")
     let frmCriarEventos = document.getElementById("frmCriarEventos")
-    //btnCriarEventos.style.display = 'none'
+  
     let btnRegisto = document.getElementById("optRegisto")
 
     let btnLogin = document.getElementById("optLogin")
     let ModalRegistar = document.getElementById("frmRegistar")
     btnLogout.style.display = 'none'
 
-
-
-
+    //  buscar todos os eventos na local storage
     if (localStorage.getItem("Eventos")) {
         let tempArrayEventos = []
         tempArrayEventos = JSON.parse(localStorage.getItem("Eventos"))
@@ -394,10 +392,7 @@ window.onload = function () {
 
     }
 
-
-
-
-
+    //  buscar todos os utilizadores na localstorage
     if (localStorage.getItem("utilizadores")) {
         let tempArray = []
         tempArray = JSON.parse(localStorage.getItem("utilizadores"))
@@ -409,6 +404,7 @@ window.onload = function () {
 
     }
 
+    //  buscar todos os interessados na localstorage
     if (localStorage.getItem("Interessados")) {
         let tempArrayInteressados = []
         arrayIrEventos = JSON.parse(localStorage.getItem("Interessados"))
@@ -416,7 +412,7 @@ window.onload = function () {
 
     }
 
-
+    // ver que tipo de utilizador está online
     let utilizadorOnline = ""
 
     if (localStorage.getItem("estadoUtitlizador")) {
@@ -427,13 +423,15 @@ window.onload = function () {
     let substring2 = utilizadorOnline.substring(0, pos1)
     let substring4 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
     let substring3 = utilizadorOnline.substring(pos1 + 1, pos2)
-
+    let substring1=utilizadorOnline.substring(pos1+1,utilizadorOnline.length )
+    // esconder botoes
     if (substring4 == "Visitante" || substring4 == "estudante" && substring3 == "true") {
         btnCriarEventos.style.display = 'none'
     }
-
+    if (substring1=="false") {
+         btnCriarEventos.style.display = 'none'
+    }
     if (substring3 == "true") {
-
 
         btnLogout.style.display = 'block'
         btnLogin.style.display = 'none'
@@ -449,6 +447,8 @@ window.onload = function () {
     }
     let x = 0
     let navBarFoto = document.getElementById("fotoUser")
+
+    // pôr a foto do utilizador na navBar
     for (let i = 0; i < arrayUtilizadores.length; i++) {
 
         if (substring2 == arrayUtilizadores[i]._nome && substring3 == "true") {
@@ -458,11 +458,7 @@ window.onload = function () {
 
         }
 
-
-
-
     }
-
 
     if (substring3 == "false") {
 
@@ -470,15 +466,11 @@ window.onload = function () {
         navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' ></small>"
     }
 
-
-
-
+    // criar elementos para ir buscar o tipo de utilizador online
     let arrayEstadoUt = []
     let estado = ""
 
     let stadoUtilizador = false
-
-
 
     //fazendo login
     frmLogin.addEventListener("submit", function (event) {
@@ -487,7 +479,8 @@ window.onload = function () {
         let barra = document.getElementById("barra")
         let loginName = document.getElementById("ModalName")
         let loginPass = document.getElementById("ModalPassword")
-        //buscar no local storage os utilizadores
+
+        //buscar utilizadores na localstorage 
         let utInLocalStorage = JSON.parse(localStorage.getItem("utilizadores"))
         let utGuardados = ""
         let cont = 0
@@ -533,13 +526,13 @@ window.onload = function () {
             swal({
                 icon: "error",
                 title: "Utilizador não existente!",
-              
+
             });
-         
+
             event.preventDefault()
         }
 
-
+        //esconder botões de acordo com o utilizador online
         if (localStorage.getItem("estadoUtitlizador")) {
             utilizadorOnline = localStorage.getItem("estadoUtitlizador")
         }
@@ -549,7 +542,7 @@ window.onload = function () {
         let substring3 = utilizadorOnline.substring(pos2 + 1, utilizadorOnline.length)
         let substring5 = utilizadorOnline.substring(pos1 + 1, pos2)
 
-        if (substring3 == "Visitante" || substring3 == "Estudante") {
+        if (substring3 == "Visitante" || substring3 == "estudante") {
             btnCriarEventos.style.display = 'none'
 
         }
@@ -557,7 +550,7 @@ window.onload = function () {
             btnCriarEventos.style.display = 'block'
         }
 
-
+        // pôr foto do utilizador na navBar
         for (let i = 0; i < arrayUtilizadores.length; i++) {
 
             if (substring2 == arrayUtilizadores[i]._nome && substring5 == "true") {
@@ -579,10 +572,6 @@ window.onload = function () {
             navBarFoto.innerHTML += "  <small  style='color:white ' id='helpId' >" + substring2 + "</small>"
 
         }
-
-
-
-
     })
 
 
@@ -646,7 +635,7 @@ window.onload = function () {
             if (estudante.checked == true) {
                 tipoutilizador = "estudante"
             } else if (docente.checked == true) {
-
+                // se for docente pede para inserir o código do docente
                 while (confirmarCodigoDocente != CodigoDocenteGuardado) {
                     confirmarCodigoDocente = prompt("Escreva o código de confimação")
 
@@ -657,7 +646,7 @@ window.onload = function () {
             else {
                 tipoutilizador = "Visitante"
             }
-
+            //validar campo do email
             for (let i = 0; i < arrayUtilizadores.length; i++) {
 
                 if (emailUt != arrayUtilizadores[i]._email) {
@@ -665,7 +654,7 @@ window.onload = function () {
                 }
 
             }
-
+            //validar campo do nome
             for (let i = 0; i < arrayUtilizadores.length; i++) {
 
                 if (nomeUt != arrayUtilizadores[i]._nome) {
@@ -673,15 +662,14 @@ window.onload = function () {
                 }
 
             }
-
+            //emitir uma mensagem caso o nome exista
             if (varContNome == arrayUtilizadores.length) {
-
 
             }
             else {
                 alert("Nome do utilizador já existente.")
             }
-
+            //emitir uma mensagem caso o email exista
             if (varContEmail == arrayUtilizadores.length) {
 
             }
@@ -690,7 +678,7 @@ window.onload = function () {
             }
 
 
-
+            //criar o objeto 
             if (varContEmail == arrayUtilizadores.length && varContNome == arrayUtilizadores.length) {
                 let novoutilizador = new Utilizador(nomeUt, emailUt, Password, fotoUt, tipoutilizador)
                 arrayUtilizadores.push(novoutilizador)
@@ -720,7 +708,6 @@ window.onload = function () {
 
         }
 
-
     })
 
 
@@ -740,6 +727,7 @@ window.onload = function () {
         let dataEvento = Date.parse(data)
         let dataAtual = Date.parse(Date())
 
+        //validar o campo da data
         if (dataEvento < dataAtual) {
 
             alert("A data do evento tem de ser maior à data atual!")
@@ -781,7 +769,7 @@ window.onload = function () {
         let somador = 0
         let acumulado = 0
 
-
+        //buscar todos as pontuações na localstorage
         strHtmlCard2 = ""
         if (localStorage.getItem("PontuaçãoGeral")) {
             let tempArrayPontuação = []
@@ -793,10 +781,11 @@ window.onload = function () {
             }
 
         }
-
+        //buscar todos os interessados na localstorage
         if (localStorage.getItem("Interessados")) {
             arrayIrEventos = JSON.parse(localStorage.getItem("Interessados"))
         }
+        //buscar o total dos interessados na localstorage
         if (localStorage.getItem("TotalInteressados")) {
             arrayTotalIrEventos = JSON.parse(localStorage.getItem("TotalInteressados"))
         }
@@ -804,6 +793,8 @@ window.onload = function () {
         let EventosGuardados2 = ""
         let EventosGuardadosPorCateg = ""
         let contCategoria = 0
+
+        // comparar o valor da textBox e preencher a card
         if (verCategoria.value == "Todos") {
             renderCatalog()
         }
@@ -813,7 +804,7 @@ window.onload = function () {
         }
 
         for (let i = 0; i < EventosGuardados2.length; i++) {
-
+            // comparar o valor da textBox e preencher a card
             if (verCategoria.value == EventosGuardados2[i]._categoria) {
                 console.log(EventosGuardados2[i]._categoria)
 
@@ -821,7 +812,7 @@ window.onload = function () {
 
 
                 // Inicia a linha
-                if (i % 2 == 0) {
+                if (i % 1 == 0) {
                     strHtmlCard2 += `<div class="row">`
                 }
 
@@ -857,7 +848,7 @@ window.onload = function () {
                         <div class="col-sm-6">
                         <a href="">   <i class="fas fa-trash"></i></a>
                         `
-
+                // preencher com todos as pontuações do evento
                 for (let o = 0; o < arrayPontuaçãoGeral.length; o++) {
 
                     if (EventosGuardados2[i]._idEv == arrayPontuaçãoGeral[o]._idEventoPontuaçãoTotal) {
@@ -878,7 +869,7 @@ window.onload = function () {
                         <small id="helpId" class="form-text text-muted">Interessados</small>
                             `//fechar
 
-
+                // preencher com todos os interessados do evento
                 for (let y = 0; y < arrayTotalIrEventos.length; y++) {
 
                     if (arrayTotalIrEventos[y]._idEvento == EventosGuardados2[i]._idEv) {
@@ -935,14 +926,15 @@ window.onload = function () {
                     </div>`
 
                 // Fecha a linha
-                if (i % 2 == 1) {
+                if (i % 1 == 0) {
                     strHtmlCard2 += `</div>`
                 }
 
                 myCard.innerHTML = strHtmlCard2
 
 
-            } else if (verCategoria.value != EventosGuardados2[i]._categoria && verCategoria.value != "Todos") {
+            } // ver se hà algum evento relacionado á categoria escolhida
+            else if (verCategoria.value != EventosGuardados2[i]._categoria && verCategoria.value != "Todos") {
                 contCategoria++
             }
             else if (verCategoria.value == "Todos") {
@@ -963,109 +955,13 @@ window.onload = function () {
         }
 
 
-
-
         //interessados em ir aos eventos
         let btnIrEventos = document.getElementsByClassName("btn btn-warning ir"), i;
-
-
+        // tirar o botão Ir
         for (let z = 0; z < btnIrEventos.length; z++) {
 
             btnIrEventos[z].style.display = 'none'
-
         }
-
-        let click = 0
-
-
-        for (let w = 0; w < btnIrEventos.length; w++) {
-
-
-            btnIrEventos[w].addEventListener("click", function () {
-                btnIrEventos[w].style.display = 'none'
-                click = 1
-                if (localStorage.getItem("Interessados")) {
-                    arrayIrEventos = JSON.parse(localStorage.getItem("Interessados"))
-                }
-
-                idDoEvento = EventosGuardados2[i]._idEv
-
-                let objtIteressados = new IrEventos(idDoEvento, substring2, click)
-                arrayIrEventos.push(objtIteressados)
-
-                localStorage.setItem("Interessados", JSON.stringify(arrayIrEventos))
-
-                click = 0
-
-
-            })
-
-
-        }
-
-
-
-        //################# ver comentario#############################
-
-        let header = ""
-        let contentUtilizador = ""
-        let contentComentario = ""
-
-        let verComentarios = document.getElementsByClassName("fas fa-comments")
-       
-
-        for (let i = 0; i < verComentarios.length; i++) {
-
-            verComentarios[i].addEventListener("click", function (event) {
-             
-                if (localStorage.getItem("Comentarios")) {
-                    arrayComentarios = JSON.parse(localStorage.getItem("Comentarios"))
-                }
-                
-
-                var today = new Date();
-                var dd = today.getDate();
-                var mm = today.getMonth() + 1
-                var yyyy = today.getFullYear();
-
-                for (let x = contador; x < EventosGuardados2.length; x++) {
-
-                    for (let i = 0; i < arrayComentarios.length; i++) {
-                        acumulador++
-                        if (arrayComentarios[i]._idDoEventoComentado == EventosGuardados2[x]._idEv) {
-
-                            header = "Comentários";
-                            contentUtilizador += " <i class='fas fa-user'></i>" + "<h4 style='color:black; background-color:whites;font-family:arial'>" + arrayComentarios[i]._NomeUilizador + "<small style = 'padding-left:40%;'><small>" + dd + "/" + mm + "/" + yyyy + "</small></small>" + "</h4>" + "\n" + arrayComentarios[i]._comentario + "\n" + "<br><br>";
-
-
-                        }
-
-                    }
-                    if (acumulador >= arrayComentarios.length) {
-                        contador = x + 1
-
-                        console.log()
-                        total = 0
-                        break
-                    }
-                    else {
-                        contador = x
-
-                    }
-
-
-                }
-
-                console.log(contentUtilizador)
-                doModal('myModal', header, contentUtilizador);
-             
-                event.preventDefault()
-
-            })
-
-        }
-
-
 
         event.preventDefault()
 
@@ -1091,7 +987,7 @@ function renderCatalog() {
     let nomeUtilizadorLogado = ""
 
 
-
+    // buscar que tipo de utilizador esta online
     let estado = ""
     if (localStorage.getItem("estadoUtitlizador")) {
         estado = localStorage.getItem("estadoUtitlizador")
@@ -1102,14 +998,17 @@ function renderCatalog() {
     let tipoutilizador = estado.substring(pos2 + 1, estado.length)
     nomeUtilizadorLogado = estado.substring(0, pos1)
 
+    // buscar todos os interessados q esta online
     if (localStorage.getItem("Interessados")) {
         arrayIrEventos = JSON.parse(localStorage.getItem("Interessados"))
     }
 
+    // buscar todos os eventos
     if (localStorage.getItem("Eventos")) {
         EventosGuardados = JSON.parse(localStorage.getItem("Eventos"))
     }
 
+    // buscar todos as pontuações dos eventos
     if (localStorage.getItem("Pontuação")) {
         let tempArrayPontuação = []
         tempArrayPontuação = JSON.parse(localStorage.getItem("Pontuação"))
@@ -1130,6 +1029,7 @@ function renderCatalog() {
     let acumulado = 0
     let vezes = 0
 
+    //preencher as cards
     for (let i = 0; i < EventosGuardados.length; i++) {
         console.log()
 
@@ -1153,8 +1053,6 @@ function renderCatalog() {
                            
                             <p class="card-text">${EventosGuardados[i]._designacao}</p>
                             <br>
-                           
-                            
                             <div class="row">
                             <div class="col-sm-6">
                             <li class="card-text">RESPONSAVEL:&#x263a; <small id="helpId" class="form-text text-muted">${EventosGuardados[i]._responsavel}</small> </li>
@@ -1177,6 +1075,7 @@ function renderCatalog() {
                             <a href="">   <i id="${EventosGuardados[i]._idEv}" class="fas fa-trash"></i></a>
                           
                            `
+        // preencher as pontuações
         for (let x = t; x < EventosGuardados.length; x++) {
 
             for (let a = 0; a < arrayPontuarEventos.length; a++) {
@@ -1193,7 +1092,7 @@ function renderCatalog() {
                 t = x + 1
                 strHtmlCard += ` <h1 class="card-text"> &#x2605; ${somador}</h1> `
 
-
+                // criar um objeto com a pontuação do evento
                 let novoPontuaçãoTotal = new PontuaçãoTotal(EventosGuardados[x]._idEv, somador / vezes, EventosGuardados[x]._categoria, EventosGuardados[x]._data, EventosGuardados[x]._imagem)
                 let novoPontuaçãoGeral = new PontuaçãoTotal(EventosGuardados[x]._idEv, somador, EventosGuardados[x]._categoria, EventosGuardados[x]._data, EventosGuardados[x]._imagem)
                 arrayTotalPontuaçãoEventos.push(novoPontuaçãoTotal)
@@ -1211,7 +1110,6 @@ function renderCatalog() {
 
         }
 
-
         strHtmlCard += `
                             </div>
                             <div class="col-sm-3">
@@ -1220,6 +1118,7 @@ function renderCatalog() {
                             <div class="col-sm-3">
                             <small id="helpId" class="form-text text-muted">Interessados</small>
                             `//fechar
+        // preencher a card com todos os interessados do evento
         for (let x = contador; x < EventosGuardados.length; x++) {
 
             for (let q = 0; q < arrayIrEventos.length; q++) {
@@ -1228,7 +1127,6 @@ function renderCatalog() {
                     total += parseInt(arrayIrEventos[q]._ir)
 
                 }
-
 
             }
             if (acumulador >= arrayIrEventos.length) {
@@ -1240,10 +1138,9 @@ function renderCatalog() {
                 strHtmlCard += `
 <small id="helpId" class="form-text text-muted">${ total}</small>
 `//fechar
+                //criar um objeto com todos os interessados do evento
                 let objtIteressados = new IrEventos(EventosGuardados[x]._idEv, nomeUtilizadorLogado, total)
                 arrayTotalIrEventos.push(objtIteressados)
-
-
                 localStorage.setItem("TotalInteressados", JSON.stringify(arrayTotalIrEventos))
                 total = 0
                 break
@@ -1253,13 +1150,7 @@ function renderCatalog() {
 
             }
 
-
         }
-
-
-
-
-
 
         strHtmlCard += ` <hr style="background-color:rgb(238, 168, 29)">
         
@@ -1267,8 +1158,6 @@ function renderCatalog() {
             </div>
   
             <div class="row">
-
-
             <form>
             <small id="helpId" class="form-text text-muted">Pontuar de 1 a 5</small>
             <input class="inputPontuar" type="number" name="quantity" min="1" max="5">
@@ -1281,7 +1170,6 @@ function renderCatalog() {
            
             </div>
             <div class="col-sm-9">
-            
             
         </form>
             </div>
@@ -1302,8 +1190,6 @@ _ _
             </div>
           
             `
-
-
         strHtmlCard += `</div>
             </div>      
         </div>`
@@ -1317,25 +1203,24 @@ _ _
 
     myCard.innerHTML = strHtmlCard
 
-
-
     //interessados em ir aos eventos
     let btnIrEventos = document.getElementsByClassName("btn btn-warning ir"), i;
 
     let contadorr = 0
     let acumuladorr = 0
-
+    
     for (let x = contadorr; x < arrayIrEventos.length; x++) {
 
         for (let i = 0; i < btnIrEventos.length; i++) {
             acumulador++
+            if (tipoutilizador=="false") {
+                btnIrEventos[i].style.display='none'
+            }
+            // ver se o utilizador online já tá inscrito em algum evento e se estiver tirar o botão
             if (nomeUtilizadorLogado == arrayIrEventos[x]._interessado && EventosGuardados[i]._idEv == arrayIrEventos[x]._idEvento) {
                 btnIrEventos[i].style.display = 'none'
-                console.log(nomeUtilizadorLogado)
-                console.log(EventosGuardados[i]._idEv)
+
             }
-
-
         }
 
         if (acumuladorr >= btnIrEventos.length) {
@@ -1352,10 +1237,9 @@ _ _
 
     let click = 0
 
-
     for (let i = 0; i < btnIrEventos.length; i++) {
 
-
+        // adicionar um evento ao btn Ir
         btnIrEventos[i].addEventListener("click", function () {
             btnIrEventos[i].style.display = 'none'
             click = 1
@@ -1363,24 +1247,16 @@ _ _
                 arrayIrEventos = JSON.parse(localStorage.getItem("Interessados"))
             }
             idDoEvento = EventosGuardados[i]._idEv
-
-
+            // criar um objeto interessadoss
             let objtIteressados = new IrEventos(idDoEvento, nomeUtilizadorLogado, click)
             arrayIrEventos.push(objtIteressados)
-
-
             localStorage.setItem("Interessados", JSON.stringify(arrayIrEventos))
-
-
             click = 0
 
             //##################### atualizar catalogo ########################
-
             window.location.reload()
 
-
         })
-
 
     }
 
@@ -1390,23 +1266,25 @@ _ _
     let comentarioDoUtilizador = document.getElementsByClassName("form-control co")
     let varCometario = ""
     let arrayDosComentarios = []
-
+    // procurar todos os comentarios existentes
     if (localStorage.getItem("Comentarios")) {
         arrayComentarios = JSON.parse(localStorage.getItem("Comentarios"))
     }
 
+    // iterar sobre o arraycomentarios
     for (let i = 0; i < btnComentarEventos.length; i++) {
 
         btnComentarEventos[i].addEventListener("click", function () {
 
+            // validar o campo do comentario e ver se o utilizador está online
             if (comentarioDoUtilizador[i].value != "" && substring1 == "true") {
                 varCometario = comentarioDoUtilizador[i].value
 
+                //criar objeto comentarios
                 let novoComentarios = new Comentarios(nomeUtilizadorLogado, varCometario, EventosGuardados[i]._idEv)
                 arrayComentarios.push(novoComentarios)
-            
-                localStorage.setItem("Comentarios", JSON.stringify(arrayComentarios))
 
+                localStorage.setItem("Comentarios", JSON.stringify(arrayComentarios))
                 alert("Comentário enviado com sucesso")
                 window.location.reload()
                 event.preventDefault()
@@ -1416,78 +1294,36 @@ _ _
                 event.preventDefault()
             }
 
-
-
-
         })
 
     }
 
-
-
     //################# ver comentario#############################
 
+    // criar componentes do modal
     let header = ""
     let contentUtilizador = ""
     let contentComentario = ""
 
-
-    let strSubmitFunc = hideModal();
-
     let verComentarios = document.getElementsByClassName("fas fa-comments")
     contador = 0
 
-    if (localStorage.getItem("Comentarios")) {
-        arrayComentarios = JSON.parse(localStorage.getItem("Comentarios"))
-    }
-    for (let x = contador; x < EventosGuardados.length; x++) {
-
-        for (let i = 0; i < arrayComentarios.length; i++) {
-            
-            if (arrayComentarios[i]._idDoEventoComentado == EventosGuardados[x]._idEv) {
-                console.log("fodas")
-                let novoTotalComentarios = new Comentarios(nomeUtilizadorLogado, arrayComentarios[i]._comentario, EventosGuardados[x]._idEv)
-                arrayTotalComentarios.push(novoTotalComentarios)
-            
-                localStorage.setItem("TotalComentarios", JSON.stringify(arrayTotalComentarios))
-
-            }
-            acumulador++
-        }
-        if (acumulador >= arrayComentarios.length) {
-            contador = x + 1
-
-            console.log()
-            total = 0
-            break
-        }
-        else {
-            contador = x
-
-        }
-
-
-    }
-
+    // iterar sobre o icon ver comentarios
     for (let i = 0; i < verComentarios.length; i++) {
 
         verComentarios[i].addEventListener("click", function (event) {
             contador = i
-           
-
-            var today = new Date();
-            var dd = today.getDate();
-            var mm = today.getMonth() + 1
-            var yyyy = today.getFullYear();
-
+            // iterar sobre o array eventos
             for (let x = contador; x < EventosGuardados.length; x++) {
 
+                //iterar sobre o array comentarios
                 for (let i = 0; i < arrayComentarios.length; i++) {
                     acumulador++
+                    //commparar o id do evento clicado com todos os eventos com comentarios
                     if (arrayComentarios[i]._idDoEventoComentado == EventosGuardados[x]._idEv) {
 
                         header = "Comentários";
-                        contentUtilizador += " <i class='fas fa-user'></i>" + "<h4 style='color:black; background-color:whites;font-family:arial'>" + arrayComentarios[i]._NomeUilizador + "<small style = 'padding-left:40%;'><small>" + dd + "/" + mm + "/" + yyyy + "</small></small>" + "</h4>" + "\n" + arrayComentarios[i]._comentario + "\n" + "<br><br>";
+                        contentUtilizador += " <i class='fas fa-user'></i>" + "<h4 style='color:black; background-color:whites;font-family:arial'>" + arrayComentarios[i]._NomeUilizador + "</h4>" + "\n" + arrayComentarios[i]._comentario + "\n" + "<br><br>";
 
 
                     }
@@ -1509,6 +1345,7 @@ _ _
             }
 
             console.log(contentUtilizador)
+            //chamar a modal
             doModal('myModal', header, contentUtilizador);
             hideModal()
 
@@ -1528,12 +1365,12 @@ _ _
     let comentariosLocal = ""
     let pontuaçõesLocais = ""
     let interessadosLocal = ""
-
-
-
+    // iterar sobre o array dos iccons para remover eventos
     for (let i = 0; i < iconRemoverEvento.length; i++) {
 
         iconRemoverEvento[i].addEventListener("click", function (event) {
+
+            // buscar todos os objetos que estao relacionado ao evento
             if (localStorage.getItem("Interessados")) {
                 interessadosLocal = JSON.parse(localStorage.getItem("Interessados"))
             }
@@ -1545,11 +1382,11 @@ _ _
                 pontuaçõesLocais = JSON.parse(localStorage.getItem("Pontuação"))
             }
 
-
+            // buscar o id do botao clicado
             let apanhaId = iconRemoverEvento[i].getAttribute("id")
 
+            // confirmar a ação
             let confirmação = confirm("Desejas eliminar o evento?!")
-
             if (confirmação) {
                 EventosGuardados.splice(i, 1)
                 localStorage.setItem("Eventos", JSON.stringify(EventosGuardados))
@@ -1588,7 +1425,7 @@ _ _
                 alert("Evento eliminado")
             }
 
-           
+
             window.location.reload()
             event.preventDefault()
         })
@@ -1600,7 +1437,7 @@ _ _
 
 
 }
-
+// modal dos comentários
 function doModal(placementId, heading, formContent) {
 
     let html = '<div id="modalWindow" class="modal fade" style="display:none;left:30%; width:50%;height: 50%; background-color:white">';
@@ -1646,7 +1483,7 @@ function esconderIcon() {
     if (localStorage.getItem("Eventos")) {
         EventosGuardados = JSON.parse(localStorage.getItem("Eventos"))
     }
-
+    // buscar o tipo de utilizador online
     let estado = ""
     if (localStorage.getItem("estadoUtitlizador")) {
         estado = localStorage.getItem("estadoUtitlizador")
@@ -1658,7 +1495,7 @@ function esconderIcon() {
     console.log(substring1)
     nomeUtilizadorLogado = estado.substring(0, pos1)
 
-
+    // esconder o btn remover eventos de acordo com o tipo de utiloizador online
     for (let i = 0; i < iconRemoverEvento.length; i++) {
 
 
@@ -1681,9 +1518,7 @@ function esconderIcon() {
 function PontuarEventos() {
 
     let nomeUtilizadorLogado = ""
-
-
-
+    // buscar o tipo de utilizador online
     let estado = ""
     if (localStorage.getItem("estadoUtitlizador")) {
         estado = localStorage.getItem("estadoUtitlizador")
@@ -1695,16 +1530,6 @@ function PontuarEventos() {
     let tipoutilizador = estado.substring(pos2 + 1, estado.length)
     nomeUtilizadorLogados = estado.substring(0, pos1)
 
-    /* if (localStorage.getItem("Pontuação")) {
-         let tempArrayPontuação = []
-         tempArrayPontuação = JSON.parse(localStorage.getItem("Pontuação"))
-         for (let i = 0; i < tempArrayPontuação.length; i++) {
-             let novoPontuação = new Pontuação(tempArrayPontuação[i]._idEventoPontuado,tempArrayPontuação[i]._nomeUti, tempArrayPontuação[i]._pontuação)
-             arrayPontuarEventos.push(novoPontuação)
- 
-         }
- 
-     }*/
 
     if (localStorage.getItem("Eventos")) {
         let tempArrayEventos = []
@@ -1717,17 +1542,14 @@ function PontuarEventos() {
 
     }
 
-
     //###################### pontuar eventos #####################
     let contar = 0
     let valorPontuação = document.getElementsByClassName("inputPontuar")
     let label = document.getElementsByClassName("form-text text-muted p")
     let enviarPont = document.getElementsByClassName("fas fa-hand-point-right"), i
 
+    // iterar sobre o array dos icons enviar pontuações
     for (let i = 0; i < enviarPont.length; i++) {
-
-
-
         if (substrings2 == "false") {
             enviarPont[i].style.display = 'none'
         }
@@ -1741,13 +1563,12 @@ function PontuarEventos() {
             enviarPont[i].style.display = 'none'
         }
 
-
     }
-
+    // iterar sobre o array das pontuações
     for (let x = 0; x < arrayPontuarEventos.length; x++) {
 
         for (let i = 0; i < arrayEventos.length; i++) {
-
+            // tirar o botão pontuar se o utilizador online já tinha pontuado o evento 
             if (nomeUtilizadorLogados == arrayPontuarEventos[x]._nomeUti && arrayEventos[i]._idEv == arrayPontuarEventos[x]._idEventoPontuado) {
                 enviarPont[i].style.display = 'none'
                 label[i].style.display = 'none'
@@ -1767,18 +1588,16 @@ function PontuarEventos() {
 
 
     for (let i = 0; i < enviarPont.length; i++) {
-
+        // enviar pontuação
         enviarPont[i].addEventListener("click", function (event) {
-
+            // validar o campo de pontuação
             if (valorPontuação[i].value != "" && valorPontuação[i].value <= 5) {
 
                 if (localStorage.getItem("Pontuação")) {
-
                     arrayPontuarEventos = JSON.parse(localStorage.getItem("Pontuação"))
 
-
                 }
-
+                // criar o objeto pontuação
                 let novoPontos = new Pontuação(arrayEventos[i]._idEv, nomeUtilizadorLogados, valorPontuação[i].value)
                 arrayPontuarEventos.push(novoPontos)
                 localStorage.setItem("Pontuação", JSON.stringify(arrayPontuarEventos))

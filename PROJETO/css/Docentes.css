@@ -1,0 +1,74 @@
+.navBar {
+
+    position: fixed;
+
+}
+
+.card {
+
+    transition: 0.3s;
+
+    border: 0px;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+img {
+    border-radius: 5px 5px 0 0;
+}
+
+.container {
+    padding: 2px 16px;
+}
+
+
+#li {
+    list-style: none;
+    position: relative;
+    display: inline-block;
+    width: 90px;
+    height: 90px;
+}
+
+h6 {
+    font-family: "arial";
+
+}
+
+h2 {
+    text-align: center;
+    font-family: "particle regular";
+}
+
+body {
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkktvWaZyRKPwZOXa_R0jDwiy0NDJSg72xmhdMigIda40ynj5C2w)
+}
+
+#eventosContainer {
+    background-color: rgb(253, 253, 253);
+}
+
+h1 {
+    font-family: "particle regular";
+    text-align: center;
+}
+.button {
+    background-color: rgb(243, 177, 35);
+    border: none;
+    color: white;
+    padding: 10px 28px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+footer {
+    background-color: #080808;
+    padding: 25px;
+   
+}

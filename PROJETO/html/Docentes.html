@@ -7,6 +7,7 @@
     <meta charset="utf-8">
     <link rel="icon" type="image/png" sizes="16x16" href="Fotos/favicon-16x16.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="Docentes.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="Docentes.js"></script>
     <!-- Bootstrap CSS -->
@@ -14,80 +15,7 @@
         crossorigin="anonymous">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
-        .navBar {
-
-            position: fixed;
-
-        }
-
-        .card {
-
-            transition: 0.3s;
-
-            border: 0px;
-        }
-      
-        .card:hover {
-            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-        }
-
-        img {
-            border-radius: 5px 5px 0 0;
-        }
-
-        .container {
-            padding: 2px 16px;
-        }
-
-
-        #li {
-            list-style: none;
-            position: relative;
-            display: inline-block;
-            width: 90px;
-            height: 90px;
-        }
-
-        h6 {
-            font-family: "arial";
-
-        }
-
-        h2 {
-            text-align: center;
-            font-family: "particle regular";
-        }
-
-        body {
-            background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkktvWaZyRKPwZOXa_R0jDwiy0NDJSg72xmhdMigIda40ynj5C2w)
-        }
-
-        #eventosContainer {
-            background-color: rgb(253, 253, 253);
-        }
-
-        h1 {
-            font-family: "particle regular";
-            text-align: center;
-        }
-        .button {
-            background-color: rgb(243, 177, 35);
-            border: none;
-            color: white;
-            padding: 10px 28px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-        }
-
-        footer {
-            background-color: #080808;
-            padding: 25px;
-           
-        }
+     
     </style>
 </head>
 
@@ -185,14 +113,14 @@
             <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                     <!-- image on the modal -->
-                    <div class="modal-body">
+                    <div  style="text-align:center" class="modal-body">
                         <div id="imgModal">
                             <img src="fotos/G.png" alt="">
                             <br>
                             <br>
                         </div>
 
-                        <h3 class="modal-title" id="exampleModalLabel">Login</h3>
+                        <h3 class="modal-title"  id="exampleModalLabel">Login</h3>
 
                         <br>
                         <div class="form-group">
@@ -222,7 +150,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <!-- image on the modal -->
-                    <div class="modal-body">
+                    <div  style="text-align:center" class="modal-body">
 
                         <div id="imgModal">
                             <img src="fotos/G.png" alt="">
@@ -230,27 +158,27 @@
                             <br>
                         </div>
 
-                        <h3 class="modal-title" id="exampleModalLabel">Registar</h3>
+                        <h3 class="modal-title" style="text-align:center" id="exampleModalLabel">Registar</h3>
 
                         <br>
                         <div class="form-group">
                             <label for=""></label>
-                            <input type="text" class="form-control" name="" id="ModalNome" placeholder="Nome" required>
+                            <input type="text" class="form-control" name="" id="ModalNome" placeholder="Nome" maxlength="30" required>
 
                         </div>
                         <div class="form-group">
                             <label for=""></label>
-                            <input type="Email" class="form-control" name="" id="ModalEmail" placeholder="Email" required>
+                            <input type="Email" class="form-control" name="" id="ModalEmail" placeholder="Email" maxlength="20" required>
 
                         </div>
                         <div class="form-group">
                             <label for=""></label>
-                            <input type="Password" class="form-control" name="" id="ModalPasswordR" placeholder="Password" required>
+                            <input type="Password" class="form-control" name="" id="ModalPasswordR" placeholder="Password" maxlength="10" required>
 
                         </div>
                         <div class="form-group">
                             <label for=""></label>
-                            <input type="Password" class="form-control" name="" id="ModalConfPassword" placeholder="Confirmar password" required>
+                            <input type="Password" class="form-control" name="" id="ModalConfPassword" placeholder="Confirmar password" maxlength="10" required>
 
                         </div>
                         <div class="form-group">
@@ -295,6 +223,7 @@
         <!-- Docentes -->
 
         <h2>Docentes</h2>
+        <p style="text-align:center">Fica a conhecer a equipa dos docentes que fazem parte do nosso curso</p>
         <hr>
         <br>
         <div class="row">
@@ -337,7 +266,7 @@
                     <br>
                     <div class="form-group">
                         <label for=""></label>
-                        <input type="text" class="form-control" name="" id="modalNomeDocente" placeholder="Nome" required>
+                        <input type="text" class="form-control" name="" id="modalNomeDocente" placeholder="Nome" maxlength="30" required>
 
                     </div>
 
@@ -347,11 +276,11 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control" id="modalFormaçaoDocente" placeholder="Formação">
+                        <input type="text" class="form-control" id="modalFormaçaoDocente" placeholder="Formação" maxlength="30" required>
 
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="modalCVDocente" placeholder="Curto CV">
+                        <input type="text" class="form-control" id="modalCVDocente" placeholder="Curto CV" maxlength="120">
 
                     </div>
 
@@ -371,15 +300,33 @@
     </form>
     </div>
 
-
-
-
     <div id="myModal">
 
     </div>
-
+    <br>
+    <br>
+    <br>
     <footer class="container-fluid text-center">
-        <p>Footer Text</p>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <br>
+                    <h5 style="color:white"> &#x2605; Eventos mais pontuados na página inicial</h5>
+                    <br>
+                    <h5 style="color:white"> &plus; Saiba mais detalhes dos eventos na sua página</h5>
+                    <br>
+                    <h5 style="color:white"> &#x263a; Conheça os nossos docentes</h5>
+                    <br>
+                    <h5 style="color:white"> &hearts; Inscreva-se para deixar o seu testemunho, comentar e pontuar eventos</h5>
+                    <br>
+                </div>
+                <div class="col-sm-6">
+                    <img src="data:image/png;base64,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"
+                        alt="">
+                </div>
+            </div>
+        </div>
     </footer>
 
     <!-- Optional JavaScript -->
